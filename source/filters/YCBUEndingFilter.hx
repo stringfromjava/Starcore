@@ -32,7 +32,8 @@ class YCBUEndingFilter extends FlxShader {
             if (intensity < 0.6) {
                 return 0.0;
             }
-            return sin(co.y * (intensity - 0.6) * (intensity - 0.6));
+            float curveFactor = 5.0; // Increase this value to amplify the curve
+            return sin(co.y * pow((intensity - 0.6), curveFactor));
         }
 
         float random(in vec2 st) {
@@ -42,8 +43,9 @@ class YCBUEndingFilter extends FlxShader {
         }
 
         float glitch(vec2 uv, float lines, float r) {
-            float y = floor(uv.y*lines)/lines;
-               return random(vec2(r, y))*(0.5+(intensity * MAX_LINES)*0.01);
+            float y = floor(uv.y * lines) / lines;
+            float distortionFactor = 1.5; // Increase this value for stronger distortion
+            return random(vec2(r, y)) * (0.5 + (intensity * MAX_LINES * distortionFactor) * 0.01);
         }
 
         void main()

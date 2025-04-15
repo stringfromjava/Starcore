@@ -1,3 +1,5 @@
+import openfl.events.KeyboardEvent;
+import backend.Controls;
 import backend.util.SaveUtil;
 import flixel.tweens.FlxTween;
 import flixel.math.FlxMath;
@@ -78,10 +80,6 @@ class InitState extends FlxState {
 		FlxG.sound.volumeUpKeys = [];
 		FlxG.sound.volumeDownKeys = [];
 		FlxG.sound.muteKeys = [];
-
-		// Set the starting volume to 0
-		// for the slow start of the intro 
-		FlxG.sound.volume = 0;
 
 		// Set the default font
 		FlxAssets.FONT_DEFAULT = PathUtil.ofFont('Orange Kid');

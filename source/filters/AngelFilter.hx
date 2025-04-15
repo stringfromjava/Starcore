@@ -80,10 +80,6 @@ class AngelFilter extends FlxShader {
 			if (i != 0) {
 				//tex = fract(tex);
 			}
-
-			
-			
-			
 			col[i] = tex[i];
 		}
 

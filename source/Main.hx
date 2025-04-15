@@ -15,11 +15,11 @@ class Main extends Sprite {
 	// for the FlxGame instance
 	private static final _GAME:Dynamic = {
 		// The width of the game's window
-		// You can keep this at 0 to use the default value in the Project.xml file
-		width: 0,
+		// You can set this to 0 to use the default value in the Project.xml file
+		width: 960,
 		// The height of the game's window
-		// You can keep this at 0 to use the default value in the Project.xml file
-		height: 0,
+		// You can set this to 0 to use the default value in the Project.xml file
+		height: 720,
 		// The class that will be used as the initial state
 		initialState: InitState,
 		// The framerate of the game
