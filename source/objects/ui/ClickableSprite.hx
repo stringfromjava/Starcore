@@ -3,6 +3,9 @@ package objects.ui;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
+/**
+ * Object that can be created for making a sprite clickable.
+ */
 class ClickableSprite extends FlxSprite {
 
 	/**

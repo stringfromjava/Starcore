@@ -15,6 +15,16 @@ import haxe.Exception;
      * Should the game minimize its volume when the window is out of focus?
      */
     public var minimizeVolume:Bool = true;
+
+    /**
+     * Should the game display in the user's Discord "Activity" box?
+     */
+    public var discordRPC:Bool = true;
+
+    /**
+     * Does the user have fullscreen enabled?
+     */
+    public var fullscreen:Bool = false;
 }
 
 /**

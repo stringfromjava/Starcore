@@ -27,5 +27,10 @@ final class CacheUtil {
      */
     public static var canPlayMenuMusic:Bool = true;
 
+    /**
+     * The amount of echo sounds that are currently playing.
+     */
+    public static var currentEchoSoundsAmount:Int = 0;
+
     private function new() {}
 }

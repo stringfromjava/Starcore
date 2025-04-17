@@ -1,5 +1,4 @@
-import openfl.events.KeyboardEvent;
-import backend.Controls;
+import flixel.util.FlxColor;
 import backend.util.SaveUtil;
 import flixel.tweens.FlxTween;
 import flixel.math.FlxMath;
@@ -9,10 +8,8 @@ import backend.util.PathUtil;
 import flixel.system.FlxAssets;
 import states.menus.MainMenuState;
 import filters.*;
-#if FILTERS_ALLOWED
 import openfl.filters.ShaderFilter;
 import sys.thread.Thread;
-#end
 import flixel.FlxG;
 import flixel.FlxState;
 #if DISCORD_ALLOWED
@@ -60,6 +57,9 @@ class InitState extends FlxState {
 		Application.current.window.x = Std.int((Application.current.window.display.bounds.width - Application.current.window.width) / 2);
 		Application.current.window.y = Std.int((Application.current.window.display.bounds.height - Application.current.window.height) / 2);
 
+		// Set the game to fullscreen if option is ON
+		FlxG.fullscreen = ClientPrefs.options.fullscreen;
+
 		// Switch to the main menu state after everything has loaded
 		FlxG.switchState(() -> new MainMenuState());
 	}
@@ -75,7 +75,7 @@ class InitState extends FlxState {
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 
-		// Disable the binds for increasing/decreasing 
+		// Disable the binds for increasing/decreasing/muting
 		// the flixel master volume
 		FlxG.sound.volumeUpKeys = [];
 		FlxG.sound.volumeDownKeys = [];
@@ -108,7 +108,7 @@ class InitState extends FlxState {
 
 	function addBackgroundProcesses():Void {
 		// Update the filters that need to
-		// constantly be updated
+		// constantly be reset
 		#if FILTERS_ALLOWED
 		Thread.create(() -> {
 			while (true) {

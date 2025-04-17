@@ -1,15 +1,20 @@
 package backend.util;
 
-#if DISCORD_ALLOWED
-import backend.api.DiscordClient;
-#end
+import flixel.sound.FlxSound;
+import flixel.util.FlxTimer;
 import backend.data.Constants;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.sound.filters.FlxFilteredSound;
+import flixel.sound.filters.FlxSoundFilter;
+import flixel.sound.filters.effects.FlxSoundReverbEffect;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+#if DISCORD_ALLOWED
+import backend.api.DiscordClient;
+#end
 #if html5
 import js.Browser;
 #end
@@ -38,6 +43,44 @@ final class GeneralUtil {
         });
     }
 
+	/**
+	 * Play a sound with an echo, cave sound-like effect.
+	 * 
+	 * @param path      The path to the sound to play.
+	 * @param volume    The volume of the sound.
+	 * @param decayTime How long it echoes for.
+	 */
+	public static function playSoundWithEcho(path:String, volume:Float = 1, decayTime:Float = 4):Void {
+        if (!(CacheUtil.currentEchoSoundsAmount > Constants.ECHO_SOUND_EFFECT_LIMIT)) {
+            // Make the sound and filter
+            var sound:FlxFilteredSound = new FlxFilteredSound();
+            var effect = new FlxSoundReverbEffect();
+            // Settings for the echo
+            effect.decayTime = decayTime;
+            // Load the sound
+            sound.loadEmbedded(path);
+            sound.filter = new FlxSoundFilter();
+            sound.filter.addEffect(effect);
+            // sound.onComplete = () -> FlxG.sound.list.recycle(FlxSound);
+            // Add the sound to the game so that way it
+            // gets lowered when the game loses focus and
+            // the user has "minimizeVolume" enabled
+            FlxG.sound.list.add(sound);
+            // Play the sound
+            sound.play();
+            CacheUtil.currentEchoSoundsAmount++;
+            // Recycle the sound after it finishes playing
+            new FlxTimer().start((sound.length / 1000) + (decayTime / 1.85), (_) -> {
+                sound.filter.clearEffects();
+                sound.filter = null;
+                FlxG.sound.list.remove(sound, true);
+                FlxG.sound.list.recycle(FlxSound);
+                sound.destroy();
+                CacheUtil.currentEchoSoundsAmount--;
+            });
+        }
+	}
+
     /**
      * Play menu music ***if*** it hasn't already started.
      */
@@ -45,6 +88,22 @@ final class GeneralUtil {
         if (CacheUtil.canPlayMenuMusic) {
             FlxG.sound.playMusic(PathUtil.ofMusic(Constants.MENU_MUSIC_NAME), volume, true);
             CacheUtil.canPlayMenuMusic = false;
+        }
+    }
+
+    /**
+     * Tweens an `FlxSpriteGroup`'s members with ease.
+     * 
+     * @param group    The group to tween.
+     * @param options  Dynamic object with the attributes to tween.
+     * @param duration How long the tween should last for.
+     * @param types    The types and eases for the group to tween with.
+     */
+    public static function tweenSpriteGroup(group:FlxTypedGroup<FlxSprite>, options:Dynamic, duration:Float, types:Dynamic):Void {
+        for (obj in group.members) {  
+            if (obj != null) {            
+                FlxTween.tween(obj, options, duration, types);
+            }
         }
     }
 
@@ -64,21 +123,5 @@ final class GeneralUtil {
         #elseif desktop
         Sys.exit(0);
         #end
-    }
-
-    /**
-     * Tweens an `FlxSpriteGroup`'s members with ease.
-     * 
-     * @param group    The group to tween.
-     * @param options  Dynamic object with the attributes to tween.
-     * @param duration How long the tween should last for.
-     * @param types    The types and eases for the group to tween with.
-     */
-    public static function tweenSpriteGroup(group:FlxTypedGroup<FlxSprite>, options:Dynamic, duration:Float, types:Dynamic):Void {
-        for (obj in group.members) {  
-            if (obj != null) {            
-                FlxTween.tween(obj, options, duration, types);
-            }
-        }
     }
 }

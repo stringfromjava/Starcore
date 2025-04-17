@@ -97,5 +97,7 @@ final class Constants {
      */
     public static final MENU_MUSIC_NAME:String = 'Starcore';
 
+    public static final ECHO_SOUND_EFFECT_LIMIT:Int = 15;
+
     private function new() {}
 }
