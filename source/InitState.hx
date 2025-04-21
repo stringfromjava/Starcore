@@ -1,3 +1,4 @@
+import objects.entity.ComplexEntity;
 import flixel.util.FlxColor;
 import backend.util.SaveUtil;
 import flixel.tweens.FlxTween;
@@ -29,8 +30,8 @@ import js.Browser;
 class InitState extends FlxState {
 
 	var angelFilter:AngelFilter;
-	var vcrBorder:VCRBorder;
-	var vcrMario85:VCRMario85;
+	var vcrBorderFilter:VCRBorderFilter;
+	var vcrMario85Filter:VCRMario85Filter;
 	var ycbuEndingFilter:YCBUEndingFilter;
 
 	override public function create() {
@@ -47,6 +48,9 @@ class InitState extends FlxState {
 		// Note that if this line is not present, it will
 		// cause null errors and crash the game!
 		ClientPrefs.loadAll();
+
+		// Register all of the entities that are in the game
+		registerEntities();
 
 		// Start up Discord rich presence
 		#if DISCORD_ALLOWED
@@ -94,13 +98,13 @@ class InitState extends FlxState {
 		// Apply cool but creepy filters
 		#if FILTERS_ALLOWED
 		angelFilter = new AngelFilter();
-		vcrBorder = new VCRBorder();
-		vcrMario85 = new VCRMario85();
+		vcrBorderFilter = new VCRBorderFilter();
+		vcrMario85Filter = new VCRMario85Filter();
 		ycbuEndingFilter = new YCBUEndingFilter();
 		FlxG.game.setFilters([
 			new ShaderFilter(angelFilter),
-			new ShaderFilter(vcrBorder),
-			new ShaderFilter(vcrMario85),
+			new ShaderFilter(vcrBorderFilter),
+			new ShaderFilter(vcrMario85Filter),
 			new ShaderFilter(ycbuEndingFilter)
 		]);
 		#end
@@ -113,7 +117,7 @@ class InitState extends FlxState {
 		Thread.create(() -> {
 			while (true) {
 				angelFilter.update(FlxG.elapsed);
-				vcrMario85.update(FlxG.elapsed);
+				vcrMario85Filter.update(FlxG.elapsed);
 				ycbuEndingFilter.update(0, FlxG.elapsed);
 				Sys.sleep(0.01);
 			}
@@ -132,7 +136,7 @@ class InitState extends FlxState {
 				FlxG.sound.volume = (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.1 : 0;
 				CacheUtil.isWindowFocused = true;
 				// Set the volume back to the last volume used
-				FlxTween.num(FlxG.sound.volume, CacheUtil.lastVolumeUsed, 0.3, {type: FlxTweenType.ONESHOT}, (v) -> {
+				FlxTween.num(FlxG.sound.volume, CacheUtil.lastVolumeUsed, 0.3, { type: FlxTweenType.ONESHOT }, (v) -> {
 					FlxG.sound.volume = v;
 				});
 			}
@@ -144,7 +148,7 @@ class InitState extends FlxState {
 				CacheUtil.lastVolumeUsed = FlxG.sound.volume;
 				CacheUtil.isWindowFocused = false;
 				// Tween the volume to 0.03
-				FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.03 : 0, 0.3, {type: FlxTweenType.ONESHOT}, (v) -> {
+				FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.03 : 0, 0.3, { type: FlxTweenType.ONESHOT }, (v) -> {
 					FlxG.sound.volume = v;
 				});
 			}
@@ -156,5 +160,9 @@ class InitState extends FlxState {
 			// Save all of the user's data
 			SaveUtil.saveAll();
 		});
+	}
+
+	function registerEntities():Void {
+		CacheUtil.registeredEntities.push(new ComplexEntity('test'));
 	}
 }

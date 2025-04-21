@@ -59,6 +59,10 @@ class ClickableText extends FlxText {
     public function new(x:Float = 0, y:Float = 0, text:String = '') {
         super(x, y, text);
     }
+
+    // -----------------------------
+    //            METHODS
+    // -----------------------------
     
     override function update(elapsed:Float) {
         super.update(elapsed);

@@ -93,11 +93,45 @@ final class Constants {
     public static final TRANSITION_DURATION:Float = 0.4;
 
     /**
-     * Name of the menu music that plays when in the main menus.
+	 * Name of the music that plays when in the main menus.
      */
     public static final MENU_MUSIC_NAME:String = 'Starcore';
 
-    public static final ECHO_SOUND_EFFECT_LIMIT:Int = 15;
+	/**
+	 * The maximum amount of reverb sound effects that can be played at once.
+	 */
+	public static final REVERB_SOUND_EFFECT_LIMIT:Int = 15;
+
+	/**
+	 * How fast background stars scroll in the distance.
+	 */
+	public static final BACKGROUND_STAR_SCROLL_SPEED:Float = 0.7;
+
+	/**
+	 * How fast background planets scroll in the distance.
+	 */
+	public static final BACKGROUND_PLANET_SCROLL_SPEED:Float = 0.3;
+
+	/**
+	 * How long it takes in seconds until the stars change their alpha value.
+	 */
+	public static final STAR_CHANGE_ALPHA_DELAY:Float = 2;
+
+	/**
+	 * A regular expression that holds characters which are valid for
+	 * creating names for entities and items.
+	 */
+	public static final VALID_ITEM_ENTITY_NAME_CHARACTERS:EReg = ~/[a-z_]/;
+
+    /**
+     * How wide in pixels a tile is. This is used for the world tilemap.
+     */
+    public static final TILE_WIDTH:Float = 16;
+
+    /**
+     * How height in pixels a tile is. This is used for the world tilemap.
+     */
+    public static final TILE_HEIGHT:Float = 16;
 
     private function new() {}
 }

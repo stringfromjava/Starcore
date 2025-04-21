@@ -59,6 +59,10 @@ class ClickableSprite extends FlxSprite {
 		super(x, y);
 	}
 
+	// -----------------------------
+    //            METHODS
+    // -----------------------------
+
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 

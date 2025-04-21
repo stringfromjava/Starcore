@@ -1,5 +1,7 @@
 package backend.util;
 
+import objects.entity.Entity;
+
 /**
  * Class that holds general, temporary data for pretty much anything.
  * Examples of general temporary data can be things such as the last volume used.
@@ -31,6 +33,11 @@ final class CacheUtil {
      * The amount of echo sounds that are currently playing.
      */
     public static var currentEchoSoundsAmount:Int = 0;
+
+    /**
+     * Registered entities that are currently in the game.
+     */
+    public static var registeredEntities:Array<Entity> = [];
 
     private function new() {}
 }

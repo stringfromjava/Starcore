@@ -1,17 +1,17 @@
 package backend.util;
 
-import flixel.sound.FlxSound;
-import flixel.util.FlxTimer;
 import backend.data.Constants;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.sound.FlxSound;
 import flixel.sound.filters.FlxFilteredSound;
 import flixel.sound.filters.FlxSoundFilter;
 import flixel.sound.filters.effects.FlxSoundReverbEffect;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 #if DISCORD_ALLOWED
 import backend.api.DiscordClient;
 #end
@@ -44,14 +44,14 @@ final class GeneralUtil {
     }
 
 	/**
-	 * Play a sound with an echo, cave sound-like effect.
+	 * Play a sound with an echo, cave-like sound effect.
 	 * 
 	 * @param path      The path to the sound to play.
 	 * @param volume    The volume of the sound.
 	 * @param decayTime How long it echoes for.
 	 */
-	public static function playSoundWithEcho(path:String, volume:Float = 1, decayTime:Float = 4):Void {
-        if (!(CacheUtil.currentEchoSoundsAmount > Constants.ECHO_SOUND_EFFECT_LIMIT)) {
+	public static function playSoundWithReverb(path:String, volume:Float = 1, decayTime:Float = 4):Void {
+		if (!(CacheUtil.currentEchoSoundsAmount > Constants.REVERB_SOUND_EFFECT_LIMIT)) {
             // Make the sound and filter
             var sound:FlxFilteredSound = new FlxFilteredSound();
             var effect = new FlxSoundReverbEffect();
@@ -61,7 +61,6 @@ final class GeneralUtil {
             sound.loadEmbedded(path);
             sound.filter = new FlxSoundFilter();
             sound.filter.addEffect(effect);
-            // sound.onComplete = () -> FlxG.sound.list.recycle(FlxSound);
             // Add the sound to the game so that way it
             // gets lowered when the game loses focus and
             // the user has "minimizeVolume" enabled
@@ -80,6 +79,22 @@ final class GeneralUtil {
             });
         }
 	}
+
+    /**
+     * Checks if a name is valid for either an entity or item.
+     * 
+     * @param name  The name of the entity/item.
+     * @return      If the name has no invalid characters. 
+     */
+     public static function isValidName(name:String):Bool {
+        for (i in 0...name.length) {
+            var char:String = name.charAt(i);
+            if (!Constants.VALID_ITEM_ENTITY_NAME_CHARACTERS.match(char)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * Play menu music ***if*** it hasn't already started.

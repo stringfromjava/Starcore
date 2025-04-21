@@ -99,7 +99,7 @@ final class ClientPrefs {
     }
 
     /**
-     * Sets a user's option.
+     * Sets a client's preference.
      * 
      * @param setting The setting to be set.
 	 * @param value   The value to set it to.
@@ -108,7 +108,8 @@ final class ClientPrefs {
         try {
 			Reflect.setField(_options, setting, value);
         } catch (e:Exception) {
-            FlxG.log.warn("Attempted to change non-existent option \"" + setting + "\", ignoring change...");
+            FlxG.log.error("Attempted to change non-existent option \"" + setting + "\".");
+            throw new Exception("No such client preference as \"" + setting + "\".");
         }
     }
 
@@ -122,7 +123,8 @@ final class ClientPrefs {
         if (_controlsKeyboard.exists(bindId)) {
 			_controlsKeyboard.set(bindId, newKey);
         } else {
-            FlxG.log.warn("Attempted to change non-existent bind \"" + bindId + "\", ignoring change...");
+            FlxG.log.error("Attempted to change non-existent bind \"" + bindId + "\".");
+            throw new Exception("No such bind as \"" + bindId + "\".");
         }
     }
 
