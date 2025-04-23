@@ -1,0 +1,35 @@
+package objects.background;
+
+import flixel.util.FlxTimer;
+import backend.data.Constants;
+import flixel.FlxG;
+import backend.util.PathUtil;
+import flixel.FlxSprite;
+
+class BackgroundStar extends FlxSprite {
+
+    // Add a timer that changes the alpha of the stars every few seconds
+	private var _starChangeAlphaTimer = new FlxTimer();
+    
+    public function new() {
+        super();
+        loadGraphic(PathUtil.ofImage('bg/star'));
+        scale.set(3, 3);
+        updateHitbox();
+        setPosition(FlxG.random.int(0, FlxG.width), FlxG.random.int(0, FlxG.height));
+        alpha = FlxG.random.float(0.3, 1);
+
+        // Add a timer that changes the alpha of the stars every few seconds
+		_starChangeAlphaTimer.start(Constants.STAR_CHANGE_ALPHA_DELAY, (_) -> {
+			alpha = FlxG.random.float(0.3, 1);
+		}, 0);
+    }
+
+    override function update(elapsed:Float) {
+        super.update(elapsed);
+        x += Constants.BACKGROUND_STAR_SCROLL_SPEED;
+        if (x > FlxG.width) {
+            x = 0 - width;
+        }
+    }
+}

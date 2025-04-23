@@ -1,8 +1,6 @@
 package backend.util;
 
 import flixel.FlxG;
-import objects.world.WorldTilemap.TileOrientation;
-import objects.world.WorldTilemap.TilePosition;
 
 /**
  * Utility class that creates and returns paths to assets or other files.
@@ -80,26 +78,25 @@ final class PathUtil {
 	/**
 	 * Get the specific type of tile.
 	 * 
-	 * @param type        The type of tile (e.g. `grass`, `dirt`, etc.).
-	 * @param orientation How the tile is positioned from top to bottom. Types are (usually) `top`, `middle`, and `bottom`.
-	 * @param position    How the tile is positioned from left to right. Types are (usually) `left`, `middle`, and `right`.
-	 * @return            The path of the tile.
+	 * @param type The type of tile (e.g. `grass`, `dirt`, etc.).
+	 * @return     The path of the tile.
 	 */
-	public static inline function ofTileTexture(type:String, orientation:TileOrientation, position:TilePosition):String {
-		return 'assets/tiles/textures/$type/$type-$orientation-$position.png';
+	public static inline function ofTileTexture(type:String):String {
+		return 'assets/tiles/textures/$type.png';
 	}
 
     /**
-     * Get the full pathway to the game's save folder.
+     * Get the full pathway to the game's save folder and any extra files and data that may be needed.
      * 
      * @param trailingPath The path to concatenate with the save path.
-     * @return             The path of the save folder (including anything that was appended after with `trailingPath`).
+     * @return             The path of the save folder or file (including anything 
+     *                     that was appended after with `trailingPath`).
      */
     @:access(flixel.util.FlxSave.validate)
 	public static function getSavePath(trailingPath:String = ''):String {
 		var company:String = FlxG.stage.application.meta.get('company');
 		var toReturn:String = '${company}/${flixel.util.FlxSave.validate(FlxG.stage.application.meta.get('file'))}';
-		toReturn += (trailingPath != '') ? '/$trailingPath' : '';
+		toReturn += (trailingPath != '') ? '/$trailingPath' : '';  // For making sure there isn't a trailing `/` if there isn't a trailing path
 		return toReturn;
 	}
 }

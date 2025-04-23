@@ -29,11 +29,6 @@ import js.Browser;
  */
 class InitState extends FlxState {
 
-	var angelFilter:AngelFilter;
-	var vcrBorderFilter:VCRBorderFilter;
-	var vcrMario85Filter:VCRMario85Filter;
-	var ycbuEndingFilter:YCBUEndingFilter;
-
 	override public function create() {
 		// Assign and configure flixel settings
 		configureFlixelSettings();
@@ -97,15 +92,11 @@ class InitState extends FlxState {
 
 		// Apply cool but creepy filters
 		#if FILTERS_ALLOWED
-		angelFilter = new AngelFilter();
-		vcrBorderFilter = new VCRBorderFilter();
-		vcrMario85Filter = new VCRMario85Filter();
-		ycbuEndingFilter = new YCBUEndingFilter();
 		FlxG.game.setFilters([
-			new ShaderFilter(angelFilter),
-			new ShaderFilter(vcrBorderFilter),
-			new ShaderFilter(vcrMario85Filter),
-			new ShaderFilter(ycbuEndingFilter)
+			new ShaderFilter(CacheUtil.angelFilter),
+			new ShaderFilter(CacheUtil.vcrBorderFilter),
+			new ShaderFilter(CacheUtil.vcrMario85Filter),
+			new ShaderFilter(CacheUtil.ycbuEndingFilter)
 		]);
 		#end
 	}
@@ -114,13 +105,10 @@ class InitState extends FlxState {
 		// Update the filters that need to
 		// constantly be reset
 		#if FILTERS_ALLOWED
-		Thread.create(() -> {
-			while (true) {
-				angelFilter.update(FlxG.elapsed);
-				vcrMario85Filter.update(FlxG.elapsed);
-				ycbuEndingFilter.update(0, FlxG.elapsed);
-				Sys.sleep(0.01);
-			}
+		FlxG.signals.postUpdate.add(() -> {
+			CacheUtil.angelFilter.update(FlxG.elapsed);
+			CacheUtil.vcrMario85Filter.update(FlxG.elapsed);
+			CacheUtil.ycbuEndingFilter.update(0, FlxG.elapsed);
 		});
 		#end
 	}

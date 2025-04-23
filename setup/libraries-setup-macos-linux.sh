@@ -1,9 +1,7 @@
-#!/bin/sh
-# SETUP FOR MAC AND LINUX SYSTEMS
-# REMINDER THAT YOU NEED HAXE INSTALLED PRIOR TO USING THIS
-# https://haxe.org/download/4.3.6
 cd ..
 echo Making the main haxelib and setup folder in same time...
+echo (Make sure you have Haxe 4.3.6 installed for this to work properly!)
+echo (URL -> https://haxe.org/download/4.3.6)
 mkdir ~/haxelib && haxelib setup ~/haxelib
 echo Installing dependencies...
 echo This might take a few moments depending on your internet speed!
@@ -19,4 +17,4 @@ echo Running setup commands...
 haxelib run lime setup
 haxelib run lime setup flixel
 haxelib run flixel-tools setup
-echo Libraries setup complete!
+echo HaxeFlixel macOS/Linux setup complete!

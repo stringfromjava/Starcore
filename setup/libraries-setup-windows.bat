@@ -2,7 +2,8 @@
 color 0a
 cd ..
 echo Installing basic libraries...
-echo (Make sure you have Haxe 4.3.6 installed for it to work!)
+echo (Make sure you have Haxe 4.3.6 installed for this to work properly!)
+echo (URL -> https://haxe.org/download/4.3.6)
 haxelib install lime 8.2.2
 haxelib install openfl 9.4.1
 haxelib install flixel 6.0.0
