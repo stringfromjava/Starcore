@@ -34,6 +34,10 @@ class PlayState extends FlxState {
     override function create() {
         super.create();
 
+        // -------------
+        //    CAMERAS
+        // -------------
+
         // Set the background camera
         backgroundCamera = new FlxCamera(0, 0, FlxG.width, FlxG.height);
         backgroundCamera.bgColor = FlxColor.BLACK;
@@ -45,6 +49,10 @@ class PlayState extends FlxState {
         mapCamera.bgColor.alpha = 150;
         FlxG.cameras.add(mapCamera);
 
+        // ----------------
+        //    BACKGROUND
+        // ----------------
+
         // Add the stars and planets in the background
         planets = WorldUtil.generatePlanets();
         stars = WorldUtil.generateStars();
@@ -52,6 +60,10 @@ class PlayState extends FlxState {
         stars.cameras = [backgroundCamera];
         add(planets);
         add(stars);
+
+        // -----------
+        //    WORLD
+        // -----------
 
         // Set the tilemap
         worldTilemap = new FlxTilemap();

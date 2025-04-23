@@ -35,9 +35,16 @@
 	<!-- Enables the game to use filters to make the game have a more unsettling and unnerving vibe. -->
 	<define name="FILTERS_ALLOWED" if="desktop"/>
 
+	<!-- Allows the developer to use built-in editors, such as creating animations for entities. -->
+	<define name="EDITORS_ALLOWED" if="desktop" unless="final" />
+
 	<!-- _____________________________ Path Settings ____________________________ -->
 
-	<set name="BUILD_DIR" value="export" />
+	<!-- Build Directories -->
+	<set name="BUILD_DIR" value="export/test" />
+	<set name="BUILD_DIR" value="export/debug" if="debug" />
+	<set name="BUILD_DIR" value="export/release" if="final" />
+
 	<source path="source" />
 	<assets path="assets" />
 

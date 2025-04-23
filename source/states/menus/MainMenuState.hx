@@ -58,6 +58,7 @@ class MainMenuState extends FlxTransitionableState {
 		logo.setPosition((FlxG.width / 2) - (logo.width / 2), 0);
 		add(logo);
 
+		// Setup the main menu buttons
 		buttonsGroup = new FlxTypedGroup<FlxSprite>();
 		add(buttonsGroup);
 
@@ -70,7 +71,7 @@ class MainMenuState extends FlxTransitionableState {
 				GeneralUtil.closeGame();
 			}
 		];
-
+		
 		var newY:Float = 350;  // Change this to the starting Y position for the menu buttons
 		for (btn in buttons) {
 			var coolSwaggerButton:ClickableSprite = new ClickableSprite();
@@ -102,6 +103,12 @@ class MainMenuState extends FlxTransitionableState {
 
     override function update(elapsed:Float) {
         super.update(elapsed);
+
+		#if EDITORS_ALLOWED
+		if (FlxG.keys.justPressed.F7) {
+			FlxG.switchState(() -> new DebugMenuState());
+		}
+		#end
 
         if (Controls.binds.UI_BACK_JUST_PRESSED) {
             GeneralUtil.closeGame();
