@@ -126,12 +126,12 @@ final class Constants {
     /**
      * How wide in pixels a tile is. This is used for the world tilemap.
      */
-    public static final TILE_WIDTH:Float = 16;
+    public static final TILE_WIDTH:Int = 16;
 
     /**
      * How height in pixels a tile is. This is used for the world tilemap.
      */
-    public static final TILE_HEIGHT:Float = 16;
+    public static final TILE_HEIGHT:Int = 16;
 
     private function new() {}
 }

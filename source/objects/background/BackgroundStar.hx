@@ -6,6 +6,9 @@ import flixel.FlxG;
 import backend.util.PathUtil;
 import flixel.FlxSprite;
 
+/**
+ * Represents a background star in the game.
+ */
 class BackgroundStar extends FlxSprite {
 
     // Add a timer that changes the alpha of the stars every few seconds

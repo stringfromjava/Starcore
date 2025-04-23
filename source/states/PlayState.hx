@@ -1,5 +1,6 @@
 package states;
 
+import backend.data.Constants;
 import flixel.util.FlxColor;
 import backend.util.WorldUtil;
 import objects.background.BackgroundPlanet;
@@ -82,12 +83,9 @@ class PlayState extends FlxState {
         }
     }
 
-    function generateNewPlanet() {
-        var width:Int = FlxG.random.int(80, 200);
-        var height:Int = FlxG.random.int(120, 400);
-        var caveData:String = FlxCaveGenerator.generateCaveString(width, height, 7, 0.528);
-        // worldTilemap.loadMapFromCSV(caveData, PathUtil.ofTileTexture('grass'), Std.int(Constants.TILE_WIDTH), Std.int(Constants.TILE_HEIGHT));
-        worldTilemap.loadMapFromCSV(caveData, PathUtil.ofTileTexture('grass'), 8, 8, AUTO);
+    function generateNewPlanet(tileType:String = 'grass') {
+        var caveData:String = WorldUtil.generateNewPlanetData([80, 200], [120, 300], 7, 0.528);
+        worldTilemap.loadMapFromCSV(caveData, PathUtil.ofTileTexture(tileType), Constants.TILE_WIDTH, Constants.TILE_HEIGHT, AUTO);
         worldTilemap.updateBuffers();
     }
 }

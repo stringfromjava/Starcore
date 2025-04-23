@@ -6,6 +6,9 @@ import flixel.FlxG;
 import backend.util.PathUtil;
 import flixel.FlxSprite;
 
+/**
+ * Represents a background planet in the game.
+ */
 class BackgroundPlanet extends FlxSprite {
     
     public function new() {

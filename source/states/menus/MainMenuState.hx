@@ -16,6 +16,10 @@ import objects.background.BackgroundPlanet;
 import objects.background.BackgroundStar;
 import objects.ui.ClickableSprite;
 
+/**
+ * State that represents the main menu of the game.
+ * This is where the player can start a new game, load a game, or quit the game.
+ */
 class MainMenuState extends FlxTransitionableState {
     
 	var logo:FlxText;

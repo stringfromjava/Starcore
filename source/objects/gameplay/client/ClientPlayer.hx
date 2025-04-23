@@ -1,5 +1,3 @@
 package objects.gameplay.client;
 
-class ClientPlayer {
-    
-}
+class ClientPlayer {}
