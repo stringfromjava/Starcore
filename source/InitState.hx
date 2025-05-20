@@ -81,7 +81,7 @@ class InitState extends FlxState {
 		FlxG.sound.muteKeys = [];
 
 		// Set the default font
-		FlxAssets.FONT_DEFAULT = PathUtil.ofFont('Orange Kid');
+		FlxAssets.FONT_DEFAULT = PathUtil.ofFont('Born2bSportyFS');
 
 		// Disable the right-click context menu for HTML5
 		#if html5

@@ -95,7 +95,7 @@ final class Constants {
     /**
 	 * Name of the music that plays when in the main menus.
      */
-    public static final MENU_MUSIC_NAME:String = 'Starcore';
+    public static final MENU_MUSIC_NAME:String = 'Stargazer';
 
 	/**
 	 * The maximum amount of reverb sound effects that can be played at once.

@@ -50,7 +50,7 @@ class MainMenuState extends FlxTransitionableState {
 
         // Setup the logo
         logo = new FlxText();
-		logo.text = 'Starcore';
+		logo.text = 'STARCORE';
 		logo.size = 185;
 		logo.color = FlxColor.WHITE;
 		logo.setBorderStyle(FlxTextBorderStyle.SHADOW, FlxColor.fromRGB(50, 50, 50), 8);
