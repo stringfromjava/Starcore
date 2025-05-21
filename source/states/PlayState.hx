@@ -1,20 +1,20 @@
 package states;
 
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.FlxSprite;
+import backend.Controls;
 import backend.data.Constants;
-import flixel.util.FlxColor;
+import backend.util.PathUtil;
 import backend.util.WorldUtil;
+import flixel.FlxCamera;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.FlxState;
+import flixel.addons.tile.FlxCaveGenerator;
+import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.tile.FlxTilemap;
+import flixel.util.FlxColor;
 import objects.background.BackgroundPlanet;
 import objects.background.BackgroundStar;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import backend.util.PathUtil;
-import flixel.addons.tile.FlxCaveGenerator;
-import flixel.tile.FlxTilemap;
-import backend.Controls;
-import flixel.FlxG;
-import flixel.FlxCamera;
-import flixel.FlxState;
 
 /**
  * Core state where all of the major and common gameplay
@@ -75,14 +75,13 @@ class PlayState extends FlxState {
         add(worldTilemap);
         generateNewPlanet();
 
-        // NOTE: NOT WORKING!!!!
         var test:FlxSprite = new FlxSprite();
-        test.loadGraphic('assets/entities/default-player/default-player.png', true);
+        test.loadGraphic(PathUtil.ofEntitySpritesheetTexture('default-player'), true);
         test.scale.set(3, 3);
         test.updateHitbox();
-        test.frames = FlxAtlasFrames.fromAseprite('assets/entities/default-player/default-player.png', 'assets/entities/default-player/default-player.json');
-        test.animation.addByPrefix('head', 'head', 0, false);
-        test.animation.play('head');
+		test.frames = FlxAtlasFrames.fromSparrow(PathUtil.ofEntitySpritesheetTexture('default-player'), PathUtil.ofEntitySpritesheetData('default-player'));
+		test.animation.addByIndices('left_arm', 'left_arm_', [0], '', 0, false);
+		test.animation.play('left_arm');
         test.setPosition(FlxG.width / 2, FlxG.height / 2);
         add(test);
     }
@@ -110,7 +109,7 @@ class PlayState extends FlxState {
 
     function generateNewPlanet(tileType:String = 'grass') {
         var caveData:String = WorldUtil.generateNewPlanetData([80, 200], [120, 300], 7, 0.528);
-        worldTilemap.loadMapFromCSV(caveData, PathUtil.ofTileTexture(tileType), Constants.TILE_WIDTH, Constants.TILE_HEIGHT, AUTO);
+		worldTilemap.loadMapFromCSV(caveData, PathUtil.ofTileSpritesheetTexture(tileType), Constants.TILE_WIDTH, Constants.TILE_HEIGHT, AUTO);
         worldTilemap.updateBuffers();
     }
 }

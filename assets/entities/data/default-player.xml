@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="default-player.png">
+    <SubTexture name="head_0" x="0" y="0" width="16" height="16" frameX="0" frameY="0" frameWidth="48" frameHeight="40" />
+    <SubTexture name="torso_0" x="0" y="16" width="16" height="24" frameX="0" frameY="0" frameWidth="48" frameHeight="40" />
+    <SubTexture name="left_arm_0" x="16" y="0" width="8" height="24" frameX="0" frameY="0" frameWidth="48" frameHeight="40" />
+    <SubTexture name="right_arm_0" x="24" y="0" width="8" height="24" frameX="0" frameY="0" frameWidth="48" frameHeight="40" />
+    <SubTexture name="left_leg_0" x="32" y="0" width="8" height="24" frameX="0" frameY="0" frameWidth="48" frameHeight="40" />
+    <SubTexture name="right_leg_0" x="40" y="0" width="8" height="24" frameX="0" frameY="0" frameWidth="48" frameHeight="40" />
+</TextureAtlas>

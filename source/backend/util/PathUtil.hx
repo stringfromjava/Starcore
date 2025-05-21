@@ -10,7 +10,7 @@ final class PathUtil {
     private function new() {}
     
     /**
-     * Get the path of an image asset.
+	 * Get the path of an image asset  from the `shared` folder.
      * 
      * @param name The name of the image (this does not include the file extension).
      * @return     The path of the image.
@@ -20,7 +20,7 @@ final class PathUtil {
     }
 
     /**
-     * Get the path of a JSON asset.
+	 * Get the path of a JSON asset from the `shared` folder.
      * 
      * @param name The name of the JSON file (this does not include the file extension).
      * @return     The path of the JSON file.
@@ -40,7 +40,7 @@ final class PathUtil {
     }
 
     /**
-     * Get the path of a sound effect asset.
+	 * Get the path of a sound effect asset from the `shared` folder.
      * 
      * @param name The name of the sound effect (this does not include the file extension).
      * @return     The path of the sound effect.
@@ -60,7 +60,7 @@ final class PathUtil {
     }
 
     /**
-     * Get the paths of a sprite sheets' image and `.xml` file.
+	 * Get the paths of a sprite sheets' image and `.xml` file from the `shared` folder.
      * Note that this will return an array of both pathways, with the
      * first element being to the image and the second one being its
      * `.xml` file.
@@ -71,18 +71,38 @@ final class PathUtil {
      * @param name The name of the sprite sheet.
      * @return     An array of the paths to the image and the `.xml` file.
      */
-    public static inline function ofSpriteSheet(name:String):Array<String> {
+	public static inline function ofSharedSpritesheet(name:String):Array<String> {
         return ['assets/shared/images/spritesheets/$name.png', 'assets/shared/images/spritesheets/$name.xml'];
     }
 
 	/**
-	 * Get the specific type of tile.
+	 * Get the spritesheet of a specific type of tile.
 	 * 
-	 * @param type The type of tile (e.g. `grass`, `dirt`, etc.).
+	 * @param type The type of tile (e.g. `grass`, `dirt`, `rocky-dirt`, etc.).
 	 * @return     The path of the tile.
 	 */
-	public static inline function ofTileTexture(type:String):String {
+	public static inline function ofTileSpritesheetTexture(type:String):String {
 		return 'assets/tiles/textures/$type.png';
+	}
+
+	/**
+	 * Get the spritesheet of a specific entity. 
+	 * 
+	 * @param name    The name of the entity (e.g. `rabbit`, `default-player`, etc.).
+	 * @return        The path to the texture.
+	 */
+	public static inline function ofEntitySpritesheetTexture(name:String):String {
+		return 'assets/entities/textures/$name.png';
+	}
+
+	/**
+	 * Get the spritesheet data of a specific entity. 
+	 * 
+	 * @param name    The name of the entity (e.g. `rabbit`, `default-player`, etc.).
+	 * @return        The path to the texture.
+	 */
+	public static inline function ofEntitySpritesheetData(name:String):String {
+		return 'assets/entities/data/$name.xml';
 	}
 
     /**
