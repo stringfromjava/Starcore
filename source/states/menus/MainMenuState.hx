@@ -1,9 +1,9 @@
 package states.menus;
 
 import backend.Controls;
-import backend.util.WorldUtil;
-import backend.util.GeneralUtil;
+import backend.util.FlixelUtil;
 import backend.util.PathUtil;
+import backend.util.WorldUtil;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
@@ -37,7 +37,7 @@ class MainMenuState extends FlxTransitionableState {
         super.create();
 
         // Play menu music
-        GeneralUtil.playMenuMusic();
+		FlixelUtil.playMenuMusic();
 
 		// Add the planets in the background
 		var newY:Float = 30;
@@ -64,11 +64,11 @@ class MainMenuState extends FlxTransitionableState {
 
 		buttonClickFunctions = [
 			'play' => () -> {
-				FlxG.sound.music.stop();
+				// FlxG.sound.music.stop();
 				FlxG.switchState(new PlayState());
 			},
 			'quit' => () -> {
-				GeneralUtil.closeGame();
+				FlixelUtil.closeGame();
 			}
 		];
 		
@@ -83,7 +83,7 @@ class MainMenuState extends FlxTransitionableState {
 			coolSwaggerButton.onClick = buttonClickFunctions.get(btn);
 			coolSwaggerButton.onHover = () -> {
 				// Play a sound
-				GeneralUtil.playSoundWithReverb(PathUtil.ofSound('blip'), 1);
+				FlixelUtil.playSoundWithReverb(PathUtil.ofSound('blip'), 1);
                 FlxSpriteUtil.setBrightness(coolSwaggerButton, 0.3);
 			};
 			coolSwaggerButton.onHoverLost = () -> {
@@ -111,7 +111,7 @@ class MainMenuState extends FlxTransitionableState {
 		#end
 
         if (Controls.binds.UI_BACK_JUST_PRESSED) {
-            GeneralUtil.closeGame();
+			FlixelUtil.closeGame();
         }
     }
 }

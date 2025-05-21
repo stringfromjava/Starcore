@@ -1,9 +1,9 @@
 package objects.entity;
 
+import backend.util.FlixelUtil;
+import flixel.FlxObject;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import haxe.Exception;
-import backend.util.GeneralUtil;
-import flixel.FlxObject;
 
 /**
  * Core class for creating entities in Starcore.
@@ -21,7 +21,7 @@ abstract class Entity extends FlxTypedGroup<FlxObject> {
 
     public function new(id:String) {
         super();
-        if (GeneralUtil.isValidName(id)) {
+		if (FlixelUtil.isValidName(id)) {
             this._id = id;
         } else {
             throw new Exception('"$id" is not a valid name for an entity!');

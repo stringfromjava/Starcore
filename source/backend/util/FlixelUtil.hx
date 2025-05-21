@@ -20,9 +20,9 @@ import js.Browser;
 #end
 
 /**
- * Utility class which holds functions that don't fit into any other category.
+ * Utility class for handling objects and components specific to HaxeFlixel.
  */
-final class GeneralUtil {
+final class FlixelUtil {
 
     private function new() {}
 
@@ -86,7 +86,7 @@ final class GeneralUtil {
      * @param name  The name of the entity/item.
      * @return      If the name has no invalid characters. 
      */
-     public static function isValidName(name:String):Bool {
+    public static function isValidName(name:String):Bool {
         for (i in 0...name.length) {
             var char:String = name.charAt(i);
             if (!Constants.VALID_ITEM_ENTITY_NAME_CHARACTERS.match(char)) {

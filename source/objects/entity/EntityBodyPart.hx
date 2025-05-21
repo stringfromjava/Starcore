@@ -1,8 +1,8 @@
 package objects.entity;
 
-import haxe.Exception;
-import backend.util.GeneralUtil;
+import backend.util.FlixelUtil;
 import flixel.FlxSprite;
+import haxe.Exception;
 
 /**
  * Component for creating the body parts of a complex entity.
@@ -21,7 +21,7 @@ class EntityBodyPart extends FlxSprite {
 
     public function new(id:String, ox:Float, oy:Float, width:Float, height:Float, angle:Float, scaleX:Float, scaleY:Float, alpha:Float) {
         super();
-        if (GeneralUtil.isValidName(id)) {
+		if (FlixelUtil.isValidName(id)) {
             this.id = id;
         } else {
             throw new Exception('"$id" is not a valid name for an entity!');

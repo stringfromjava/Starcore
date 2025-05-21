@@ -1,0 +1,28 @@
+{ 
+  "frames": {
+    "default-player.": {
+    "frame": { "x": 0, "y": 0, "w": 48, "h": 40 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 40 },
+    "sourceSize": { "w": 48, "h": 40 },
+    "duration": 100
+  }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.6-x64",
+  "image": "default-player.png",
+  "format": "RGBA8888",
+  "size": { "w": 48, "h": 40 },
+  "scale": "1",
+  "slices": [
+   { "name": "head", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 0, "w": 16, "h": 16 } }] },
+   { "name": "torso", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 0, "y": 16, "w": 16, "h": 24 } }] },
+   { "name": "left_arm", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 16, "y": 0, "w": 8, "h": 24 } }] },
+   { "name": "right_arm", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 24, "y": 0, "w": 8, "h": 24 } }] },
+   { "name": "left_leg", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 32, "y": 0, "w": 8, "h": 24 } }] },
+   { "name": "right_leg", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 40, "y": 0, "w": 8, "h": 24 } }] }
+  ]
+ }
+}

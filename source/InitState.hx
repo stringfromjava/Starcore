@@ -1,3 +1,4 @@
+import openfl.display.StageQuality;
 import objects.entity.ComplexEntity;
 import flixel.util.FlxColor;
 import backend.util.SaveUtil;
@@ -82,6 +83,9 @@ class InitState extends FlxState {
 
 		// Set the default font
 		FlxAssets.FONT_DEFAULT = PathUtil.ofFont('Born2bSportyFS');
+
+		// Set the stage quality
+		FlxG.stage.quality = StageQuality.MEDIUM;
 
 		// Disable the right-click context menu for HTML5
 		#if html5

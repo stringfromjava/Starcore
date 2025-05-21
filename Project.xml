@@ -32,7 +32,7 @@
 	<!-- Allows the game to be displayed in the user's Discord "Activity" box (it can still be disable by the user if the option is off). -->
 	<define name="DISCORD_ALLOWED" if="windows" />
 
-	<!-- Enables the game to use filters to make the game have a more unsettling and unnerving vibe. -->
+	<!-- Enables the game to use filters, giving it a more unsettling and unnerving vibe. -->
 	<define name="FILTERS_ALLOWED" if="desktop"/>
 
 	<!-- Allows the developer to use built-in editors, such as creating animations for entities. -->

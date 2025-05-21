@@ -1,5 +1,7 @@
 package states;
 
+import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.FlxSprite;
 import backend.data.Constants;
 import flixel.util.FlxColor;
 import backend.util.WorldUtil;
@@ -72,6 +74,17 @@ class PlayState extends FlxState {
         worldTilemap.cameras = [mapCamera];
         add(worldTilemap);
         generateNewPlanet();
+
+        // NOTE: NOT WORKING!!!!
+        var test:FlxSprite = new FlxSprite();
+        test.loadGraphic('assets/entities/default-player/default-player.png', true);
+        test.scale.set(3, 3);
+        test.updateHitbox();
+        test.frames = FlxAtlasFrames.fromAseprite('assets/entities/default-player/default-player.png', 'assets/entities/default-player/default-player.json');
+        test.animation.addByPrefix('head', 'head', 0, false);
+        test.animation.play('head');
+        test.setPosition(FlxG.width / 2, FlxG.height / 2);
+        add(test);
     }
 
     override function update(elapsed:Float) {
