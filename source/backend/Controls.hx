@@ -77,7 +77,16 @@ final class Controls {
     /**
      * Object used to get the pressed, just pressed and just released controls.
      */
-    public static var binds:Controls;
+    private static var binds:Controls;
+
+    /**
+     * Gets all pressed, just pressed and just released binds.
+     * 
+     * @return All of the binds the user is interacting with.
+     */
+    public static inline function getBinds():Controls {
+        return binds;
+    }
     
     /**
      * Check if the user is holding down a certain control.

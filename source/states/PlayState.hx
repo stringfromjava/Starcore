@@ -89,20 +89,20 @@ class PlayState extends FlxState {
     override function update(elapsed:Float) {
         super.update(elapsed);
         
-        if (Controls.binds.M_UP_PRESSED) {
+        if (Controls.getBinds().M_UP_PRESSED) {
             worldTilemap.y += 13;
         }
-        if (Controls.binds.M_LEFT_PRESSED) {
+        if (Controls.getBinds().M_LEFT_PRESSED) {
             worldTilemap.x += 13;
         }
-        if (Controls.binds.M_DOWN_PRESSED) {
+        if (Controls.getBinds().M_DOWN_PRESSED) {
             worldTilemap.y -= 13;
         }
-        if (Controls.binds.M_RIGHT_PRESSED) {
+        if (Controls.getBinds().M_RIGHT_PRESSED) {
             worldTilemap.x -= 13;
         }
 
-        if (Controls.binds.UI_SELECT_JUST_PRESSED) {
+        if (Controls.getBinds().UI_SELECT_JUST_PRESSED) {
             generateNewPlanet();
         }
     }

@@ -37,7 +37,7 @@ class MainMenuState extends FlxTransitionableState {
         super.create();
 
         // Play menu music
-		FlixelUtil.playMenuMusic();
+		FlixelUtil.playMenuMusic(0.7);
 
 		// Add the planets in the background
 		var newY:Float = 30;
@@ -110,7 +110,7 @@ class MainMenuState extends FlxTransitionableState {
 		}
 		#end
 
-        if (Controls.binds.UI_BACK_JUST_PRESSED) {
+        if (Controls.getBinds().UI_BACK_JUST_PRESSED) {
 			FlixelUtil.closeGame();
         }
     }
