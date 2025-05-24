@@ -56,7 +56,7 @@ final class PathUtil {
      * @return     The path of the soundtrack.
      */
     public static inline function ofMusic(name:String):String {
-        return 'assets/music/$name${#if html5 '.mp3' #else '.ogg' #end}';
+        return 'assets/shared/music/$name${#if html5 '.mp3' #else '.ogg' #end}';
     }
 
     /**
@@ -86,23 +86,19 @@ final class PathUtil {
 	}
 
 	/**
-	 * Get the spritesheet of a specific entity. 
-	 * 
-	 * @param name    The name of the entity (e.g. `rabbit`, `default-player`, etc.).
-	 * @return        The path to the texture.
-	 */
-	public static inline function ofEntitySpritesheetTexture(name:String):String {
-		return 'assets/entities/textures/$name.png';
-	}
-
-	/**
-	 * Get the spritesheet data of a specific entity. 
-	 * 
-	 * @param name    The name of the entity (e.g. `rabbit`, `default-player`, etc.).
-	 * @return        The path to the texture.
-	 */
-	public static inline function ofEntitySpritesheetData(name:String):String {
-		return 'assets/entities/data/$name.xml';
+	 * Get the paths of an entity's sprite sheet image and `.xml` file.
+     * Note that this will return an array of both pathways, with the
+     * first element being to the image and the second one being its
+     * `.xml` file.
+     * 
+     * ***WARNING***: The entity's sprite sheet image and `.xml` file *must*
+     * be in the same location or otherwise this function will fail.
+     * 
+     * @param name The name of the entity.
+     * @return     An array of the paths to the image and the `.xml` file.
+     */
+	public static inline function ofEntitySpritesheet(name:String):Array<String> {
+		return ['assets/entities/textures/$name.png', 'assets/entities/textures/$name.xml'];
 	}
 
     /**

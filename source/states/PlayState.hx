@@ -78,10 +78,11 @@ class PlayState extends FlxState {
         generateNewPlanet();
 
         var test:FlxSprite = new FlxSprite();
-        test.loadGraphic(PathUtil.ofEntitySpritesheetTexture('default-player'), true);
+        var paths:Array<String> = PathUtil.ofEntitySpritesheet('default-player');
+        test.loadGraphic(paths[0], true);
         test.scale.set(3, 3);
         test.updateHitbox();
-		test.frames = FlxAtlasFrames.fromSparrow(PathUtil.ofEntitySpritesheetTexture('default-player'), PathUtil.ofEntitySpritesheetData('default-player'));
+		test.frames = FlxAtlasFrames.fromSparrow(paths[0], paths[1]);
 		test.animation.addByIndices('torso', 'torso_', [0], '', 0, false);
 		test.animation.play('torso');
         test.setPosition(FlxG.width / 2, FlxG.height / 2);

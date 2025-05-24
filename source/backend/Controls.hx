@@ -65,12 +65,18 @@ final class Controls {
     private inline function get_UI_BACK_JUST_PRESSED():Bool return justPressed('ui_back');
 
     // Volume (just pressed)
-    public var V_UP_JUST_PRESSED(get, never):Bool;
-    public var V_DOWN_JUST_PRESSED(get, never):Bool;
-    public var V_MUTE_JUST_PRESSED(get, never):Bool;
-    private inline function get_V_UP_JUST_PRESSED():Bool return justPressed('vl_up');
-    private inline function get_V_DOWN_JUST_PRESSED():Bool return justPressed('vl_down');
-    private inline function get_V_MUTE_JUST_PRESSED():Bool return justPressed('vl_mute');
+	public var VL_UP_JUST_PRESSED(get, never):Bool;
+	public var VL_DOWN_JUST_PRESSED(get, never):Bool;
+	public var VL_MUTE_JUST_PRESSED(get, never):Bool;
+
+	private inline function get_VL_UP_JUST_PRESSED():Bool
+		return justPressed('vl_up');
+
+	private inline function get_VL_DOWN_JUST_PRESSED():Bool
+		return justPressed('vl_down');
+
+	private inline function get_VL_MUTE_JUST_PRESSED():Bool
+		return justPressed('vl_mute');
 
     // Misc. (just pressed)
     public var MS_FULLSCREEN_JUST_PRESSED(get, never):Bool;
@@ -98,7 +104,7 @@ final class Controls {
      * @return     If the said bind is being held down.
      */
     public static inline function pressed(bind:String):Bool {
-        return FlxG.keys.anyPressed([ClientPrefs.getControls().get(bind)]);
+		return FlxG.keys.anyPressed([ClientPrefs.getBinds().get(bind)]);
     }
 
     /**
@@ -107,7 +113,7 @@ final class Controls {
      * @return     If the said bind was just pressed.
      */
     public static inline function justPressed(bind:String):Bool {
-        return FlxG.keys.anyJustPressed([ClientPrefs.getControls().get(bind)]);
+		return FlxG.keys.anyJustPressed([ClientPrefs.getBinds().get(bind)]);
     }
 
     /**
@@ -116,7 +122,7 @@ final class Controls {
      * @return     If the said bind just released.
      */
     public static inline function justReleased(bind:String):Bool {
-        return FlxG.keys.anyJustReleased([ClientPrefs.getControls().get(bind)]);
+		return FlxG.keys.anyJustReleased([ClientPrefs.getBinds().get(bind)]);
     }
 
     /**

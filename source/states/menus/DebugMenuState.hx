@@ -1,5 +1,7 @@
 package states.menus;
 
+import states.editors.*;
+import backend.util.PathUtil;
 import backend.Controls;
 #if FILTERS_ALLOWED
 import openfl.filters.ShaderFilter;
@@ -17,6 +19,7 @@ class DebugMenuState extends FlxState {
         super.create();
 
         FlxG.sound.music.stop();
+        FlxG.sound.playMusic(PathUtil.ofMusic('Ennui'), 0.5);
         CacheUtil.canPlayMenuMusic = true;
 
         #if FILTERS_ALLOWED
@@ -35,7 +38,13 @@ class DebugMenuState extends FlxState {
     override function update(elapsed:Float) {
         super.update(elapsed);
 
+        if (FlxG.keys.justPressed.ONE) {
+            FlxG.switchState(() -> new EntityCreationEditorState());
+        }
+
         if (Controls.getBinds().UI_BACK_JUST_PRESSED) {
+            // Switch back the filters, since we're going
+            // back into the main game!
             #if FILTERS_ALLOWED
             FlxG.game.setFilters([
                 new ShaderFilter(CacheUtil.angelFilter),

@@ -1,7 +1,7 @@
 package backend.data;
 
-import backend.util.SaveUtil;
 import backend.util.PathUtil;
+import backend.util.SaveUtil;
 import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxSave;
@@ -35,12 +35,28 @@ final class ClientPrefs {
     // ------------------------------
 
     /**
-     * Get and return all client options.
+	 * Get and return a client bind by its ID.
      * 
-     * @return A `Map` of all client options.
+	 * @param bind       The bind to get as a `String`.
+	 * @return           The value of the said bind. If it does not exist, then the
+	 *                   default value is returned instead.
      */
-    public static inline function getControls():Map<String, FlxKey> {
-        return _controlsKeyboard;
+	public static inline function getBind(bind:String):FlxKey {
+		if (_controlsKeyboard.exists(bind)) { 
+            return _controlsKeyboard.get(bind);
+        } else { 
+            FlxG.log.error('Attempted to obtain non-existent bind "$bind".');
+			throw new Exception('No such bind as "$bind".');
+        }
+	}
+
+	/**
+	 * Get and return all client controls and binds.
+	 * 
+	 * @return A `Map` of all client binds.
+	 */
+	public static inline function getBinds():Map<String, FlxKey> {
+		return _controlsKeyboard.copy();
     }
 
     /**
@@ -59,8 +75,8 @@ final class ClientPrefs {
      * 
      * @return A `Map` of all client options.
      */
-	public static inline function getAllOptions():Map<String, Any> {
-		return _options;
+	public static inline function getOptions():Map<String, Any> {
+		return _options.copy();
     }
 
     /**
@@ -83,16 +99,16 @@ final class ClientPrefs {
     /**
      * Set a specific key bind for the user.
      * 
-	 * @param bindId      The bind to be set.
+	 * @param bind        The bind to be set.
 	 * @param newKey      The key to set it to.
 	 * @throws Exception  If the bind does not exist.
      */
-	public static function setBind(bindId:String, newKey:FlxKey):Void {
-        if (_controlsKeyboard.exists(bindId)) {
-			_controlsKeyboard.set(bindId, newKey);
+	public static function setBind(bind:String, newKey:FlxKey):Void {
+        if (_controlsKeyboard.exists(bind)) {
+			_controlsKeyboard.set(bind, newKey);
         } else {
-			FlxG.log.error('Attempted to change non-existent bind "$bindId".');
-			throw new Exception('No such bind as "$bindId".');
+			FlxG.log.error('Attempted to change non-existent bind "$bind".');
+			throw new Exception('No such bind as "$bind".');
         }
     }
 

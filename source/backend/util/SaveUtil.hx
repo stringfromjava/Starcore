@@ -30,7 +30,7 @@ final class SaveUtil {
         optionsSave.bind(Constants.OPTIONS_SAVE_BIND_ID, PathUtil.getSavePath());
 
         // Assign the data
-        optionsSave.data.options = ClientPrefs.getAllOptions();
+		optionsSave.data.options = ClientPrefs.getOptions();
 
         // Save the last volume used
 		optionsSave.data.lastVolume = (CacheUtil.isWindowFocused) ? FlxG.sound.volume : CacheUtil.lastVolumeUsed;
@@ -57,7 +57,7 @@ final class SaveUtil {
         controlsSave.bind(Constants.CONTROLS_SAVE_BIND_ID, PathUtil.getSavePath());
 
         // Assign the data
-        controlsSave.data.keyboard = ClientPrefs.getControls();
+		controlsSave.data.keyboard = ClientPrefs.getBinds();
 
         // For checking if the data saved
         var didControlsSave:Bool = controlsSave.flush();

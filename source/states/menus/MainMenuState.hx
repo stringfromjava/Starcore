@@ -40,7 +40,6 @@ class MainMenuState extends FlxTransitionableState {
 		FlixelUtil.playMenuMusic(0.7);
 
 		// Add the planets in the background
-		var newY:Float = 30;
 		planets = WorldUtil.generatePlanets();
 		add(planets);
 
