@@ -20,7 +20,7 @@ import js.Browser;
 #end
 
 /**
- * Utility class for handling objects and components specific to HaxeFlixel.
+ * Utility class for handling objects and components specific to Flixel.
  */
 final class FlixelUtil {
 
@@ -39,7 +39,7 @@ final class FlixelUtil {
         }
         
         FlxG.camera.fade(FlxColor.BLACK, duration, false, () -> {
-            FlxG.switchState(state);
+            FlxG.switchState(() -> state);
         });
     }
 
@@ -107,7 +107,7 @@ final class FlixelUtil {
     }
 
     /**
-     * Tweens an `FlxSpriteGroup`'s members with ease.
+     * Tweens an `FlxTypedGroup<FlxSprite>`'s members with ease.
      * 
      * @param group    The group to tween.
      * @param options  Dynamic object with the attributes to tween.
@@ -133,7 +133,7 @@ final class FlixelUtil {
         DiscordClient.shutdown();
         #end
         // Close the game respectfully
-        #if html5
+        #if web
         Browser.window.close();
         #elseif desktop
         Sys.exit(0);

@@ -22,14 +22,14 @@
 	<window if="html5" resizable="true" />
 
 	<!--Desktop-specific-->
-	<window if="desktop" orientation="landscape" fullscreen="false" resizable="false" />
+	<window if="desktop" orientation="landscape" fullscreen="true" resizable="false" />
 
 	<!--Mobile-specific-->
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
 
 	<!-- ___________________________ Starcore Settings __________________________ -->
 
-	<!-- Allows the game to be displayed in the user's Discord "Activity" box (it can still be disable by the user if the option is off). -->
+	<!-- Allows the game to be displayed in the user's Discord "Activity" box (it can still be disabled by the user if the option is off). -->
 	<define name="DISCORD_ALLOWED" if="windows" />
 
 	<!-- Enables the game to use filters, giving it a more unsettling and unnerving vibe. -->

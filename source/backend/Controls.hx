@@ -41,14 +41,14 @@ import flixel.FlxG;
 final class Controls {
 
     // Movement (pressed)
-    public var M_UP_PRESSED(get, never):Bool;
-    public var M_LEFT_PRESSED(get, never):Bool;
-    public var M_DOWN_PRESSED(get, never):Bool;
-    public var M_RIGHT_PRESSED(get, never):Bool;
-    private inline function get_M_UP_PRESSED():Bool return pressed('m_up');
-    private inline function get_M_LEFT_PRESSED():Bool return pressed('m_left');
-    private inline function get_M_DOWN_PRESSED():Bool return pressed('m_down');
-    private inline function get_M_RIGHT_PRESSED():Bool return pressed('m_right');
+    public var MV_UP_PRESSED(get, never):Bool;
+    public var MV_LEFT_PRESSED(get, never):Bool;
+    public var MV_DOWN_PRESSED(get, never):Bool;
+    public var MV_RIGHT_PRESSED(get, never):Bool;
+    private inline function get_MV_UP_PRESSED():Bool return pressed('mv_up');
+    private inline function get_MV_LEFT_PRESSED():Bool return pressed('mv_left');
+    private inline function get_MV_DOWN_PRESSED():Bool return pressed('mv_down');
+    private inline function get_MV_RIGHT_PRESSED():Bool return pressed('mv_right');
 
 	// UI (just pressed)
 	public var UI_LEFT_JUST_PRESSED(get, never):Bool;
@@ -68,9 +68,13 @@ final class Controls {
     public var V_UP_JUST_PRESSED(get, never):Bool;
     public var V_DOWN_JUST_PRESSED(get, never):Bool;
     public var V_MUTE_JUST_PRESSED(get, never):Bool;
-    private inline function get_V_UP_JUST_PRESSED():Bool return justPressed('v_up');
-    private inline function get_V_DOWN_JUST_PRESSED():Bool return justPressed('v_down');
-    private inline function get_V_MUTE_JUST_PRESSED():Bool return justPressed('v_mute');
+    private inline function get_V_UP_JUST_PRESSED():Bool return justPressed('vl_up');
+    private inline function get_V_DOWN_JUST_PRESSED():Bool return justPressed('vl_down');
+    private inline function get_V_MUTE_JUST_PRESSED():Bool return justPressed('vl_mute');
+
+    // Misc. (just pressed)
+    public var MS_FULLSCREEN_JUST_PRESSED(get, never):Bool;
+    private inline function get_MS_FULLSCREEN_JUST_PRESSED():Bool return justPressed('ms_fullscreen');
 
     private function new() {}
 
@@ -94,7 +98,7 @@ final class Controls {
      * @return     If the said bind is being held down.
      */
     public static inline function pressed(bind:String):Bool {
-        return FlxG.keys.anyPressed([ClientPrefs.controlsKeyboard.get(bind)]);
+        return FlxG.keys.anyPressed([ClientPrefs.getControls().get(bind)]);
     }
 
     /**
@@ -103,7 +107,7 @@ final class Controls {
      * @return     If the said bind was just pressed.
      */
     public static inline function justPressed(bind:String):Bool {
-        return FlxG.keys.anyJustPressed([ClientPrefs.controlsKeyboard.get(bind)]);
+        return FlxG.keys.anyJustPressed([ClientPrefs.getControls().get(bind)]);
     }
 
     /**
@@ -112,13 +116,13 @@ final class Controls {
      * @return     If the said bind just released.
      */
     public static inline function justReleased(bind:String):Bool {
-        return FlxG.keys.anyJustReleased([ClientPrefs.controlsKeyboard.get(bind)]);
+        return FlxG.keys.anyJustReleased([ClientPrefs.getControls().get(bind)]);
     }
 
     /**
      * Check if the user just pressed ***ANY*** volume keys.
      */
     public static inline function justPressedAnyVolumeKeys():Bool {
-        return justPressed('v_up') || justPressed('v_down') || justPressed('v_mute'); 
+        return justPressed('vl_up') || justPressed('vl_down') || justPressed('vl_mute'); 
     }
 }

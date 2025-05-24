@@ -13,23 +13,32 @@ final class Constants {
      */
 	public static final DEFAULT_CONTROLS_KEYBOARD:Map<String, FlxKey> = [
         // Movement
-        'm_up'       => FlxKey.W,
-        'm_left'     => FlxKey.A,
-        'm_down'     => FlxKey.S,
-        'm_right'    => FlxKey.D,
+        'mv_up'         => W,
+        'mv_left'       => A,
+        'mv_down'       => S,
+        'mv_right'      => D,
 
         // UI
-        'ui_left'    => FlxKey.LEFT,
-        'ui_down'    => FlxKey.DOWN,
-        'ui_up'      => FlxKey.UP,
-        'ui_right'   => FlxKey.RIGHT,
-        'ui_select'  => FlxKey.ENTER,
-        'ui_back'    => FlxKey.ESCAPE,
+        'ui_left'       => LEFT,
+        'ui_down'       => DOWN,
+        'ui_up'         => UP,
+        'ui_right'      => RIGHT,
+        'ui_select'     => ENTER,
+        'ui_back'       => ESCAPE,
 
         // Volume
-        'v_up'       => FlxKey.PLUS,
-        'v_down'     => FlxKey.MINUS,
-        'v_mute'     => FlxKey.F12,
+        'vl_up'         => PLUS,
+        'vl_down'       => MINUS,
+        'vl_mute'       => F12,
+
+        // Misc.
+        'ms_fullscreen' => F11
+    ];
+
+    public static final DEFAULT_OPTIONS:Map<String, Any> = [
+        // Misc.
+        'discordRPC'     => true,
+        'minimizeVolume' => true
     ];
     
     /**
@@ -92,6 +101,16 @@ final class Constants {
      * How height in pixels a tile is. This is used for the world tilemap.
      */
     public static final TILE_HEIGHT:Int = 16;
+
+    /**
+     * How much the background camera of the play state scrolls when the mouse moves.
+     */
+    public static final BACKGROUND_CAMERA_SCROLL_MULTIPLIER:Float = 0.05;
+
+    /**
+     * How much the gameplay camera of the play state scrolls when the mouse moves.
+     */
+    public static final WORLD_CAMERA_SCROLL_MULTIPLIER:Float = 0.095;
 
     private function new() {}
 }

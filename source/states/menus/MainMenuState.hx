@@ -65,7 +65,7 @@ class MainMenuState extends FlxTransitionableState {
 		buttonClickFunctions = [
 			'play' => () -> {
 				// FlxG.sound.music.stop();
-				FlxG.switchState(new PlayState());
+				FlxG.switchState(() -> new PlayState());
 			},
 			'quit' => () -> {
 				FlixelUtil.closeGame();

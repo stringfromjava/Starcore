@@ -27,7 +27,7 @@ class Main extends Sprite {
 		// Should the game skip the HaxeFlixel splash screen?
 		skipSplash: true,
 		// Should the game start in fullscreen mode?
-		startFullscreen: false
+		startFullscreen: true
 	};
 
 	public function new() {

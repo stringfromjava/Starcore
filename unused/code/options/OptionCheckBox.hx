@@ -1,12 +1,12 @@
 package objects.ui.options;
 
-import backend.data.Constants;
 import backend.data.ClientPrefs;
-import flixel.FlxG;
+import backend.data.Constants;
 import backend.util.PathUtil;
-import flixel.util.FlxColor;
-import flixel.text.FlxText;
+import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
 
 /**
  * Object for creating an option that is of type `Bool`.
@@ -33,8 +33,8 @@ class OptionCheckBox extends Option {
      */
     public function new(x:Float, y:Float, name:String, option:String, canBeClickedOn:Bool = false, description:String = '[No Description Set]') {
 
-        this._isValidBoolPref = Std.isOfType(ClientPrefs.getClientPreference(option), Bool);
-        this._isChecked = (this._isValidBoolPref) ? ClientPrefs.getClientPreference(option) : false;
+		this._isValidBoolPref = Std.isOfType(ClientPrefs.getOption(option), Bool);
+		this._isChecked = (this._isValidBoolPref) ? ClientPrefs.getOption(option) : false;
 
         super(name, option, description);
 

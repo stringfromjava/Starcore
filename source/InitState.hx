@@ -1,3 +1,6 @@
+import backend.Controls;
+import openfl.events.KeyboardEvent;
+import backend.data.Constants;
 import openfl.display.StageQuality;
 import objects.entity.ComplexEntity;
 import flixel.util.FlxColor;
@@ -52,13 +55,6 @@ class InitState extends FlxState {
 		#if DISCORD_ALLOWED
 		DiscordClient.initialize();
 		#end
-
-		// Center the window to be in the middle of the display
-		Application.current.window.x = Std.int((Application.current.window.display.bounds.width - Application.current.window.width) / 2);
-		Application.current.window.y = Std.int((Application.current.window.display.bounds.height - Application.current.window.height) / 2);
-
-		// Set the game to fullscreen if option is ON
-		FlxG.fullscreen = ClientPrefs.options.fullscreen;
 
 		// Switch to the main menu state after everything has loaded
 		FlxG.switchState(() -> new MainMenuState());
@@ -122,7 +118,8 @@ class InitState extends FlxState {
 		// Minimize volume when the window is out of focus
 		Application.current.window.onFocusIn.add(() -> {
 			// Bring the volume back up when the window is focused again
-			if (ClientPrefs.options.minimizeVolume && !CacheUtil.isWindowFocused) {
+			var minimizeVolume:Bool = ClientPrefs.getOption('minimizeVolume', Constants.DEFAULT_OPTIONS.get('minimizeVolume'));
+			if (minimizeVolume && !CacheUtil.isWindowFocused) {
 				// Set back to one decimal place (0.1) when the screen gains focus again
 				// (note that if the user had the volume all the way down, it will be set to zero)
 				FlxG.sound.volume = (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.1 : 0;
@@ -135,7 +132,8 @@ class InitState extends FlxState {
 		});
 		Application.current.window.onFocusOut.add(() -> {
 			// Minimize the volume when the window loses focus
-			if (ClientPrefs.options.minimizeVolume && CacheUtil.isWindowFocused) {
+			var minimizeVolume:Bool = ClientPrefs.getOption('minimizeVolume', Constants.DEFAULT_OPTIONS.get('minimizeVolume'));
+			if (minimizeVolume && CacheUtil.isWindowFocused) {
 				// Set the last volume used to the current volume
 				CacheUtil.lastVolumeUsed = FlxG.sound.volume;
 				CacheUtil.isWindowFocused = false;

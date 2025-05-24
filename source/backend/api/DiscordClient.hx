@@ -1,6 +1,7 @@
 package backend.api;
 
 #if DISCORD_ALLOWED
+import backend.data.Constants;
 import backend.data.ClientPrefs;
 import flixel.FlxG;
 import cpp.RawConstPointer;
@@ -24,7 +25,7 @@ final class DiscordClient {
      * Initializes Discord rich presence.
      */
     public static function initialize():Void {
-        if (ClientPrefs.options.discordRPC) {
+        if (ClientPrefs.getOption('discordRPC', Constants.DEFAULT_OPTIONS.get('discordRPC'))) {
             // Initialize the client
             Discord.Initialize(_appId, null, true, null);
             // Start the timer (for the amount of time the player has played the game)

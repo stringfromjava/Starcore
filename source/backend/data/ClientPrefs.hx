@@ -1,41 +1,20 @@
 package backend.data;
 
+import backend.util.SaveUtil;
 import backend.util.PathUtil;
-import flixel.util.FlxSave;
 import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
+import flixel.util.FlxSave;
 import haxe.Exception;
 
 /**
- * Private class that holds all of the user's options.
- */
-@:structInit class SaveVariables {
-
-    /**
-     * Should the game minimize its volume when the window is out of focus?
-     */
-    public var minimizeVolume:Bool = true;
-
-    /**
-     * Should the game display in the user's Discord "Activity" box?
-     */
-    public var discordRPC:Bool = true;
-
-    /**
-     * Does the user have fullscreen enabled?
-     */
-    public var fullscreen:Bool = false;
-}
-
-/**
  * Class that handles, modifies and stores the user's
- * preferences and settings.
+ * options and settings.
  * 
- * When you are updating a setting, do *NOT* do it
- * manually. Instead, use `setClientPreference()` to update a user's preference(s)
- * or `setClientControl()` to change a bind.
+ * When you are updating a setting, use `setOption()` to update a user's option(s)
+ * or `setBind()` to change a bind.
  * 
- * Controls are saved in their own variable, *NOT* in `options`.
+ * Controls are saved in their own variable, *NOT* in `_options`.
  * 
  * The way controls are created is with this structure: `'keybind_id' => FlxKey.YOUR_KEY`.
  * To create a control, go to `backend.data.Constants`, search for `DEFAULT_CONTROLS_KEYBOARD`
@@ -46,20 +25,7 @@ import haxe.Exception;
  */
 final class ClientPrefs {
 
-    /**
-     * The user's settings and preferences. Note that this does not include
-     * the user's controls, that is in its own respective variable.
-     */
-    public static var options(get, never):SaveVariables;
-    private static var _options:SaveVariables = {};
-
-    public static var defaultOptions(get, never):SaveVariables;
-    private static var _defaultOptions:SaveVariables = {};
-
-	/**
-	 * Controls set by the user for the keyboard.
-	 */
-    public static var controlsKeyboard(get, never):Map<String, FlxKey>;
+    private static var _options:Map<String, Any> = Constants.DEFAULT_OPTIONS;
 	private static var _controlsKeyboard:Map<String, FlxKey>;
 
     private function new() {}
@@ -68,65 +34,71 @@ final class ClientPrefs {
     //      GETTERS AND SETTERS
     // ------------------------------
 
-    @:noCompletion
-    public static inline function get_options():SaveVariables {
-        return _options;
-    }
-
-    @:noCompletion
-    public static inline function get_controlsKeyboard():Map<String, FlxKey> {
+    /**
+     * Get and return all client options.
+     * 
+     * @return A `Map` of all client options.
+     */
+    public static inline function getControls():Map<String, FlxKey> {
         return _controlsKeyboard;
     }
 
-    @:noCompletion
-    public static inline function get_defaultOptions():SaveVariables {
-        return _defaultOptions;
-    }
-
-    // -----------------------------
-    //            METHODS
-    // -----------------------------
-
     /**
-     * Get and return a client preference by its ID.
+     * Get and return a client option by its ID.
      * 
-     * @param preference The preference to get as a `String`.
-     * @return           The value of the preference. If it does not exist, then
-     *                   `null` is returned instead.
+     * @param option     The option to get as a `String`.
+     * @return           The value of the option. If it does not exist, then the
+     *                   default value is returned instead.
      */
-    public static inline function getClientPreference(preference:String, defaultValue:Any = null):Any {
-        return (Reflect.hasField(_options, preference)) ? Reflect.field(_options, preference) : defaultValue;
+	public static inline function getOption(option:String, defaultValue:Any = null):Dynamic {
+		return (_options.exists(option)) ? _options.get(option) : defaultValue;
     }
 
     /**
-     * Sets a client's preference.
+     * Get and return all client options.
      * 
-     * @param setting The setting to be set.
-	 * @param value   The value to set it to.
+     * @return A `Map` of all client options.
      */
-	public static function setClientPreference(setting:String, value:Dynamic):Void {
-        try {
-			Reflect.setField(_options, setting, value);
-        } catch (e:Exception) {
-            FlxG.log.error("Attempted to change non-existent option \"" + setting + "\".");
-            throw new Exception("No such client preference as \"" + setting + "\".");
+	public static inline function getAllOptions():Map<String, Any> {
+		return _options;
+    }
+
+    /**
+     * Sets a client's option.
+     * 
+	 * @param option      The setting to be set.
+	 * @param value       The value to set the option to.
+	 * @throws Exception  If the option does not exist.
+     */
+	public static function setOption(option:String, value:Any):Void {
+		if (_options.exists(option)) {
+			_options.set(option, value);
+            SaveUtil.saveUserOptions();
+		} else {
+			FlxG.log.error('Client option "$option" doesn\'t exist!');
+			throw new Exception('Client option "$option" doesn\'t exist!');
         }
     }
 
     /**
      * Set a specific key bind for the user.
      * 
-     * @param bindId The bind to be set.
-     * @param newKey The key to set it to.
+	 * @param bindId      The bind to be set.
+	 * @param newKey      The key to set it to.
+	 * @throws Exception  If the bind does not exist.
      */
-	public static function setClientControl(bindId:String, newKey:FlxKey):Void {
+	public static function setBind(bindId:String, newKey:FlxKey):Void {
         if (_controlsKeyboard.exists(bindId)) {
 			_controlsKeyboard.set(bindId, newKey);
         } else {
-            FlxG.log.error("Attempted to change non-existent bind \"" + bindId + "\".");
-            throw new Exception("No such bind as \"" + bindId + "\".");
+			FlxG.log.error('Attempted to change non-existent bind "$bindId".');
+			throw new Exception('No such bind as "$bindId".');
         }
     }
+
+	// -----------------------------
+	//            METHODS
+	// -----------------------------
 
     /**
      * Load and obtain all of the user's options and controls.
@@ -143,8 +115,22 @@ final class ClientPrefs {
         // Load options
         if (optionsData.data.options != null)
             _options = optionsData.data.options;
-        else
-            _options = _defaultOptions;
+
+		// Check if the user has any new options
+		// (this is for when new options are added in an update!)
+		for (key in Constants.DEFAULT_OPTIONS.keys()) {
+			if (!_options.exists(key)) {
+				_options.set(key, Constants.DEFAULT_OPTIONS.get(key));
+			}
+		}
+
+        // Filter out any options that are not present in the current
+        // standard set of options (which is determined by the default options)
+        for (key in _options.keys()) {
+            if (!Constants.DEFAULT_OPTIONS.exists(key)) {
+				_options.remove(key);
+			}
+        }
 
         // Load controls
         if (controlsData.data.keyboard != null)
@@ -160,13 +146,22 @@ final class ClientPrefs {
             }
         }
 
+        // Filter out any binds that are not present in the current
+        // standard set of binds (which is determined by the default binds)
+        for (key in _controlsKeyboard.keys()) {
+            if (!Constants.DEFAULT_CONTROLS_KEYBOARD.exists(key)) {
+				_controlsKeyboard.remove(key);
+			}
+        }
+
         // Set the volume to the last used volume the user had
         if (optionsData.data.lastVolume != null)
             FlxG.sound.volume = optionsData.data.lastVolume;
         else
             FlxG.sound.volume = 1.0;
 
-        FlxG.log.add('Loaded all client preferences and controls successfully!');
+        // Log all recorded info
+        FlxG.log.add('Loaded all client options and controls successfully!');
 
         // Respectfully close the saves to prevent data leaks
         optionsData.close();
