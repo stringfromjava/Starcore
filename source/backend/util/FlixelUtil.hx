@@ -51,7 +51,7 @@ final class FlixelUtil {
 	 * @param decayTime How long it echoes for.
 	 */
 	public static function playSoundWithReverb(path:String, volume:Float = 1, decayTime:Float = 4):Void {
-		if (!(CacheUtil.currentEchoSoundsAmount > Constants.REVERB_SOUND_EFFECT_LIMIT)) {
+		if (!(CacheUtil.currentReverbSoundsAmount > Constants.REVERB_SOUND_EFFECT_LIMIT)) {
             // Make the sound and filter
             var sound:FlxFilteredSound = new FlxFilteredSound();
             var effect = new FlxSoundReverbEffect();
@@ -67,7 +67,7 @@ final class FlixelUtil {
             FlxG.sound.list.add(sound);
             // Play the sound
             sound.play();
-            CacheUtil.currentEchoSoundsAmount++;
+			CacheUtil.currentReverbSoundsAmount++;
             // Recycle the sound after it finishes playing
             new FlxTimer().start((sound.length / 1000) + (decayTime / 1.85), (_) -> {
                 sound.filter.clearEffects();
@@ -75,26 +75,10 @@ final class FlixelUtil {
                 FlxG.sound.list.remove(sound, true);
                 FlxG.sound.list.recycle(FlxSound);
                 sound.destroy();
-                CacheUtil.currentEchoSoundsAmount--;
+				CacheUtil.currentReverbSoundsAmount--;
             });
         }
 	}
-
-    /**
-     * Checks if a name is valid for either an entity or item.
-     * 
-     * @param name  The name of the entity/item.
-     * @return      If the name has no invalid characters. 
-     */
-    public static function isValidName(name:String):Bool {
-        for (i in 0...name.length) {
-            var char:String = name.charAt(i);
-            if (!Constants.VALID_ITEM_ENTITY_NAME_CHARACTERS.match(char)) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     /**
      * Play menu music ***if*** it hasn't already started.

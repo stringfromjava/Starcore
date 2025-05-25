@@ -1,11 +1,18 @@
 package backend.data;
 
+import backend.util.PathUtil;
+import flixel.util.FlxColor;
 import flixel.input.keyboard.FlxKey;
 
 /**
  * Class that holds all of the general values that do not change.
  */
 final class Constants {
+
+    /**
+     * DEFAULTS
+     * ======================
+     */
     
     /**
 	 * The default controls for the player. This is typically used when
@@ -40,7 +47,17 @@ final class Constants {
         'discordRPC'     => true,
         'minimizeVolume' => true
     ];
+
+    /**
+     * The default color for any debug editor extending to `objects.states.DebugEditorState`.
+     */
+    public static final DEBUG_EDITOR_DEFAULT_BACKGROUND_COLOR:FlxColor = FlxColor.fromRGB(210, 210, 210);
     
+    /**
+     * SAVE BIND ID'S
+     * ==========================
+     */
+
     /**
      * The name of the save file for the player's options.
      */
@@ -57,9 +74,21 @@ final class Constants {
     public static final PROGRESS_SAVE_BIND_ID:String = 'progress';
 
     /**
-     * How long it takes for the fade effect to last when switching states.
+     * DEBUG EDITOR VERSIONS
+     * =================================
      */
-    public static final TRANSITION_DURATION:Float = 0.4;
+    
+    public static final ENTITY_CREATION_EDITOR_VERSION:String = '0.1.0-PROTOTYPE';
+
+    /**
+     * PATHWAYS
+     * ===================
+     */
+    
+    /**
+     * The pathway to the font for all debug editors.
+     */
+    public static final DEBUG_EDITOR_FONT:String = PathUtil.ofFont('vcr');
 
     /**
 	 * Name of the music that plays when in the main menus.
@@ -105,7 +134,7 @@ final class Constants {
     /**
      * How much the background camera of the play state scrolls when the mouse moves.
      */
-    public static final BACKGROUND_CAMERA_SCROLL_MULTIPLIER:Float = 0.05;
+    public static final BACKGROUND_CAMERA_SCROLL_MULTIPLIER:Float = 0.025;
 
     /**
      * How much the gameplay camera of the play state scrolls when the mouse moves.

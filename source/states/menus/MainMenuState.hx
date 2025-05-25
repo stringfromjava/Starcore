@@ -105,6 +105,8 @@ class MainMenuState extends FlxTransitionableState {
 
 		#if EDITORS_ALLOWED
 		if (FlxG.keys.justPressed.F7) {
+			FlxG.sound.music.stop();
+        	FlxG.sound.playMusic(PathUtil.ofMusic('Ennui'), 0.5);
 			FlxG.switchState(() -> new DebugMenuState());
 		}
 		#end

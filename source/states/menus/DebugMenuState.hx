@@ -1,5 +1,6 @@
 package states.menus;
 
+import backend.data.Constants;
 import states.editors.*;
 import backend.util.PathUtil;
 import backend.Controls;
@@ -18,8 +19,6 @@ class DebugMenuState extends FlxState {
     override function create() {
         super.create();
 
-        FlxG.sound.music.stop();
-        FlxG.sound.playMusic(PathUtil.ofMusic('Ennui'), 0.5);
         CacheUtil.canPlayMenuMusic = true;
 
         #if FILTERS_ALLOWED
@@ -28,6 +27,7 @@ class DebugMenuState extends FlxState {
 
         test = new FlxText();
         test.text = 'this game is so spoopy OOHHHWHWHWHWHWOOO :ghost:';
+        test.font = Constants.DEBUG_EDITOR_FONT;
         test.size = 48;
         test.updateHitbox();
         test.x = (FlxG.width / 2) - (test.width / 2);
@@ -39,7 +39,7 @@ class DebugMenuState extends FlxState {
         super.update(elapsed);
 
         if (FlxG.keys.justPressed.ONE) {
-            FlxG.switchState(() -> new EntityCreationEditorState());
+            FlxG.switchState(() -> new EntityCreationEditorState('Entity Creation', Constants.ENTITY_CREATION_EDITOR_VERSION));
         }
 
         if (Controls.getBinds().UI_BACK_JUST_PRESSED) {

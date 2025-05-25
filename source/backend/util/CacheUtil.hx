@@ -31,9 +31,9 @@ final class CacheUtil {
     public static var canPlayMenuMusic:Bool = true;
 
     /**
-     * The amount of echo sounds that are currently playing.
+	 * The amount of reverb sounds that are currently playing.
      */
-    public static var currentEchoSoundsAmount:Int = 0;
+	public static var currentReverbSoundsAmount:Int = 0;
 
     /**
      * Registered entities that are currently in the game.

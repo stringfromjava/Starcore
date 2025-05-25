@@ -35,7 +35,7 @@
 	<!-- Enables the game to use filters, giving it a more unsettling and unnerving vibe. -->
 	<define name="FILTERS_ALLOWED" if="desktop"/>
 
-	<!-- Allows the developer to use built-in editors, such as creating animations for entities. -->
+	<!-- Allows the developer(s) to use built-in editors, such as creating animations for entities. -->
 	<define name="EDITORS_ALLOWED" if="desktop" unless="final" />
 
 	<!-- _____________________________ Path Settings ____________________________ -->
@@ -57,12 +57,14 @@
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
-	<!-- Flixel -->
+	<!-- Game Engine -->
 	<haxelib name="flixel" />
+	<!-- Additional Tools -->
 	<haxelib name="flixel-addons" />
 
-	<!-- Custom -->
+	<!-- Discord Rich Presence -->
 	<haxelib name="hxdiscord_rpc" />
+	<!-- Manipulating Sound Effects -->
 	<haxelib name="flxsoundfilters" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->

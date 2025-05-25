@@ -1,5 +1,6 @@
 package backend.util;
 
+import backend.data.Constants;
 import objects.entity.Entity;
 
 /**
@@ -7,6 +8,8 @@ import objects.entity.Entity;
  * the world of Starcore.
  */
 final class EntityUtil {
+
+    private function new() {}
 
     /**
      * Get an entity by its ID.
@@ -23,5 +26,19 @@ final class EntityUtil {
         return null;
     }
 
-    private function new() {}
+    /**
+     * Checks if a name is valid for either an entity or item.
+     * 
+     * @param name  The name of the entity/item.
+     * @return      If the name has no invalid characters. 
+     */
+    public static function isValidName(name:String):Bool {
+        for (i in 0...name.length) {
+            var char:String = name.charAt(i);
+            if (!Constants.VALID_ITEM_ENTITY_NAME_CHARACTERS.match(char)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

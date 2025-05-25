@@ -1,6 +1,6 @@
 package objects.entity;
 
-import backend.util.FlixelUtil;
+import backend.util.EntityUtil;
 import flixel.FlxObject;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import haxe.Exception;
@@ -21,7 +21,7 @@ abstract class Entity extends FlxTypedGroup<FlxObject> {
 
     public function new(id:String) {
         super();
-		if (FlixelUtil.isValidName(id)) {
+		if (EntityUtil.isValidName(id)) {
             this._id = id;
         } else {
             throw new Exception('"$id" is not a valid name for an entity!');
