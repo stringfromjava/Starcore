@@ -14,7 +14,7 @@ It's very robust and has extremely similar syntax to many programming languages 
 if you have any kind of experience with a language that uses block coding (coding with braces `{}`), 
 then it will be very easy to adapt to if you want to learn it!
 
-Simply read the `README.txt` file in the [setup](setup/README.txt) folder and follow the simple instructions it provides.
+Simply read the [`README.txt`](setup/README.txt/) file in the [setup](setup/) folder and follow the simple instructions it provides.
 
 # 3. Building the Game
 
