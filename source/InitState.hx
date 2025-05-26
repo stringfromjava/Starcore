@@ -1,11 +1,8 @@
 package;
 
-import starcore.backend.Controls;
-import openfl.events.KeyboardEvent;
 import starcore.backend.data.Constants;
 import openfl.display.StageQuality;
 import starcore.objects.entity.ComplexEntity;
-import flixel.util.FlxColor;
 import starcore.backend.util.SaveUtil;
 import flixel.tweens.FlxTween;
 import flixel.math.FlxMath;
@@ -14,9 +11,7 @@ import starcore.backend.data.ClientPrefs;
 import starcore.backend.util.PathUtil;
 import flixel.system.FlxAssets;
 import starcore.states.menus.MainMenuState;
-import starcore.filters.*;
 import openfl.filters.ShaderFilter;
-import sys.thread.Thread;
 import flixel.FlxG;
 import flixel.FlxState;
 #if DISCORD_ALLOWED
@@ -35,8 +30,8 @@ import js.Browser;
  */
 class InitState extends FlxState {
 
-	override public function create() {
-		// Assign and configure flixel settings
+	override public function create():Void {
+		// Assign and configure Flixel settings
 		configureFlixelSettings();
 
 		// Add the processes that always run in the background

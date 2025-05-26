@@ -11,18 +11,18 @@ class ClickableSprite extends FlxSprite {
 	/**
 	 * Called when `this` clickable sprite is clicked on.
 	 */
-	public var onClick:Void -> Void = () -> {};
+	public var onClick:Void->Void = () -> {};
 
 	/**
 	 * Called when `this` clickable sprite is hovered on.
 	 */
-	public var onHover:Void -> Void = () -> {};
+	public var onHover:Void->Void = () -> {};
 
 	/**
 	 * Called when `this` clickable sprite's hover boundaries are no longer overlapping
 	 * the mouse.
 	 */
-	public var onHoverLost:Void -> Void = () -> {};
+	public var onHoverLost:Void->Void = () -> {};
 
 	/**
 	 * X bounds for the *left* side of `this` clickable sprite.
@@ -60,8 +60,8 @@ class ClickableSprite extends FlxSprite {
 	}
 
 	// -----------------------------
-    //            METHODS
-    // -----------------------------
+	//            METHODS
+	// -----------------------------
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);

@@ -9,91 +9,88 @@ import flixel.input.keyboard.FlxKey;
  */
 final class Constants {
 
-    /**
-     * DEFAULTS
-     * ======================
-     */
-    
-    /**
+	/**
+	 * DEFAULTS
+	 * ======================
+	 */
+	/**
 	 * The default controls for the player. This is typically used when
-     * the player wishes to reset all of their binds.
-     */
+	 * the player wishes to reset all of their binds.
+	 */
 	public static final DEFAULT_CONTROLS_KEYBOARD:Map<String, FlxKey> = [
-        // Movement
-        'mv_up'         => W,
-        'mv_left'       => A,
-        'mv_down'       => S,
-        'mv_right'      => D,
+		// Movement
+		'mv_up' => W,
+		'mv_left' => A,
+		'mv_down' => S,
+		'mv_right' => D,
+		// UI
+		'ui_left' => LEFT,
+		'ui_down' => DOWN,
+		'ui_up' => UP,
+		'ui_right' => RIGHT,
+		'ui_select' => ENTER,
+		'ui_back' => ESCAPE,
+		// Volume
+		'vl_up' => PLUS,
+		'vl_down' => MINUS,
+		'vl_mute' => F12,
+		// Misc.
+		'ms_fullscreen' => F11
+	];
 
-        // UI
-        'ui_left'       => LEFT,
-        'ui_down'       => DOWN,
-        'ui_up'         => UP,
-        'ui_right'      => RIGHT,
-        'ui_select'     => ENTER,
-        'ui_back'       => ESCAPE,
+	/**
+	 * The default options for the game. These are only really used when
+     * the player either updated the game ***OR*** is missing anything important.
+	 */
+	public static final DEFAULT_OPTIONS:Map<String, Any> = [
+		// Misc.
+		'discordRPC' => true,
+		'minimizeVolume' => true
+	];
 
-        // Volume
-        'vl_up'         => PLUS,
-        'vl_down'       => MINUS,
-        'vl_mute'       => F12,
+	/**
+	 * The default color for any debug editor extending to `objects.states.DebugEditorState`.
+	 */
+	public static final DEBUG_EDITOR_DEFAULT_BACKGROUND_COLOR:FlxColor = FlxColor.fromRGB(210, 210, 210);
 
-        // Misc.
-        'ms_fullscreen' => F11
-    ];
+	/**
+	 * SAVE BIND ID'S
+	 * ==========================
+	 */
+	/**
+	 * The name of the save file for the player's options.
+	 */
+	public static final OPTIONS_SAVE_BIND_ID:String = 'options';
 
-    public static final DEFAULT_OPTIONS:Map<String, Any> = [
-        // Misc.
-        'discordRPC'     => true,
-        'minimizeVolume' => true
-    ];
+	/**
+	 * The name of the save file for the player's controls.
+	 */
+	public static final CONTROLS_SAVE_BIND_ID:String = 'controls';
 
-    /**
-     * The default color for any debug editor extending to `objects.states.DebugEditorState`.
-     */
-    public static final DEBUG_EDITOR_DEFAULT_BACKGROUND_COLOR:FlxColor = FlxColor.fromRGB(210, 210, 210);
-    
-    /**
-     * SAVE BIND ID'S
-     * ==========================
-     */
+	/**
+	 * The name of the save file for the player's progress.
+	 */
+	public static final PROGRESS_SAVE_BIND_ID:String = 'progress';
 
-    /**
-     * The name of the save file for the player's options.
-     */
-    public static final OPTIONS_SAVE_BIND_ID:String = 'options';
+	/**
+	 * DEBUG EDITOR VERSIONS
+	 * =================================
+	 */
+	public static final ENTITY_CREATION_EDITOR_VERSION:String = '0.1.0-PROTOTYPE';
 
-    /**
-     * The name of the save file for the player's controls.
-     */
-    public static final CONTROLS_SAVE_BIND_ID:String = 'controls';
+	/**
+	 * PATHWAYS
+	 * ===================
+	 */
+	/**
+	 * The pathway to the font for all debug editors.
+	 */
+	public static final DEBUG_EDITOR_FONT:String = PathUtil.ofFont('vcr');
 
-    /**
-     * The name of the save file for the player's progress.
-     */
-    public static final PROGRESS_SAVE_BIND_ID:String = 'progress';
-
-    /**
-     * DEBUG EDITOR VERSIONS
-     * =================================
-     */
-    
-    public static final ENTITY_CREATION_EDITOR_VERSION:String = '0.1.0-PROTOTYPE';
-
-    /**
-     * PATHWAYS
-     * ===================
-     */
-    
-    /**
-     * The pathway to the font for all debug editors.
-     */
-    public static final DEBUG_EDITOR_FONT:String = PathUtil.ofFont('vcr');
-
-    /**
+	/**
 	 * Name of the music that plays when in the main menus.
-     */
-    public static final MENU_MUSIC_NAME:String = 'Stargazer';
+	 */
+	public static final MENU_MUSIC_NAME:String = 'Stargazer';
 
 	/**
 	 * The maximum amount of reverb sound effects that can be played at once.
@@ -121,25 +118,25 @@ final class Constants {
 	 */
 	public static final VALID_ITEM_ENTITY_NAME_CHARACTERS:EReg = ~/[a-z_]/;
 
-    /**
-     * How wide in pixels a tile is. This is used for the world tilemap.
-     */
-    public static final TILE_WIDTH:Int = 16;
+	/**
+	 * How wide in pixels a tile is. This is used for the world tilemap.
+	 */
+	public static final TILE_WIDTH:Int = 16;
 
-    /**
-     * How height in pixels a tile is. This is used for the world tilemap.
-     */
-    public static final TILE_HEIGHT:Int = 16;
+	/**
+	 * How height in pixels a tile is. This is used for the world tilemap.
+	 */
+	public static final TILE_HEIGHT:Int = 16;
 
-    /**
-     * How much the background camera of the play state scrolls when the mouse moves.
-     */
-    public static final BACKGROUND_CAMERA_SCROLL_MULTIPLIER:Float = 0.025;
+	/**
+	 * How much the background camera of the play state scrolls when the mouse moves.
+	 */
+	public static final BACKGROUND_CAMERA_SCROLL_MULTIPLIER:Float = 0.025;
 
-    /**
-     * How much the gameplay camera of the play state scrolls when the mouse moves.
-     */
-    public static final WORLD_CAMERA_SCROLL_MULTIPLIER:Float = 0.095;
+	/**
+	 * How much the gameplay camera of the play state scrolls when the mouse moves.
+	 */
+	public static final WORLD_CAMERA_SCROLL_MULTIPLIER:Float = 0.095;
 
-    private function new() {}
+	private function new() {}
 }

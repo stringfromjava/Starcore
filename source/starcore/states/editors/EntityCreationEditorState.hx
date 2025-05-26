@@ -1,15 +1,15 @@
 package starcore.states.editors;
 
 import starcore.objects.states.DebugEditorState;
-import starcore.states.menus.DebugMenuState;
-import starcore.backend.Controls;
-import flixel.util.FlxColor;
-import flixel.FlxG;
-import flixel.FlxState;
 
+/**
+ * The debug editor for creating new entities. This is where you
+ * define the name of the entity, its body parts, how big each body
+ * part is, etc.
+ */
 class EntityCreationEditorState extends DebugEditorState {
-    
-    override function create() {
-        super.create();
-    }
+
+	override function create():Void {
+		super.create();
+	}
 }

@@ -1,5 +1,6 @@
 package objects.entity;
 
+import starcore.backend.util.EntityUtil;
 import starcore.backend.util.FlixelUtil;
 import flixel.FlxSprite;
 import haxe.Exception;
@@ -8,29 +9,25 @@ import haxe.Exception;
  * Component for creating the body parts of a complex entity.
  */
 class EntityBodyPart extends FlxSprite {
-    
-    /**
-     * The ID of `this` entity body part. Note that IDs for entities may only 
-     * contain the following:
-     * - Lowercase letters (no uppercase)
-     * - Underscores
-     */
-    public var id:String;
-    public var scaleX:Float;
-    public var scaleY:Float;
 
-    public function new(id:String, ox:Float, oy:Float, width:Float, height:Float, angle:Float, scaleX:Float, scaleY:Float, alpha:Float) {
-        super();
-		if (FlixelUtil.isValidName(id)) {
-            this.id = id;
-        } else {
-            throw new Exception('"$id" is not a valid name for an entity!');
-        }
-        this.width = width;
-        this.height = height;
-        this.angle = angle;
-        this.scaleX = scaleX;
-        this.scaleY = scaleY;
-        this.alpha = alpha;
-    }
+	/**
+	 * The ID of `this` entity body part. Note that IDs for entities may only 
+	 * contain the following:
+	 * - Lowercase letters (no uppercase)
+	 * - Underscores
+	 */
+	public var id:String;
+
+	public function new(id:String, ox:Float, oy:Float, width:Float, height:Float, angle:Float, scaleX:Float, scaleY:Float, alpha:Float) {
+		super();
+		if (EntityUtil.isValidName(id)) {
+			this.id = id;
+		} else {
+			throw new Exception('"$id" is not a valid name for an entity!');
+		}
+		this.width = width;
+		this.height = height;
+		this.angle = angle;
+		this.alpha = alpha;
+	}
 }

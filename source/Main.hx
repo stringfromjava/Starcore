@@ -13,7 +13,7 @@ class Main extends Sprite {
 
 	// The game object that holds the data
 	// for the FlxGame instance
-	private static final _GAME:Dynamic = {
+	final _GAME:Dynamic = {
 		// The width of the game's window
 		// You can set this to 0 to use the default value in the Project.xml file
 		width: 960,

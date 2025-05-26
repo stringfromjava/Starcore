@@ -3,7 +3,8 @@ package starcore.filters;
 import flixel.system.FlxAssets.FlxShader;
 
 class HueShiftShader extends FlxShader {
-    @:glFragmentSource('
+    
+	@:glFragmentSource('
         #pragma header
         uniform float hue;
 
@@ -30,12 +31,12 @@ class HueShiftShader extends FlxShader {
             gl_FragColor = color;
         }
     ')
-    public function new() {
-        super();
-        this.data.hue.value = [0]; // default hue shift
-    }
+	public function new() {
+		super();
+		this.data.hue.value = [0]; // default hue shift
+	}
 
-    public function setHue(amount:Float) {
-        this.data.hue.value = [amount];
-    }
+	public function setHue(amount:Float) {
+		this.data.hue.value = [amount];
+	}
 }

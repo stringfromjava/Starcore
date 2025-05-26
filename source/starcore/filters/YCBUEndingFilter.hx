@@ -5,7 +5,6 @@ import flixel.system.FlxAssets.FlxShader;
 import haxe.Timer;
 
 class YCBUEndingFilter extends FlxShader {
-    
 	@:glFragmentSource('
         #pragma header
         #define LINES1 16.0

@@ -3,7 +3,7 @@ package starcore.filters;
 import flixel.system.FlxAssets.FlxShader;
 
 class AngelFilter extends FlxShader {
-	
+
 	@:isVar
 	public var strength(get, set):Float = 0;
 
@@ -82,8 +82,6 @@ class AngelFilter extends FlxShader {
 			}
 			col[i] = tex[i];
 		}
-
-
     
 		gl_FragColor = vec4(col,flixel_texture2D(bitmap,openfl_TextureCoordv).a);
 	}

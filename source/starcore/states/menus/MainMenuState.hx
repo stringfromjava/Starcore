@@ -21,7 +21,7 @@ import starcore.objects.ui.ClickableSprite;
  * This is where the player can start a new game, load a game, or quit the game.
  */
 class MainMenuState extends FlxTransitionableState {
-    
+
 	var logo:FlxText;
 
 	var buttons:Array<String> = ['play', 'quit'];
@@ -33,10 +33,10 @@ class MainMenuState extends FlxTransitionableState {
 	var planets:FlxTypedGroup<BackgroundPlanet>;
 	var starChangeAlphaTimer:FlxTimer;
 
-    override function create() {
-        super.create();
+	override function create():Void {
+		super.create();
 
-        // Play menu music
+		// Play menu music
 		FlixelUtil.playMenuMusic(0.7);
 
 		// Add the planets in the background
@@ -47,8 +47,8 @@ class MainMenuState extends FlxTransitionableState {
 		stars = WorldUtil.generateStars();
 		add(stars);
 
-        // Setup the logo
-        logo = new FlxText();
+		// Setup the logo
+		logo = new FlxText();
 		logo.text = 'STARCORE';
 		logo.size = 165;
 		logo.color = FlxColor.WHITE;
@@ -70,8 +70,8 @@ class MainMenuState extends FlxTransitionableState {
 				FlixelUtil.closeGame();
 			}
 		];
-		
-		var newY:Float = 350;  // Change this to the starting Y position for the menu buttons
+
+		var newY:Float = 350; // Change this to the starting Y position for the menu buttons
 		for (btn in buttons) {
 			var coolSwaggerButton:ClickableSprite = new ClickableSprite();
 			coolSwaggerButton.loadGraphic(PathUtil.ofImage('menus/main/$btn-button'));
@@ -83,36 +83,36 @@ class MainMenuState extends FlxTransitionableState {
 			coolSwaggerButton.onHover = () -> {
 				// Play a sound
 				FlixelUtil.playSoundWithReverb(PathUtil.ofSound('blip'), 1);
-                FlxSpriteUtil.setBrightness(coolSwaggerButton, 0.3);
+				FlxSpriteUtil.setBrightness(coolSwaggerButton, 0.3);
 			};
 			coolSwaggerButton.onHoverLost = () -> {
 				if (!buttonWasClicked) {
-                    FlxSpriteUtil.setBrightness(coolSwaggerButton, 0);
+					FlxSpriteUtil.setBrightness(coolSwaggerButton, 0);
 				}
 			};
 			buttonsGroup.add(coolSwaggerButton);
 			newY += coolSwaggerButton.height + 40;
 		}
 
-        // Slowly bring up the volume for the music
+		// Slowly bring up the volume for the music
 		// FlxTween.num(0, 1, 3, { type: FlxTweenType.ONESHOT }, (v) -> {
 		//     FlxG.sound.music.volume = v;
 		// });
-    }
+	}
 
-    override function update(elapsed:Float) {
-        super.update(elapsed);
+	override function update(elapsed:Float):Void {
+		super.update(elapsed);
 
 		#if EDITORS_ALLOWED
 		if (FlxG.keys.justPressed.F7) {
 			FlxG.sound.music.stop();
-        	FlxG.sound.playMusic(PathUtil.ofMusic('Ennui'), 0.5);
+			FlxG.sound.playMusic(PathUtil.ofMusic('Ennui'), 0.5);
 			FlxG.switchState(() -> new DebugMenuState());
 		}
 		#end
 
-        if (Controls.getBinds().UI_BACK_JUST_PRESSED) {
+		if (Controls.getBinds().UI_BACK_JUST_PRESSED) {
 			FlixelUtil.closeGame();
-        }
-    }
+		}
+	}
 }
