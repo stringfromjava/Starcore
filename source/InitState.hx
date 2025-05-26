@@ -1,24 +1,26 @@
-import backend.Controls;
+package;
+
+import starcore.backend.Controls;
 import openfl.events.KeyboardEvent;
-import backend.data.Constants;
+import starcore.backend.data.Constants;
 import openfl.display.StageQuality;
-import objects.entity.ComplexEntity;
+import starcore.objects.entity.ComplexEntity;
 import flixel.util.FlxColor;
-import backend.util.SaveUtil;
+import starcore.backend.util.SaveUtil;
 import flixel.tweens.FlxTween;
 import flixel.math.FlxMath;
-import backend.util.CacheUtil;
-import backend.data.ClientPrefs;
-import backend.util.PathUtil;
+import starcore.backend.util.CacheUtil;
+import starcore.backend.data.ClientPrefs;
+import starcore.backend.util.PathUtil;
 import flixel.system.FlxAssets;
-import states.menus.MainMenuState;
-import filters.*;
+import starcore.states.menus.MainMenuState;
+import starcore.filters.*;
 import openfl.filters.ShaderFilter;
 import sys.thread.Thread;
 import flixel.FlxG;
 import flixel.FlxState;
 #if DISCORD_ALLOWED
-import backend.api.DiscordClient;
+import starcore.backend.api.DiscordClient;
 #end
 import lime.app.Application;
 import openfl.Lib;
