@@ -133,7 +133,7 @@ class Project extends HXProject {
 	 */
 	function flair() {
 		info('STARCORE');
-		info('Initializing build...');
+		info('Building the game...');
 
 		info('Target Version: ' + VERSION);
 		info('Git Branch:     ' + getGitBranch());

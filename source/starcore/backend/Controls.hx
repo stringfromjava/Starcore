@@ -100,9 +100,13 @@ final class Controls {
 
 	// Misc. (just pressed)
 	public var MS_FULLSCREEN_JUST_PRESSED(get, never):Bool;
+	public var MS_OPENEDITORS_JUST_PRESSED(get, never):Bool;
 
 	private inline function get_MS_FULLSCREEN_JUST_PRESSED():Bool
 		return justPressed('ms_fullscreen');
+
+	private inline function get_MS_OPENEDITORS_JUST_PRESSED():Bool
+		return justPressed('ms_openeditors');
 
 	private function new() {}
 

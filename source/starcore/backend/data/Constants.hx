@@ -35,7 +35,8 @@ final class Constants {
 		'vl_down' => MINUS,
 		'vl_mute' => F12,
 		// Misc.
-		'ms_fullscreen' => F11
+		'ms_fullscreen' => F11,
+		'ms_openeditors' => F7
 	];
 
 	/**
@@ -88,9 +89,18 @@ final class Constants {
 	public static final DEBUG_EDITOR_FONT:String = PathUtil.ofFont('vcr');
 
 	/**
+	 * MUSIC
+	 * ========================
+	 */
+	/**
 	 * Name of the music that plays when in the main menus.
 	 */
 	public static final MENU_MUSIC_NAME:String = 'Stargazer';
+
+	/**
+	 * Name of the music that plays when in the editors.
+	 */
+	public static final EDITOR_MUSIC_NAME:String = '2 Sided';
 
 	/**
 	 * The maximum amount of reverb sound effects that can be played at once.

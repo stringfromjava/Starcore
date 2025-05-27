@@ -1,5 +1,6 @@
 package starcore.states.menus;
 
+import starcore.backend.data.Constants;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
@@ -104,9 +105,9 @@ class MainMenuState extends FlxTransitionableState {
 		super.update(elapsed);
 
 		#if EDITORS_ALLOWED
-		if (FlxG.keys.justPressed.F7) {
+		if (Controls.getBinds().MS_OPENEDITORS_JUST_PRESSED) {
 			FlxG.sound.music.stop();
-			FlxG.sound.playMusic(PathUtil.ofMusic('Ennui'), 0.5);
+			FlxG.sound.playMusic(PathUtil.ofMusic(Constants.EDITOR_MUSIC_NAME), 0.5);
 			FlxG.switchState(() -> new EditorMenuState());
 		}
 		#end
