@@ -1,9 +1,5 @@
 package starcore.states.menus;
 
-import starcore.backend.Controls;
-import starcore.backend.util.FlixelUtil;
-import starcore.backend.util.PathUtil;
-import starcore.backend.util.WorldUtil;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
@@ -12,6 +8,10 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxTimer;
+import starcore.backend.Controls;
+import starcore.backend.util.FlixelUtil;
+import starcore.backend.util.PathUtil;
+import starcore.backend.util.WorldUtil;
 import starcore.objects.background.BackgroundPlanet;
 import starcore.objects.background.BackgroundStar;
 import starcore.objects.ui.ClickableSprite;
@@ -107,7 +107,7 @@ class MainMenuState extends FlxTransitionableState {
 		if (FlxG.keys.justPressed.F7) {
 			FlxG.sound.music.stop();
 			FlxG.sound.playMusic(PathUtil.ofMusic('Ennui'), 0.5);
-			FlxG.switchState(() -> new DebugMenuState());
+			FlxG.switchState(() -> new EditorMenuState());
 		}
 		#end
 

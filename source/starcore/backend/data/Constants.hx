@@ -1,8 +1,8 @@
 package starcore.backend.data;
 
-import starcore.backend.util.PathUtil;
-import flixel.util.FlxColor;
 import flixel.input.keyboard.FlxKey;
+import flixel.util.FlxColor;
+import starcore.backend.util.PathUtil;
 
 /**
  * Class that holds all of the general values that do not change.
@@ -51,7 +51,7 @@ final class Constants {
 	/**
 	 * The default color for any debug editor extending to `objects.states.DebugEditorState`.
 	 */
-	public static final DEBUG_EDITOR_DEFAULT_BACKGROUND_COLOR:FlxColor = FlxColor.fromRGB(210, 210, 210);
+	public static final EDITOR_BACKGROUND_COLOR:FlxColor = FlxColor.fromRGB(210, 210, 210);
 
 	/**
 	 * SAVE BIND ID'S
@@ -136,7 +136,7 @@ final class Constants {
 	/**
 	 * How much the gameplay camera of the play state scrolls when the mouse moves.
 	 */
-	public static final WORLD_CAMERA_SCROLL_MULTIPLIER:Float = 0.095;
+	public static final WORLD_CAMERA_SCROLL_MULTIPLIER:Float = 0.125;
 
 	private function new() {}
 }

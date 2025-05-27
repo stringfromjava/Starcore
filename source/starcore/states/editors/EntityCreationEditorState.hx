@@ -9,7 +9,7 @@ import starcore.objects.states.DebugEditorState;
  */
 class EntityCreationEditorState extends DebugEditorState {
 
-	override function create():Void {
+	override public function create():Void {
 		super.create();
 	}
 }

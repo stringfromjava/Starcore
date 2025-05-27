@@ -184,7 +184,7 @@ class Project extends HXProject {
 		// Set the window size.
 		this.window.width = 960;
 		this.window.height = 720;
-		// Black background on release builds, magenta on debug builds.
+		// Set the background color.
 		this.window.background = 0xFF000000;
 
 		this.window.hardware = true;
@@ -324,7 +324,7 @@ class Project extends HXProject {
         // (if the platform is on desktop)
         FILTERS_ALLOWED.apply(this, isDesktop());
 
-        // Enable the debug editors unless the game is in
+        // Enable the editors unless the game is in
         // release mode, then otherwise disable them of course
         EDITORS_ALLOWED.apply(this, isDesktop() && !isRelease());
 	}

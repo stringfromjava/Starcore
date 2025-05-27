@@ -132,7 +132,7 @@ final class Controls {
 
 	/**
 	 * Check if the user just pressed a certain control.
-     * 
+	 * 
 	 * @param bind The bind to check.
 	 * @return     If the said bind was just pressed.
 	 */
@@ -142,7 +142,7 @@ final class Controls {
 
 	/**
 	 * Check if the user just released a certain control.
-     * 
+	 * 
 	 * @param bind The bind to check.
 	 * @return     If the said bind just released.
 	 */
@@ -152,7 +152,7 @@ final class Controls {
 
 	/**
 	 * Check if the user just pressed ***ANY*** volume keys.
-     * 
+	 *  
      * @return If the user just pressed any volume keys.
 	 */
 	public static inline function justPressedAnyVolumeKeys():Bool {

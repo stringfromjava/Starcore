@@ -1,12 +1,12 @@
 package starcore.objects.states;
 
 import flixel.FlxG;
-import starcore.states.menus.DebugMenuState;
-import starcore.backend.Controls;
-import starcore.backend.data.Constants;
+import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.FlxState;
+import starcore.backend.Controls;
+import starcore.backend.data.Constants;
+import starcore.states.menus.EditorMenuState;
 
 /**
  * Base class for creating a new editor for the debug menu.
@@ -42,7 +42,7 @@ abstract class DebugEditorState extends FlxState {
 		// subclass so that way everything is layered correctly!
 		super.create();
 
-		bgColor = Constants.DEBUG_EDITOR_DEFAULT_BACKGROUND_COLOR;
+		bgColor = Constants.EDITOR_BACKGROUND_COLOR;
 
 		versionText = new FlxText();
 		versionText.text = '$name Editor (v$version)';
@@ -61,7 +61,7 @@ abstract class DebugEditorState extends FlxState {
 		// I added this here so that way you don't have to
 		// do this in every editor that extends to this class ;3
 		if (Controls.getBinds().UI_BACK_JUST_PRESSED) {
-			FlxG.switchState(() -> new DebugMenuState());
+			FlxG.switchState(() -> new EditorMenuState());
 		}
 	}
 }
