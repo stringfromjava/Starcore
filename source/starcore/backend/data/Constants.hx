@@ -100,7 +100,7 @@ final class Constants {
 	/**
 	 * Name of the music that plays when in the editors.
 	 */
-	public static final EDITOR_MUSIC_NAME:String = '2 Sided';
+	public static final DEBUG_EDITOR_MUSIC_NAME:String = '2 Sided';
 
 	/**
 	 * The maximum amount of reverb sound effects that can be played at once.

@@ -1,11 +1,11 @@
 package starcore.states.menus;
 
-import starcore.backend.data.ClientPrefs;
-import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
+import flixel.util.FlxColor;
 import starcore.backend.Controls;
+import starcore.backend.data.ClientPrefs;
 import starcore.backend.data.Constants;
 import starcore.backend.util.CacheUtil;
 import starcore.states.editors.*;
@@ -16,7 +16,7 @@ import openfl.filters.ShaderFilter;
 /**
  * The state where all the different editors can be access from.
  */
-class EditorMenuState extends FlxState {
+class DebugEditorMenuState extends FlxState {
 
 	var titleText:FlxText;
 	var infoText:FlxText;
@@ -37,7 +37,8 @@ class EditorMenuState extends FlxState {
 		infoText.text = 'This is where you, the developer, can access multiple editors to \n'
 			+ 'accomplish various tasks that otherwise would be difficult to do manually.\n\n\n'
 			+ '1: Entity Creation Editor\n\n'
-			+ ClientPrefs.getBind('ui_back').toString() + ': Back to Game';
+			+ ClientPrefs.getBind('ui_back').toString()
+			+ ': Back to Game';
 		infoText.font = Constants.DEBUG_EDITOR_FONT;
 		infoText.size = 20;
 		infoText.setBorderStyle(OUTLINE, FlxColor.BLACK, 1);
@@ -47,7 +48,7 @@ class EditorMenuState extends FlxState {
 		add(infoText);
 
 		titleText = new FlxText();
-		titleText.text = 'Welcome to the Editor Menu';
+		titleText.text = 'Welcome to the Debug Editor Menu';
 		titleText.font = Constants.DEBUG_EDITOR_FONT;
 		titleText.size = 48;
 		titleText.setBorderStyle(OUTLINE, FlxColor.BLACK, 3);

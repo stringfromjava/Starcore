@@ -69,7 +69,6 @@ class Project extends HXProject {
 	 * Path to the Haxe script run before building the game.
 	 */
 	// static final PREBUILD_HX:String = 'source/Prebuild.hx';
-
 	/**
 	 * Path to the Haxe script run after building the game.
 	 */
@@ -121,11 +120,11 @@ class Project extends HXProject {
 
 		displayTarget();
 		configureFeatureFlags();
-    	configureCompileDefines();
-    	configureOutputDir();
-    	configureHaxelibs();
-    	configureAssets();
-    	configureIcons();  // TODO: Implement code when icons are made!
+		configureCompileDefines();
+		configureOutputDir();
+		configureHaxelibs();
+		configureAssets();
+		configureIcons(); // TODO: Implement code when icons are made!
 	}
 
 	/**
@@ -133,13 +132,13 @@ class Project extends HXProject {
 	 */
 	function flair() {
 		info('STARCORE');
-		info('Building the game...');
+		info('Setting up build...');
 
 		info('Target Version: ' + VERSION);
 		info('Git Branch:     ' + getGitBranch());
 		info('Git Commit:     ' + getGitCommit());
 		info('Git Modified?   ' + getGitModified());
-    	info('Display?        ' + isDisplay());
+		info('Display?        ' + isDisplay());
 	}
 
 	/**
@@ -160,9 +159,9 @@ class Project extends HXProject {
 		// If for some reason we have multiple source directories, we can add more entries here.
 		this.sources.push(SOURCE_DIR);
 
-    	// Tell Lime to run some prebuild and postbuild scripts.
-    	// this.preBuildCallbacks.push(buildHaxeCLICommand(PREBUILD_HX));
-    	// this.postBuildCallbacks.push(buildHaxeCLICommand(POSTBUILD_HX));
+		// Tell Lime to run some prebuild and postbuild scripts.
+		// this.preBuildCallbacks.push(buildHaxeCLICommand(PREBUILD_HX));
+		// this.postBuildCallbacks.push(buildHaxeCLICommand(POSTBUILD_HX));
 
 		// TODO: Should we provide this?
 		// this.meta.buildNumber = 0;
@@ -316,25 +315,25 @@ class Project extends HXProject {
 	 * Apply various feature flags based on the target platform and the user-provided build flags.
 	 */
 	function configureFeatureFlags() {
-        // Enable Discord rich presence
-        // (works only for Windows)
+		// Enable Discord rich presence
+		// (works only for Windows)
 		DISCORD_ALLOWED.apply(this, isWindows());
 
-        // Enable dope ass screen filters
-        // (if the platform is on desktop)
-        FILTERS_ALLOWED.apply(this, isDesktop());
+		// Enable dope ass screen filters
+		// (if the platform is on desktop)
+		FILTERS_ALLOWED.apply(this, isDesktop());
 
-        // Enable the editors unless the game is in
-        // release mode, then otherwise disable them of course
-        EDITORS_ALLOWED.apply(this, isDesktop() && !isRelease());
+		// Enable the editors if the game is in debug mode
+		// release mode, then otherwise disable them of course
+		EDITORS_ALLOWED.apply(this, isDesktop() && isDebug());
 	}
 
 	/**
 	 * Set compilation flags which are not feature flags.
 	 */
-  	function configureCompileDefines() {
+	function configureCompileDefines() {
 		// Enable OpenFL's error handler. Required for the crash logger.
-    	setHaxedef('openfl-enable-handle-error');
+		setHaxedef('openfl-enable-handle-error');
 
 		// Enable stack trace tracking. Good for debugging but has a (minor) performance impact.
 		setHaxedef('HXCPP_CHECK_POINTER');
@@ -347,10 +346,9 @@ class Project extends HXProject {
 		// Disable the built in pause screen when unfocusing the game.
 		setHaxedef('FLX_NO_FOCUS_LOST_SCREEN');
 
-        // Disable the Flixel debugger if debug mode isn't enabled
-        if (!isDebug()) { 
-            setHaxedef('FLX_NO_DEBUG'); 
-        }
+		// Disable the Flixel debugger entirely, since it
+		// messes with the filters sometimes
+		setHaxedef('FLX_NO_DEBUG');
 
 		if (isRelease()) {
 			// Improve performance on Nape
@@ -359,79 +357,79 @@ class Project extends HXProject {
 
 		// Cleaner looking compiler errors.
 		setHaxedef('message.reporting', 'pretty');
-    }
+	}
 
-  	function configureOutputDir() {
+	function configureOutputDir() {
 		// Set the output directory. Depends on the target platform and build type.
 		var buildDir = 'export/${isDebug() ? 'debug' : isRelease() ? 'release' : 'test'}';
 		buildDir += '/';
 		info('Output Directory: $buildDir');
 		app.path = buildDir;
-  	}
+	}
 
-    function configureHaxelibs() {
-        //
+	function configureHaxelibs() {
+		//
 		// FLIXEL
-        //
+		//
 
-        // Game engine backend
-        addHaxelib('lime');
-        // Game engine backend
-        addHaxelib('openfl');  
-        // Game engine
-        addHaxelib('flixel');  
-        // Additional utilities for Flixel
-        addHaxelib('flixel-addons'); 
-        // VSCode debug support 
+		// Game engine backend
+		addHaxelib('lime');
+		// Game engine backend
+		addHaxelib('openfl');
+		// Game engine
+		addHaxelib('flixel');
+		// Additional utilities for Flixel
+		addHaxelib('flixel-addons');
+		// VSCode debug support
 		if (isDebug()) {
 			addHaxelib('hxcpp-debug-server');
 		}
 
-        //
-        // CUSTOM
-        //
+		//
+		// CUSTOM
+		//
 
-        // Manipulating sound effects programmatically
-        addHaxelib('flxsoundfilters');  
-        // Discord rich presence
+		// Manipulating sound effects programmatically
+		addHaxelib('flxsoundfilters');
+		// Discord rich presence
 		if (DISCORD_ALLOWED.isEnabled(this)) {
-			addHaxelib('hxdiscord_rpc'); 
+			addHaxelib('hxdiscord_rpc');
 		}
-    }
-
-    function configureAssets() {
-        // Add font assets
-        addAssetPath('assets/fonts', 'assets/fonts', 'default', ['*.ttf'], []);
-
-        // Add entity assets
-        addAssetPath('assets/entities/data', 'assets/entities/data', 'default', ['*.json'], []);
-        addAssetPath('assets/entities/textures', 'assets/entities/textures', 'default', ['*.png'], []);
-        addAssetPath('assets/entities/textures', 'assets/entities/textures', 'default', ['*.xml'], []);
-
-        // Add tile assets
-        addAssetPath('assets/tiles/data', 'assets/tiles/data', 'default', ['*.json'], []);
-        addAssetPath('assets/tiles/textures', 'assets/tiles/textures', 'default', ['*.png'], []);
-
-        // Add shared image assets
-        addAssetPath('assets/shared/images', 'assets/shared/images', 'default', ['*.png'], []);
-
-        // Add shared music and sound assets for web (.mp3)
-        if (isWeb()) {
-            addAssetPath('assets/shared/music', 'assets/shared/music', 'default', ['*.mp3'], ['*.ogg']);
-            addAssetPath('assets/shared/sounds', 'assets/shared/sounds', 'default', ['*.mp3'], ['*.ogg']);
-        }
-
-        // Add shared music and sound assets for desktop (.ogg)
-        if (isDesktop()) {
-            addAssetPath('assets/shared/music', 'assets/shared/music', 'default', ['*.ogg'], ['*.mp3']);
-            addAssetPath('assets/shared/sounds', 'assets/shared/sounds', 'default', ['*.ogg'], ['*.mp3']);
-        }
 	}
 
-    /**
-     * Configure the application's favicon and executable icon.
-     */
-    function configureIcons() {}
+	function configureAssets() {
+		// Add font assets
+		addAssetPath('assets/fonts', 'assets/fonts', 'default', ['*.ttf'], []);
+
+		// Add entity assets
+		addAssetPath('assets/entities/data', 'assets/entities/data', 'default', ['*.json'], []);
+		addAssetPath('assets/entities/textures', 'assets/entities/textures', 'default', ['*.png'], []);
+		addAssetPath('assets/entities/textures', 'assets/entities/textures', 'default', ['*.xml'], []);
+
+		// Add tile assets
+		addAssetPath('assets/tiles/data', 'assets/tiles/data', 'default', ['*.json'], []);
+		addAssetPath('assets/tiles/textures', 'assets/tiles/textures', 'default', ['*.png'], []);
+
+		// Add shared image assets
+		addAssetPath('assets/shared/images', 'assets/shared/images', 'default', ['*.png'], []);
+
+		// Add shared music and sound assets for web (.mp3)
+		if (isWeb()) {
+			addAssetPath('assets/shared/music', 'assets/shared/music', 'default', ['*.mp3'], ['*.ogg']);
+			addAssetPath('assets/shared/sounds', 'assets/shared/sounds', 'default', ['*.mp3'], ['*.ogg']);
+		}
+
+		// Add shared music and sound assets for desktop (.ogg)
+		if (isDesktop()) {
+			addAssetPath('assets/shared/music', 'assets/shared/music', 'default', ['*.ogg'], ['*.mp3']);
+			addAssetPath('assets/shared/sounds', 'assets/shared/sounds', 'default', ['*.ogg'], ['*.mp3']);
+		}
+	}
+
+	/**
+	 * Configure the application's favicon and executable icon.
+	 */
+	function configureIcons() {}
 
 	//
 	// HELPER FUNCTIONS
@@ -482,51 +480,52 @@ class Project extends HXProject {
 		return this.target == Platform.IOS;
 	}
 
-    public function isHashLink():Bool {
-        return this.targetFlags.exists('hl');
-    }
+	public function isHashLink():Bool {
+		return this.targetFlags.exists('hl');
+	}
 
-    public function isNeko():Bool {
-        return this.targetFlags.exists('neko');
-    }
+	public function isNeko():Bool {
+		return this.targetFlags.exists('neko');
+	}
 
-    public function isJava():Bool {
-        return this.targetFlags.exists('java');
-    }
+	public function isJava():Bool {
+		return this.targetFlags.exists('java');
+	}
 
-    public function isNodeJS():Bool {
-        return this.targetFlags.exists('nodejs');
-    }
+	public function isNodeJS():Bool {
+		return this.targetFlags.exists('nodejs');
+	}
 
-    public function isCSharp():Bool {
-        return this.targetFlags.exists('cs');
-    }
+	public function isCSharp():Bool {
+		return this.targetFlags.exists('cs');
+	}
 
-    public function isDisplay():Bool {
-        return this.command == 'display';
-    }
+	public function isDisplay():Bool {
+		return this.command == 'display';
+	}
 
 	public function isDebug():Bool {
 		return this.debug;
 	}
 
 	public function isRelease():Bool {
-        return this.defines.exists("final");
+		return this.defines.exists("final");
 	}
 
-    public function getHaxedef(name:String):Null<Dynamic> {
-        return this.haxedefs.get(name);
-    }
+	public function getHaxedef(name:String):Null<Dynamic> {
+		return this.haxedefs.get(name);
+	}
 
-    public function setHaxedef(name:String, ?value:String):Void {
-        if (value == null) value = '';
+	public function setHaxedef(name:String, ?value:String):Void {
+		if (value == null)
+			value = '';
 
-        this.haxedefs.set(name, value);
-    }
+		this.haxedefs.set(name, value);
+	}
 
-    public function unsetHaxedef(name:String):Void {
-        this.haxedefs.remove(name);
-    }
+	public function unsetHaxedef(name:String):Void {
+		this.haxedefs.remove(name);
+	}
 
 	public function getDefine(name:String):Null<Dynamic> {
 		return this.defines.get(name);
@@ -538,7 +537,7 @@ class Project extends HXProject {
 
 	/**
 	 * Add a library to the list of dependencies for the project.
-     * 
+	 * 
 	 * @param name The name of the library to add.
 	 * @param version The version of the library to add. Optional.
 	 */
@@ -562,7 +561,7 @@ class Project extends HXProject {
 
 	/**
 	 * Add an icon to the project.
-     * 
+	 * 
 	 * @param icon The path to the icon.
 	 * @param size The size of the icon. Optional.
 	 */
@@ -572,7 +571,7 @@ class Project extends HXProject {
 
 	/**
 	 * Add an asset to the game build.
-     * 
+	 * 
 	 * @param path The path the asset is located at.
 	 * @param rename The path the asset should be placed.
 	 * @param library The asset library to add the asset to. `null` = 'default'
@@ -600,14 +599,18 @@ class Project extends HXProject {
 	 */
 	public function addAssetPath(path:String, ?rename:String, library:String, ?include:Array<String>, ?exclude:Array<String>, embed:Bool = false):Void {
 		// Argument parsing.
-		if (path == '') return;
+		if (path == '')
+			return;
 
-		if (include == null) include = [];
+		if (include == null)
+			include = [];
 
-		if (exclude == null) exclude = [];
+		if (exclude == null)
+			exclude = [];
 
 		var targetPath = rename ?? path;
-		if (targetPath != '') targetPath += '/';
+		if (targetPath != '')
+			targetPath += '/';
 
 		// Validate path.
 		if (!sys.FileSystem.exists(path)) {
@@ -634,14 +637,14 @@ class Project extends HXProject {
 
 	/**
 	 * Add an asset library to the game build.
-     * 
+	 * 
 	 * @param name The name of the library.
 	 * @param embed
 	 * @param preload
 	 */
 	public function addAssetLibrary(name:String, embed:Bool = false, preload:Bool = false):Void {
 		// sourcePath, name, type, embed, preload, generate, prefix
-        var sourcePath = '';
+		var sourcePath = '';
 		this.libraries.push(new Library(sourcePath, name, null, embed, preload, false, ''));
 	}
 
@@ -649,19 +652,19 @@ class Project extends HXProject {
 	// PROCESS FUNCTIONS
 	//
 
-    /**
-     * A CLI command to run a command in the shell.
-     */
-    public function buildCLICommand(cmd:String):CLICommand {
-        return CommandHelper.fromSingleString(cmd);
-    }
+	/**
+	 * A CLI command to run a command in the shell.
+	 */
+	public function buildCLICommand(cmd:String):CLICommand {
+		return CommandHelper.fromSingleString(cmd);
+	}
 
-    /**
-     * A CLI command to run a Haxe script via `--interp`.
-     */
-    public function buildHaxeCLICommand(path:String):CLICommand {
-        return CommandHelper.interpretHaxe(path);
-    }
+	/**
+	 * A CLI command to run a Haxe script via `--interp`.
+	 */
+	public function buildHaxeCLICommand(path:String):CLICommand {
+		return CommandHelper.interpretHaxe(path);
+	}
 
 	public function getGitCommit():String {
 		// Cannibalized from GitCommit.hx
@@ -736,7 +739,9 @@ class Project extends HXProject {
 	 * Display an info message. This should not interfere with the build process.
 	 */
 	public function info(message:String):Void {
-		if (command != 'display') { Log.info('[INFO] ${message}'); }
+		if (command != 'display') {
+			Log.info('[INFO] ${message}');
+		}
 	}
 }
 
