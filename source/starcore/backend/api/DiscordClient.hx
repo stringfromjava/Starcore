@@ -1,5 +1,6 @@
 package starcore.backend.api;
 
+import starcore.backend.util.LoggerUtil;
 #if DISCORD_ALLOWED
 import starcore.backend.data.Constants;
 import starcore.backend.data.ClientPrefs;
@@ -26,6 +27,8 @@ final class DiscordClient {
 	 */
 	public static function initialize():Void {
 		if (ClientPrefs.getOption('discordRPC')) {
+			// Log info
+			LoggerUtil.log('Initializing Discord rich presence');
 			// Initialize the client
 			Discord.Initialize(_appId, null, true, null);
 			// Start the timer (for the amount of time the player has played the game)
@@ -55,8 +58,8 @@ final class DiscordClient {
 	 * Shutdowns Discord rich presence.
 	 */
 	public static function shutdown():Void {
+		LoggerUtil.log('Shutting down Discord rich presence');
 		Discord.Shutdown();
-		FlxG.log.add('Discord rich presence shut down successfully!');
 	}
 }
 #end

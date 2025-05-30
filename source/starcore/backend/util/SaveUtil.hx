@@ -44,10 +44,8 @@ final class SaveUtil {
 		// Close the bind
 		optionsSave.close();
 
-		// Log if all options were saved
-		if (didOptionsSave)
-			LoggerUtil.log('All options have been saved!', false);
-		else
+		// Warn if all settings weren't saved
+		if (!didOptionsSave)
 			LoggerUtil.log('All options failed to save.', WARNING, false);
 	}
 
@@ -70,10 +68,8 @@ final class SaveUtil {
 		// Close the bind
 		controlsSave.close();
 
-		// Log if all settings were saved
-		if (didControlsSave)
-			LoggerUtil.log('All controls have been saved!', false);
-		else
+		// Warn if all controls weren't saved
+		if (!didControlsSave)
 			LoggerUtil.log('All controls failed to save.', WARNING, false);
 	}
 
@@ -96,10 +92,8 @@ final class SaveUtil {
 		// Close the bind
 		progressSave.close();
 
-		// Log if all progress was saved
-		if (didProgressSave)
-			LoggerUtil.log('All progress has been saved!', false);
-		else
+		// Warn if all progress wasn't saved
+		if (!didProgressSave)
 			LoggerUtil.log('All progress failed to save.', WARNING, false);
 	}
 
@@ -144,16 +138,13 @@ final class SaveUtil {
 		// Close the binds
 		optionsSave.close();
 		controlsSave.close();
-		// Log if all options have been deleted
-		if (didOptionsDelete)
-			LoggerUtil.log('Saved options have been deleted!', false);
-		else
+
+		// Warn if all settings weren't deleted
+		if (!didOptionsDelete)
 			LoggerUtil.log('Saved options failed to delete.', WARNING, false);
 
-		// Log if all controls have been deleted
-		if (didControlsDelete)
-			LoggerUtil.log('Saved controls have been deleted!', false);
-		else
+		// Warn if all controls weren't deleted
+		if (!didControlsDelete)
 			LoggerUtil.log('Saved controls failed to delete.', WARNING, false);
 
 		// TODO: Make sure the progress gets deleted and logged when the time comes!

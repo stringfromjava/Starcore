@@ -8,11 +8,11 @@ when it does release, be sure to take a look!
 
 # Development
 
-When developing the game, it is ***strongly*** advised that you play in debug mode, that
+When developing the game, it is ***strongly*** advised that you play in debug mode; that
 way, multiple tools can be provided for you, such as built-in editors, tools to manipulate
 entities and planets, and much more!
 
-To access them, simply select the option for your platform (in the example shown it's windows)
+To access them, simply select the option for your platform (in the example shown it's Windows)
 and make sure it has `/ Debug` at the end!
 
 ![example](docs/debug-example.png/)

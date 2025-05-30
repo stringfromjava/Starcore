@@ -65,7 +65,6 @@ final class LoggerUtil {
 	 */
 	public static function shutdown():Void {
 		#if LOGGING_ALLOWED
-		log('Shutting down Starcore logger');
 		file.flush(); // Write all info to the file
 		file.close(); // Close access to the file
 		#end

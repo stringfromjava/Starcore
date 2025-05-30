@@ -109,22 +109,31 @@ final class FlixelUtil {
 	}
 
 	/**
-	 * Closes the entire game.
+	 * Close the entire game.
+	 * 
+	 * @param sysShutdown Whether to close the game using the dedicated platform
+	 * 					  shutdown method or not. Only place this is set to `false`
+	 * 					  is in `InitState` when the event listener for the game closing
+	 * 					  is added.
 	 */
-	public static function closeGame():Void {
+	public static function closeGame(sysShutdown:Bool = true):Void {
 		// Log info
-		LoggerUtil.log('SHUTTING DOWN STARCORE', WARNING, false);
+		LoggerUtil.log('SHUTTING DOWN STARCORE', INFO, false);
 		// Save all of the user's data
 		SaveUtil.saveAll();
 		// Shutdown Discord rich presence
 		#if DISCORD_ALLOWED
 		DiscordClient.shutdown();
 		#end
+		// Shutdown the logging system
+		LoggerUtil.shutdown();
 		// Close the game respectfully
-		#if web
-		Browser.window.close();
-		#elseif desktop
-		Sys.exit(0);
-		#end
+		if (sysShutdown) {
+			#if web
+			Browser.window.close();
+			#elseif desktop
+			Sys.exit(0);
+			#end
+		}
 	}
 }

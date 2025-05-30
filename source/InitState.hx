@@ -1,5 +1,6 @@
 package;
 
+import starcore.backend.util.FlixelUtil;
 import starcore.backend.util.LoggerUtil;
 import openfl.display.StageQuality;
 import starcore.objects.entity.ComplexEntity;
@@ -158,9 +159,14 @@ class InitState extends FlxState {
 
 		// Do shit like saving the user's data when the game closes
 		Application.current.window.onClose.add(() -> {
-			LoggerUtil.log('SHUTTING DOWN STARCORE', WARNING, false);
-			// Save all of the user's data
-			SaveUtil.saveAll();
+			// Despite it saying "closeGame", it's not actually closing
+			// the game since the parameter "sysShutdown" is false. What's
+			// actually happening is all of the data is still saving and other utilities
+			// (i.e. Discord RPC and logging) are still being shutdown. This is just for keeping the
+			// code D.R.Y and still doing everything that is needed when the game closes!
+			// 
+			// - Kori ;3
+			FlixelUtil.closeGame(false);
 		});
 	}
 
