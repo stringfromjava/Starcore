@@ -1,10 +1,10 @@
 package starcore.objects.background;
 
+import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.util.FlxSpriteUtil;
 import starcore.backend.data.Constants;
-import flixel.FlxG;
 import starcore.backend.util.PathUtil;
-import flixel.FlxSprite;
 
 /**
  * Represents a background planet in the game.
@@ -14,7 +14,7 @@ class BackgroundPlanet extends FlxSprite {
 	public function new() {
 		super();
 		var newScale:Float = FlxG.random.float(4, 7);
-		loadGraphic(PathUtil.ofImage('bg/bg-planet-${FlxG.random.int(1, 2)}'));
+		loadGraphic(PathUtil.ofSharedImage('bg/bg-planet-${FlxG.random.int(1, 2)}'));
 		scale.set(newScale, newScale);
 		updateHitbox();
 		setPosition(FlxG.random.int(0, FlxG.width), FlxG.random.int(0, FlxG.height));

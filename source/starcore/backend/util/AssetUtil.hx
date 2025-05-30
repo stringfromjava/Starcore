@@ -8,7 +8,25 @@ import openfl.utils.Assets;
  */
 final class AssetUtil {
 
-	private function new() {}
+	function new() {}
+
+	/**
+	 * Generate a random string for a new file (this is mainly used for
+	 * new log files).
+	 * 
+	 * @return A new random file name.
+	 */
+	public static inline function generateRandomFileName():String {
+		var chars:String = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		var result:StringBuf = new StringBuf();
+
+		for (i in 0...chars.length) {
+			var index = Std.int(Math.random() * chars.length);
+			result.add(chars.charAt(index));
+		}
+
+		return result.toString();
+	}
 
 	/**
 	 * Gets regular JSON data from the specified file pathway.

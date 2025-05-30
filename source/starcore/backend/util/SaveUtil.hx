@@ -1,16 +1,16 @@
 package starcore.backend.util;
 
-import starcore.backend.data.ClientPrefs;
-import starcore.backend.data.Constants;
 import flixel.FlxG;
 import flixel.util.FlxSave;
+import starcore.backend.data.ClientPrefs;
+import starcore.backend.data.Constants;
 
 /**
  * Utility class for handling and saving user save data.
  */
 final class SaveUtil {
 
-	private function new() {}
+	function new() {}
 
 	/**
 	 * Save ***ALL*** of the user's preferences and progress.
@@ -25,6 +25,9 @@ final class SaveUtil {
 	 * Saves all of the user's options.
 	 */
 	public static function saveUserOptions():Void {
+		// Log info
+		LoggerUtil.log('Saving user options');
+
 		// Create and bind the saves
 		var optionsSave:FlxSave = new FlxSave();
 		optionsSave.bind(Constants.OPTIONS_SAVE_BIND_ID, PathUtil.getSavePath());
@@ -43,15 +46,17 @@ final class SaveUtil {
 
 		// Log if all options were saved
 		if (didOptionsSave)
-			FlxG.log.add('All options have been saved!');
+			LoggerUtil.log('All options have been saved!', false);
 		else
-			FlxG.log.warn('All options failed to save.');
+			LoggerUtil.log('All options failed to save.', WARNING, false);
 	}
 
 	/**
 	 * Saves all of the user's controls.
 	 */
 	public static function saveUserControls():Void {
+		// Log info
+		LoggerUtil.log('Saving user controls');
 		// Create and bind the saves
 		var controlsSave:FlxSave = new FlxSave();
 		controlsSave.bind(Constants.CONTROLS_SAVE_BIND_ID, PathUtil.getSavePath());
@@ -67,15 +72,17 @@ final class SaveUtil {
 
 		// Log if all settings were saved
 		if (didControlsSave)
-			FlxG.log.add('All controls have been saved!');
+			LoggerUtil.log('All controls have been saved!', false);
 		else
-			FlxG.log.warn('All controls failed to save.');
+			LoggerUtil.log('All controls failed to save.', WARNING, false);
 	}
 
 	/**
 	 * Saves all of the user's progress.
 	 */
 	public static function saveUserProgress():Void {
+		// Log info
+		LoggerUtil.log('Saving user progress');
 		// Create and bind the save
 		var progressSave:FlxSave = new FlxSave();
 		progressSave.bind(Constants.PROGRESS_SAVE_BIND_ID, PathUtil.getSavePath());
@@ -91,15 +98,17 @@ final class SaveUtil {
 
 		// Log if all progress was saved
 		if (didProgressSave)
-			FlxG.log.add('All progress has been saved!');
+			LoggerUtil.log('All progress has been saved!', false);
 		else
-			FlxG.log.warn('All progress failed to save.');
+			LoggerUtil.log('All progress failed to save.', WARNING, false);
 	}
 
 	/**
 	 * Loads all of the user's progress.
 	 */
 	public static function loadUserProgress():Void {
+		// Log info
+		LoggerUtil.log('Loading user progress');
 		// Create and bind the save
 		var progressSave:FlxSave = new FlxSave();
 		progressSave.bind(Constants.PROGRESS_SAVE_BIND_ID, PathUtil.getSavePath());
@@ -115,32 +124,38 @@ final class SaveUtil {
 	 * Deletes ***ALL*** of the user save data.
 	 */
 	public static function deleteAll():Void {
+		LoggerUtil.log('Deleting all user data', WARNING);
 		// Create and bind the saves
 		var optionsSave:FlxSave = new FlxSave();
 		var controlsSave:FlxSave = new FlxSave();
-		var progressSave:FlxSave = new FlxSave();
 
 		// Connect to the saves
 		optionsSave.bind(Constants.OPTIONS_SAVE_BIND_ID, PathUtil.getSavePath());
 		controlsSave.bind(Constants.CONTROLS_SAVE_BIND_ID, PathUtil.getSavePath());
-		progressSave.bind(Constants.PROGRESS_SAVE_BIND_ID, PathUtil.getSavePath());
 
 		// Delete the data
 		optionsSave.erase();
 		controlsSave.erase();
-		progressSave.erase();
 
 		// Ensure the data is deleted
-		optionsSave.flush();
-		controlsSave.flush();
-		progressSave.flush();
+		var didOptionsDelete:Bool = optionsSave.flush();
+		var didControlsDelete:Bool = controlsSave.flush();
 
 		// Close the binds
 		optionsSave.close();
 		controlsSave.close();
-		progressSave.close();
+		// Log if all options have been deleted
+		if (didOptionsDelete)
+			LoggerUtil.log('Saved options have been deleted!', false);
+		else
+			LoggerUtil.log('Saved options failed to delete.', WARNING, false);
 
-		// Log that all data has been deleted
-		FlxG.log.add('All user data has been deleted.');
+		// Log if all controls have been deleted
+		if (didControlsDelete)
+			LoggerUtil.log('Saved controls have been deleted!', false);
+		else
+			LoggerUtil.log('Saved controls failed to delete.', WARNING, false);
+
+		// TODO: Make sure the progress gets deleted and logged when the time comes!
 	}
 }

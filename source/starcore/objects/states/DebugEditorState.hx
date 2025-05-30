@@ -42,7 +42,7 @@ abstract class DebugEditorState extends FlxState {
 		// subclass so that way everything is layered correctly!
 		super.create();
 
-		bgColor = Constants.EDITOR_BACKGROUND_COLOR;
+		bgColor = Constants.DEBUG_EDITOR_BACKGROUND_COLOR;
 
 		versionText = new FlxText();
 		versionText.text = '$name Editor (v$version)';

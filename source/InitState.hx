@@ -1,6 +1,6 @@
 package;
 
-import starcore.backend.data.Constants;
+import starcore.backend.util.LoggerUtil;
 import openfl.display.StageQuality;
 import starcore.objects.entity.ComplexEntity;
 import starcore.backend.util.SaveUtil;
@@ -31,6 +31,12 @@ import js.Browser;
 class InitState extends FlxState {
 
 	override public function create():Void {
+		// Setup the logger for Starcore
+		LoggerUtil.initialize();
+
+		// Log that we are setting up STARCORE
+		LoggerUtil.log('INITIALIZING STARCORE SETUP', INFO, false);
+
 		// Assign and configure Flixel settings
 		configureFlixelSettings();
 
@@ -58,6 +64,9 @@ class InitState extends FlxState {
 	}
 
 	function configureFlixelSettings():Void {
+		// Log info
+		LoggerUtil.log('Configuring Flixel settings');
+
 		// Set the cursor to be the system default
 		FlxG.mouse.useSystemCursor = true;
 
@@ -99,6 +108,8 @@ class InitState extends FlxState {
 	}
 
 	function addBackgroundProcesses():Void {
+		// Log info
+		LoggerUtil.log('Adding background processes');
 		// Update the filters that need to
 		// constantly be reset
 		#if FILTERS_ALLOWED
@@ -111,11 +122,14 @@ class InitState extends FlxState {
 	}
 
 	function addEventListeners():Void {
+		// Log info
+		LoggerUtil.log('Adding event listeners');
+
 		#if desktop
 		// Minimize volume when the window is out of focus
 		Application.current.window.onFocusIn.add(() -> {
 			// Bring the volume back up when the window is focused again
-			var minimizeVolume:Bool = ClientPrefs.getOption('minimizeVolume', Constants.DEFAULT_OPTIONS.get('minimizeVolume'));
+			var minimizeVolume:Bool = ClientPrefs.getOption('minimizeVolume');
 			if (minimizeVolume && !CacheUtil.isWindowFocused) {
 				// Set back to one decimal place (0.1) when the screen gains focus again
 				// (note that if the user had the volume all the way down, it will be set to zero)
@@ -129,7 +143,7 @@ class InitState extends FlxState {
 		});
 		Application.current.window.onFocusOut.add(() -> {
 			// Minimize the volume when the window loses focus
-			var minimizeVolume:Bool = ClientPrefs.getOption('minimizeVolume', Constants.DEFAULT_OPTIONS.get('minimizeVolume'));
+			var minimizeVolume:Bool = ClientPrefs.getOption('minimizeVolume');
 			if (minimizeVolume && CacheUtil.isWindowFocused) {
 				// Set the last volume used to the current volume
 				CacheUtil.lastVolumeUsed = FlxG.sound.volume;
@@ -144,6 +158,7 @@ class InitState extends FlxState {
 
 		// Do shit like saving the user's data when the game closes
 		Application.current.window.onClose.add(() -> {
+			LoggerUtil.log('SHUTTING DOWN STARCORE', WARNING, false);
 			// Save all of the user's data
 			SaveUtil.saveAll();
 		});

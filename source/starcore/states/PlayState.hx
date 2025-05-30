@@ -77,7 +77,7 @@ class PlayState extends FlxState {
 		generateNewPlanet();
 
 		var test:FlxSprite = new FlxSprite();
-		var paths:Array<String> = PathUtil.ofEntitySpritesheet('default-player');
+		var paths:Array<String> = PathUtil.ofEntitySpritesheet('player');
 		test.loadGraphic(paths[0], true);
 		test.scale.set(3, 3);
 		test.updateHitbox();

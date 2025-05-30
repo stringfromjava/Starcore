@@ -67,8 +67,13 @@ final class ClientPrefs {
 	 * @return             The value of the option. If it does not exist, then the
 	 *                     default value is returned instead.
 	 */
-	public static inline function getOption(option:String, defaultValue:Any = null):Dynamic {
-		return (_options.exists(option)) ? _options.get(option) : defaultValue;
+	public static inline function getOption(option:String):Dynamic {
+		if (_options.exists(option)) {
+			return _options.get(option);
+		} else {
+			FlxG.log.error('Client option "$option" doesn\'t exist!');
+			throw new Exception('Client option "$option" doesn\'t exist!');
+		}
 	}
 
 	/**

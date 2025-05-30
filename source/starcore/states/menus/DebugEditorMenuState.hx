@@ -27,10 +27,18 @@ class DebugEditorMenuState extends FlxState {
 		CacheUtil.canPlayMenuMusic = true;
 
 		// Set the editor menu background
-		FlxG.camera.bgColor = Constants.EDITOR_BACKGROUND_COLOR;
+		FlxG.camera.bgColor = Constants.DEBUG_EDITOR_BACKGROUND_COLOR;
 
+		// Disable only the VCRBorder filter, since it
+		// would most likely mess with development
 		#if FILTERS_ALLOWED
-		FlxG.game.setFilters([]);
+		if (ClientPrefs.getOption('editorFilters')) {
+			FlxG.game.setFilters([
+				new ShaderFilter(CacheUtil.angelFilter),
+				new ShaderFilter(CacheUtil.vcrMario85Filter),
+				new ShaderFilter(CacheUtil.ycbuEndingFilter)
+			]);
+		}
 		#end
 
 		infoText = new FlxText();

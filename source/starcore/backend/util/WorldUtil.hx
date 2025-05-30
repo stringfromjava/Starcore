@@ -17,7 +17,7 @@ import starcore.objects.background.BackgroundStar;
  */
 final class WorldUtil {
 
-	private function new() {}
+	function new() {}
 
 	/**
 	 * Generates a new string of cave data for a new planet.
@@ -26,9 +26,9 @@ final class WorldUtil {
 	 * 
 	 * @param widthRange          Array of ***2*** integers. The range of how *wide* the world can be. 
 	 * @param heightRange         Array of ***2*** integers. The range of how *tall* the world can be. 
-	 * @param smoothingIterations Short for "Smoothing Iterations". This is how many times the cave will be smoothed.
+	 * @param smoothingIterations How many times the cave will be smoothed.
 	 *                            The higher the number, the smoother the cave will be.
-	 * @param wallRatio           Short for "Wall Ratio". This is how many walls there are in the planet. The higher the number, the more walls there will be.
+	 * @param wallRatio           How many walls there are in the planet. The higher the number, the more walls there will be.
 	 * @return 			          A fresh new string of CSV data for a new planet.
 	 */
 	public static function generateNewPlanetData(widthRange:Array<Int>, heightRange:Array<Int>, smoothingIterations:Int, wallRatio:Float):String {

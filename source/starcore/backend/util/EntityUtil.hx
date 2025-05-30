@@ -9,7 +9,7 @@ import starcore.objects.entity.Entity;
  */
 final class EntityUtil {
 
-	private function new() {}
+	function new() {}
 
 	/**
 	 * Get an entity by its ID.

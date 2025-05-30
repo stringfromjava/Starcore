@@ -75,7 +75,7 @@ class MainMenuState extends FlxTransitionableState {
 		var newY:Float = 350; // Change this to the starting Y position for the menu buttons
 		for (btn in buttons) {
 			var coolSwaggerButton:ClickableSprite = new ClickableSprite();
-			coolSwaggerButton.loadGraphic(PathUtil.ofImage('menus/main/$btn-button'));
+			coolSwaggerButton.loadGraphic(PathUtil.ofSharedImage('menus/main/$btn-button'));
 			coolSwaggerButton.scale.set(4, 4);
 			coolSwaggerButton.updateHitbox();
 			coolSwaggerButton.updateHoverBounds();
@@ -83,7 +83,7 @@ class MainMenuState extends FlxTransitionableState {
 			coolSwaggerButton.onClick = buttonClickFunctions.get(btn);
 			coolSwaggerButton.onHover = () -> {
 				// Play a sound
-				FlixelUtil.playSoundWithReverb(PathUtil.ofSound('blip'), 1);
+				FlixelUtil.playSoundWithReverb(PathUtil.ofSharedSound('blip'), 1);
 				FlxSpriteUtil.setBrightness(coolSwaggerButton, 0.3);
 			};
 			coolSwaggerButton.onHoverLost = () -> {
@@ -107,7 +107,7 @@ class MainMenuState extends FlxTransitionableState {
 		#if EDITORS_ALLOWED
 		if (Controls.getBinds().MS_OPENEDITORS_JUST_PRESSED) {
 			FlxG.sound.music.stop();
-			FlxG.sound.playMusic(PathUtil.ofMusic(Constants.DEBUG_EDITOR_MUSIC_NAME), 0.5);
+			FlxG.sound.playMusic(PathUtil.ofSharedMusic(Constants.DEBUG_EDITOR_MUSIC_NAME), 0.5);
 			FlxG.switchState(() -> new DebugEditorMenuState());
 		}
 		#end

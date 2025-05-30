@@ -1,6 +1,5 @@
 package starcore.backend.util;
 
-import starcore.backend.data.Constants;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -12,6 +11,7 @@ import flixel.sound.filters.effects.FlxSoundReverbEffect;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import starcore.backend.data.Constants;
 #if DISCORD_ALLOWED
 import starcore.backend.api.DiscordClient;
 #end
@@ -24,7 +24,7 @@ import js.Browser;
  */
 final class FlixelUtil {
 
-	private function new() {}
+	function new() {}
 
 	/**
 	 * Fades into a state with a cool transition effect.
@@ -35,7 +35,7 @@ final class FlixelUtil {
 	 */
 	public static function fadeIntoState(state:FlxState, duration:Float, playTransitionSfx:Bool = true):Void {
 		if (playTransitionSfx) {
-			FlxG.sound.play(PathUtil.ofSound(''), 1, false, false);
+			FlxG.sound.play(PathUtil.ofSharedSound(''), 1, false, false);
 		}
 
 		FlxG.camera.fade(FlxColor.BLACK, duration, false, () -> {
@@ -82,10 +82,12 @@ final class FlixelUtil {
 
 	/**
 	 * Play menu music ***if*** it hasn't already started.
+	 * 
+	 * @param volume How loud the menu music should be.
 	 */
 	public static function playMenuMusic(volume:Float = 1):Void {
 		if (CacheUtil.canPlayMenuMusic) {
-			FlxG.sound.playMusic(PathUtil.ofMusic(Constants.MENU_MUSIC_NAME), volume, true);
+			FlxG.sound.playMusic(PathUtil.ofSharedMusic(Constants.MENU_MUSIC_NAME), volume, true);
 			CacheUtil.canPlayMenuMusic = false;
 		}
 	}
@@ -110,6 +112,8 @@ final class FlixelUtil {
 	 * Closes the entire game.
 	 */
 	public static function closeGame():Void {
+		// Log info
+		LoggerUtil.log('SHUTTING DOWN STARCORE', WARNING, false);
 		// Save all of the user's data
 		SaveUtil.saveAll();
 		// Shutdown Discord rich presence

@@ -1,10 +1,10 @@
 package starcore.objects.background;
 
+import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.util.FlxTimer;
 import starcore.backend.data.Constants;
-import flixel.FlxG;
 import starcore.backend.util.PathUtil;
-import flixel.FlxSprite;
 
 /**
  * Represents a background star in the game.
@@ -16,7 +16,7 @@ class BackgroundStar extends FlxSprite {
 
 	public function new() {
 		super();
-		loadGraphic(PathUtil.ofImage('bg/star'));
+		loadGraphic(PathUtil.ofSharedImage('bg/star'));
 		scale.set(3, 3);
 		updateHitbox();
 		setPosition(FlxG.random.int(0, FlxG.width), FlxG.random.int(0, FlxG.height));

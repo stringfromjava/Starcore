@@ -60,5 +60,5 @@ final class CacheUtil {
 	 */
 	public static var ycbuEndingFilter:YCBUEndingFilter = new YCBUEndingFilter();
 
-	private function new() {}
+	function new() {}
 }

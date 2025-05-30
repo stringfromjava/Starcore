@@ -29,7 +29,7 @@ class Project extends HXProject {
 	/**
 	 * The game's name. Used as the default window title.
 	 */
-	static final TITLE:String = 'STARCORE';
+	static final TITLE:String = 'Starcore';
 
 	/**
 	 * The name of the generated executable file.
@@ -61,7 +61,7 @@ class Project extends HXProject {
 
 	/**
 	 * The company name for the game.
-	 * This appears in metadata in places I think.
+	 * This appears as metadata in many places.
 	 */
 	static final COMPANY:String = 'korithekoder';
 
@@ -111,6 +111,13 @@ class Project extends HXProject {
 	 * such as creating animations for entities.
 	 */
 	static final EDITORS_ALLOWED:FeatureFlag = 'EDITORS_ALLOWED';
+
+	/**
+	 * Permits the game to use a built-in logging system, which writes all 
+	 * current logs to a new text file inside of a folder called `logs`, 
+	 * located in the games output folder.
+	 */
+	static final LOGGING_ALLOWED:FeatureFlag = 'LOGGING_ALLOWED';
 
 	public function new() {
 		super();
@@ -326,6 +333,9 @@ class Project extends HXProject {
 		// Enable the editors if the game is in debug mode
 		// release mode, then otherwise disable them of course
 		EDITORS_ALLOWED.apply(this, isDesktop() && isDebug());
+
+		// Enables logging if the user is playing on desktop
+		LOGGING_ALLOWED.apply(this, isDesktop());
 	}
 
 	/**

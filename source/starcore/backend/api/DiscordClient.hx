@@ -25,7 +25,7 @@ final class DiscordClient {
 	 * Initializes Discord rich presence.
 	 */
 	public static function initialize():Void {
-		if (ClientPrefs.getOption('discordRPC', Constants.DEFAULT_OPTIONS.get('discordRPC'))) {
+		if (ClientPrefs.getOption('discordRPC')) {
 			// Initialize the client
 			Discord.Initialize(_appId, null, true, null);
 			// Start the timer (for the amount of time the player has played the game)

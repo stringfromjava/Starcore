@@ -7,27 +7,7 @@ import flixel.FlxG;
  */
 final class PathUtil {
 
-	private function new() {}
-
-	/**
-	 * Get the path of an image asset  from the `shared` folder.
-	 * 
-	 * @param name The name of the image (this does not include the file extension).
-	 * @return     The path of the image.
-	 */
-	public static inline function ofImage(name:String):String {
-		return 'assets/shared/images/$name.png';
-	}
-
-	/**
-	 * Get the path of a JSON asset from the `shared` folder.
-	 * 
-	 * @param name The name of the JSON file (this does not include the file extension).
-	 * @return     The path of the JSON file.
-	 */
-	public static inline function ofJson(name:String):String {
-		return 'assets/shared/data/$name.json';
-	}
+	function new() {}
 
 	/**
 	 * Get the path of a font asset that is of format `.ttf`.
@@ -40,12 +20,32 @@ final class PathUtil {
 	}
 
 	/**
+	 * Get the path of an image asset  from the `shared` folder.
+	 * 
+	 * @param name The name of the image (this does not include the file extension).
+	 * @return     The path of the image.
+	 */
+	public static inline function ofSharedImage(name:String):String {
+		return 'assets/shared/images/$name.png';
+	}
+
+	/**
+	 * Get the path of a JSON asset from the `shared` folder.
+	 * 
+	 * @param name The name of the JSON file (this does not include the file extension).
+	 * @return     The path of the JSON file.
+	 */
+	public static inline function ofSharedJson(name:String):String {
+		return 'assets/shared/data/$name.json';
+	}
+
+	/**
 	 * Get the path of a sound effect asset from the `shared` folder.
 	 * 
 	 * @param name The name of the sound effect (this does not include the file extension).
 	 * @return     The path of the sound effect.
 	 */
-	public static inline function ofSound(name:String):String {
+	public static inline function ofSharedSound(name:String):String {
 		return 'assets/shared/sounds/$name${#if html5 '.mp3' #else '.ogg' #end}';
 	}
 
@@ -55,7 +55,7 @@ final class PathUtil {
 	 * @param name The name of the soundtrack (this does not include the file extension).
 	 * @return     The path of the soundtrack.
 	 */
-	public static inline function ofMusic(name:String):String {
+	public static inline function ofSharedMusic(name:String):String {
 		return 'assets/shared/music/$name${#if html5 '.mp3' #else '.ogg' #end}';
 	}
 

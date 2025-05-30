@@ -46,13 +46,10 @@ final class Constants {
 	public static final DEFAULT_OPTIONS:Map<String, Any> = [
 		// Misc.
 		'discordRPC' => true,
-		'minimizeVolume' => true
+		'minimizeVolume' => true,
+		// Debug
+		'editorFilters' => true
 	];
-
-	/**
-	 * The default color for any debug editor extending to `objects.states.DebugEditorState`.
-	 */
-	public static final EDITOR_BACKGROUND_COLOR:FlxColor = FlxColor.fromRGB(210, 210, 210);
 
 	/**
 	 * SAVE BIND ID'S
@@ -74,19 +71,32 @@ final class Constants {
 	public static final PROGRESS_SAVE_BIND_ID:String = 'progress';
 
 	/**
-	 * DEBUG EDITOR VERSIONS
+	 * VERSIONS
 	 * =================================
+	 */
+	/**
+	 * The version of the entity creation editor.
 	 */
 	public static final ENTITY_CREATION_EDITOR_VERSION:String = '0.1.0-PROTOTYPE';
 
 	/**
-	 * PATHWAYS
+	 * DEBUG EDITORS
 	 * ===================
 	 */
 	/**
 	 * The pathway to the font for all debug editors.
 	 */
 	public static final DEBUG_EDITOR_FONT:String = PathUtil.ofFont('vcr');
+
+	/**
+	 * Name of the music that plays when in the editors.
+	 */
+	public static final DEBUG_EDITOR_MUSIC_NAME:String = '2 Sided';
+
+	/**
+	 * The default color for any debug editor extending to `objects.states.DebugEditorState`.
+	 */
+	public static final DEBUG_EDITOR_BACKGROUND_COLOR:FlxColor = FlxColor.fromRGB(210, 210, 210);
 
 	/**
 	 * MUSIC
@@ -96,11 +106,6 @@ final class Constants {
 	 * Name of the music that plays when in the main menus.
 	 */
 	public static final MENU_MUSIC_NAME:String = 'Stargazer';
-
-	/**
-	 * Name of the music that plays when in the editors.
-	 */
-	public static final DEBUG_EDITOR_MUSIC_NAME:String = '2 Sided';
 
 	/**
 	 * The maximum amount of reverb sound effects that can be played at once.
