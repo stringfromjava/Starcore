@@ -25,6 +25,36 @@ class EntityCreationEditorState extends DebugEditorState {
 	var test:FlxSprite;
 
 	override public function create():Void {
+		createButtons();
+
+		test = new FlxSprite();
+		test.setPosition(0, 0);
+		add(test);
+
+		super.create();
+	}
+
+	function createButtons():Void {
+		loadSpriteSheetButton = new FlxButton('Load Sprite Sheet', () -> {
+			LoggerUtil.log('Attempting to open a sprite sheet');
+			var dialog:FileDialog = new FileDialog();
+			var onSelectEvent:Event<String->Void> = new Event<String->Void>();
+
+			onSelectEvent.add((path:String) -> {
+				// Modify the path passed down and replace all
+				// back slashes (\) with slashes (/)
+				var p:String = path.replace('\\', '/');
+				LoggerUtil.log('File Opened -> $p', false);
+
+				// Convert the chosen entity's pathways into a
+				// pathway that HaxeFlixel can accept (in the assets folder)
+				LoggerUtil.log('Converting pathway into path to game entity textures folder');
+				var assetsDir:String = 'assets/entities/textures/';
+				var fileName:String = AssetUtil.removeFileExtension(p.split('/').pop());
+				var destPathPng:String = '$assetsDir$fileName.png';
+				var destPathXml:String = '$assetsDir$fileName.xml';
+				LoggerUtil.log('Path "$p" was converted to "$destPathPng"', false);
+				LoggerUtil.log('Path "$p" was converted to "$destPathXml"', false);
 
 				// Log and check if the .png asset is valid
 				if (Assets.exists(destPathPng)) {
