@@ -4,7 +4,6 @@ import starcore.backend.util.FlixelUtil;
 import starcore.backend.util.LoggerUtil;
 import openfl.display.StageQuality;
 import starcore.objects.entity.ComplexEntity;
-import starcore.backend.util.SaveUtil;
 import flixel.tweens.FlxTween;
 import flixel.math.FlxMath;
 import starcore.backend.util.CacheUtil;
@@ -150,7 +149,7 @@ class InitState extends FlxState {
 				CacheUtil.lastVolumeUsed = FlxG.sound.volume;
 				CacheUtil.isWindowFocused = false;
 				// Tween the volume to 0.03
-				FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.03 : 0, 0.3, { type: FlxTweenType.ONESHOT }, (v) -> {
+				FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.05 : 0, 0.3, { type: FlxTweenType.ONESHOT }, (v) -> {
 					FlxG.sound.volume = v;
 				});
 			}
@@ -164,7 +163,6 @@ class InitState extends FlxState {
 			// actually happening is all of the data is still saving and other utilities
 			// (i.e. Discord RPC and logging) are still being shutdown. This is just for keeping the
 			// code D.R.Y and still doing everything that is needed when the game closes!
-			// 
 			// - Kori ;3
 			FlixelUtil.closeGame(false);
 		});

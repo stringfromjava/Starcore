@@ -11,12 +11,23 @@ final class AssetUtil {
 	function new() {}
 
 	/**
+	 * Removes the file extension from the passed down file name.
+	 * 
+	 * @param fileName The file name.
+	 * @return         The file name (but with the extension removed).
+	 */
+	public static function removeFileExtension(fileName:String):String {
+		var dotIndex:Int = fileName.lastIndexOf(".");
+		return (dotIndex > 0) ? fileName.substr(0, dotIndex) : fileName;
+	}
+
+	/**
 	 * Generate a random string for a new file (this is mainly used for
 	 * new log files).
 	 * 
 	 * @return A new random file name.
 	 */
-	public static inline function generateRandomFileName():String {
+	public static function generateRandomFileName():String {
 		var chars:String = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		var result:StringBuf = new StringBuf();
 

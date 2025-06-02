@@ -1,5 +1,7 @@
 package starcore.backend.data;
 
+import starcore.backend.util.FlixelUtil;
+import starcore.backend.util.LoggerUtil;
 import starcore.backend.util.PathUtil;
 import starcore.backend.util.SaveUtil;
 import flixel.FlxG;
@@ -14,7 +16,7 @@ import haxe.Exception;
  * When you are updating a setting, use `setOption()` to update a user's option(s)
  * or `setBind()` to change a bind.
  * 
- * Controls are saved in their own variable, *NOT* in `_options`.
+ * Controls are saved in their own variable, *NOT* in `options`.
  * 
  * The way controls are created is with this structure: `'keybind_id' => FlxKey.YOUR_KEY`.
  * To create a control, go to `backend.data.Constants`, search for `DEFAULT_CONTROLS_KEYBOARD`
@@ -25,10 +27,10 @@ import haxe.Exception;
  */
 final class ClientPrefs {
 
-	private static var _options:Map<String, Any> = Constants.DEFAULT_OPTIONS;
-	private static var _controlsKeyboard:Map<String, FlxKey>;
+	static var options:Map<String, Any> = Constants.DEFAULT_OPTIONS;
+	static var controlsKeyboard:Map<String, FlxKey>;
 
-	private function new() {}
+	function new() {}
 
 	// ==============================
 	//      GETTERS AND SETTERS
@@ -42,10 +44,11 @@ final class ClientPrefs {
 	 *             default value is returned instead.
 	 */
 	public static inline function getBind(bind:String):FlxKey {
-		if (_controlsKeyboard.exists(bind)) {
-			return _controlsKeyboard.get(bind);
+		if (controlsKeyboard.exists(bind)) {
+			return controlsKeyboard.get(bind);
 		} else {
-			FlxG.log.error('Attempted to obtain non-existent bind "$bind".');
+			LoggerUtil.log('Attempted to obtain non-existent bind "$bind".', ERROR, false);
+			FlixelUtil.closeGame(false);
 			throw new Exception('No such bind as "$bind".');
 		}
 	}
@@ -56,7 +59,7 @@ final class ClientPrefs {
 	 * @return A `Map` of all client binds.
 	 */
 	public static inline function getBinds():Map<String, FlxKey> {
-		return _controlsKeyboard.copy();
+		return controlsKeyboard.copy();
 	}
 
 	/**
@@ -68,10 +71,11 @@ final class ClientPrefs {
 	 *                     default value is returned instead.
 	 */
 	public static inline function getOption(option:String):Dynamic {
-		if (_options.exists(option)) {
-			return _options.get(option);
+		if (options.exists(option)) {
+			return options.get(option);
 		} else {
-			FlxG.log.error('Client option "$option" doesn\'t exist!');
+			LoggerUtil.log('Client option "$option" doesn\'t exist!', ERROR, false);
+			FlixelUtil.closeGame(false);
 			throw new Exception('Client option "$option" doesn\'t exist!');
 		}
 	}
@@ -82,7 +86,7 @@ final class ClientPrefs {
 	 * @return A `Map` of all client options.
 	 */
 	public static inline function getOptions():Map<String, Any> {
-		return _options.copy();
+		return options.copy();
 	}
 
 	/**
@@ -93,11 +97,12 @@ final class ClientPrefs {
 	 * @throws Exception  If the option does not exist.
 	 */
 	public static function setOption(option:String, value:Any):Void {
-		if (_options.exists(option)) {
-			_options.set(option, value);
+		if (options.exists(option)) {
+			options.set(option, value);
 			SaveUtil.saveUserOptions();
 		} else {
-			FlxG.log.error('Client option "$option" doesn\'t exist!');
+			LoggerUtil.log('Client option "$option" doesn\'t exist!', ERROR, false);
+			FlixelUtil.closeGame(false);
 			throw new Exception('Client option "$option" doesn\'t exist!');
 		}
 	}
@@ -110,10 +115,11 @@ final class ClientPrefs {
 	 * @throws Exception  If the bind does not exist.
 	 */
 	public static function setBind(bind:String, newKey:FlxKey):Void {
-		if (_controlsKeyboard.exists(bind)) {
-			_controlsKeyboard.set(bind, newKey);
+		if (controlsKeyboard.exists(bind)) {
+			controlsKeyboard.set(bind, newKey);
 		} else {
-			FlxG.log.error('Attempted to change non-existent bind "$bind".');
+			LoggerUtil.log('Attempted to change non-existent bind "$bind".', ERROR, false);
+			FlixelUtil.closeGame(false);
 			throw new Exception('No such bind as "$bind".');
 		}
 	}
@@ -126,6 +132,9 @@ final class ClientPrefs {
 	 * Load and obtain all of the user's options and controls.
 	 */
 	public static function loadAll():Void {
+		// Log info
+		LoggerUtil.log('Loading all client preferences');
+
 		// Create the binds
 		var optionsData:FlxSave = new FlxSave();
 		var controlsData:FlxSave = new FlxSave();
@@ -136,43 +145,43 @@ final class ClientPrefs {
 
 		// Load options
 		if (optionsData.data.options != null)
-			_options = optionsData.data.options;
+			options = optionsData.data.options;
 
 		// Check if the user has any new options
 		// (this is for when new options are added in an update!)
 		for (key in Constants.DEFAULT_OPTIONS.keys()) {
-			if (!_options.exists(key)) {
-				_options.set(key, Constants.DEFAULT_OPTIONS.get(key));
+			if (!options.exists(key)) {
+				options.set(key, Constants.DEFAULT_OPTIONS.get(key));
 			}
 		}
 
 		// Filter out any options that are not present in the current
 		// standard set of options (which is determined by the default options)
-		for (key in _options.keys()) {
+		for (key in options.keys()) {
 			if (!Constants.DEFAULT_OPTIONS.exists(key)) {
-				_options.remove(key);
+				options.remove(key);
 			}
 		}
 
 		// Load controls
 		if (controlsData.data.keyboard != null)
-			_controlsKeyboard = controlsData.data.keyboard;
+			controlsKeyboard = controlsData.data.keyboard;
 		else
-			_controlsKeyboard = Constants.DEFAULT_CONTROLS_KEYBOARD;
+			controlsKeyboard = Constants.DEFAULT_CONTROLS_KEYBOARD;
 
 		// Check if the user has any new controls
 		// (this is for when new controls are added in an update!)
 		for (key in Constants.DEFAULT_CONTROLS_KEYBOARD.keys()) {
-			if (!_controlsKeyboard.exists(key)) {
-				_controlsKeyboard.set(key, Constants.DEFAULT_CONTROLS_KEYBOARD.get(key));
+			if (!controlsKeyboard.exists(key)) {
+				controlsKeyboard.set(key, Constants.DEFAULT_CONTROLS_KEYBOARD.get(key));
 			}
 		}
 
 		// Filter out any binds that are not present in the current
 		// standard set of binds (which is determined by the default binds)
-		for (key in _controlsKeyboard.keys()) {
+		for (key in controlsKeyboard.keys()) {
 			if (!Constants.DEFAULT_CONTROLS_KEYBOARD.exists(key)) {
-				_controlsKeyboard.remove(key);
+				controlsKeyboard.remove(key);
 			}
 		}
 
@@ -181,9 +190,6 @@ final class ClientPrefs {
 			FlxG.sound.volume = optionsData.data.lastVolume;
 		else
 			FlxG.sound.volume = 1.0;
-
-		// Log all recorded info
-		FlxG.log.add('Loaded all client options and controls successfully!');
 
 		// Respectfully close the saves to prevent data leaks
 		optionsData.close();

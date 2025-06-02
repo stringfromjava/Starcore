@@ -1,7 +1,6 @@
 package starcore.backend.util;
 
 #if LOGGING_ALLOWED
-import lime.system.System;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.FileOutput;
@@ -72,6 +71,7 @@ final class LoggerUtil {
 
 	/**
 	 * Log basic info into the console and Flixel logs.
+	 * 
 	 * This function does nothing if the conditional `LOGGING_ALLOWED` is disabled.
 	 * 
 	 * @param info        The information to log.
@@ -87,9 +87,15 @@ final class LoggerUtil {
 
 	static function writeToFile(logMsg:String, logType:LogType = INFO):Void {
 		#if LOGGING_ALLOWED
+		// Get the current timestamp as a string
 		var timestamp:String = Date.now().toString();
+		// Format the log message with log type and timestamp
 		var newLog:String = '[STARCORE][$logType][$timestamp]: $logMsg';
+		// Write the formatted log message to the file, followed by a newline
 		file.writeString('$newLog\n');
+		// Flush the file buffer to ensure the log is written immediately
+		file.flush();
+		// Output the log message to the console for debugging
 		trace(newLog);
 		#end
 	}

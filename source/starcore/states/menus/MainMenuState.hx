@@ -38,7 +38,7 @@ class MainMenuState extends FlxTransitionableState {
 		super.create();
 
 		// Play menu music
-		FlixelUtil.playMenuMusic(0.7);
+		FlixelUtil.playMenuMusic(0.5);
 
 		// Add the planets in the background
 		planets = WorldUtil.generatePlanets();
@@ -64,7 +64,6 @@ class MainMenuState extends FlxTransitionableState {
 
 		buttonClickFunctions = [
 			'play' => () -> {
-				// FlxG.sound.music.stop();
 				FlxG.switchState(() -> new PlayState());
 			},
 			'quit' => () -> {
@@ -72,7 +71,7 @@ class MainMenuState extends FlxTransitionableState {
 			}
 		];
 
-		var newY:Float = 350; // Change this to the starting Y position for the menu buttons
+		var newY:Float = 350;  // Change this to the starting Y position for the menu buttons
 		for (btn in buttons) {
 			var coolSwaggerButton:ClickableSprite = new ClickableSprite();
 			coolSwaggerButton.loadGraphic(PathUtil.ofSharedImage('menus/main/$btn-button'));
@@ -107,7 +106,7 @@ class MainMenuState extends FlxTransitionableState {
 		#if EDITORS_ALLOWED
 		if (Controls.getBinds().MS_OPENEDITORS_JUST_PRESSED) {
 			FlxG.sound.music.stop();
-			FlxG.sound.playMusic(PathUtil.ofSharedMusic(Constants.DEBUG_EDITOR_MUSIC_NAME), 0.5);
+			FlxG.sound.playMusic(PathUtil.ofSharedMusic(Constants.DEBUG_EDITOR_MUSIC_NAME), 0.15);
 			FlxG.switchState(() -> new DebugEditorMenuState());
 		}
 		#end

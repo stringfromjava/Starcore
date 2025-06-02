@@ -1,5 +1,6 @@
 package starcore.objects.states;
 
+import lime.ui.FileDialog;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
