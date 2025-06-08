@@ -413,8 +413,7 @@ class Project extends HXProject {
 
 		// Add entity assets
 		addAssetPath('assets/entities/data', 'assets/entities/data', 'default', ['*.json'], []);
-		addAssetPath('assets/entities/textures', 'assets/entities/textures', 'default', ['*.png'], []);
-		addAssetPath('assets/entities/textures', 'assets/entities/textures', 'default', ['*.xml'], []);
+		addAssetPath('assets/entities/textures', 'assets/entities/textures', 'default', ['*.png', '*.xml'], []);
 
 		// Add tile assets
 		addAssetPath('assets/tiles/data', 'assets/tiles/data', 'default', ['*.json'], []);
@@ -422,6 +421,11 @@ class Project extends HXProject {
 
 		// Add shared image assets
 		addAssetPath('assets/shared/images', 'assets/shared/images', 'default', ['*.png'], []);
+
+		// Add shader frag assets
+		if (isDesktop()) {
+			addAssetPath('assets/shaders', 'assets/shaders', 'default', ['*.frag'], []);
+		}
 
 		// Add shared music and sound assets for web (.mp3)
 		if (isWeb()) {

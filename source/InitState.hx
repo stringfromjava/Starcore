@@ -1,16 +1,15 @@
 package;
 
+import starcore.menus.MainMenuState;
 import starcore.backend.util.FlixelUtil;
 import starcore.backend.util.LoggerUtil;
 import openfl.display.StageQuality;
-import starcore.objects.entity.ComplexEntity;
 import flixel.tweens.FlxTween;
 import flixel.math.FlxMath;
 import starcore.backend.util.CacheUtil;
 import starcore.backend.data.ClientPrefs;
 import starcore.backend.util.PathUtil;
 import flixel.system.FlxAssets;
-import starcore.states.menus.MainMenuState;
 import openfl.filters.ShaderFilter;
 import flixel.FlxG;
 import flixel.FlxState;
@@ -20,7 +19,10 @@ import starcore.backend.api.DiscordClient;
 import lime.app.Application;
 import openfl.Lib;
 import openfl.display.StageScaleMode;
-#if html5
+#if FILTERS_ALLOWED
+import starcore.filters.*;
+#end
+#if web
 import js.Browser;
 #end
 
@@ -98,6 +100,11 @@ class InitState extends FlxState {
 
 		// Apply cool but creepy filters
 		#if FILTERS_ALLOWED
+		// Assign the filters AFTER all assets have been loaded!
+		CacheUtil.angelFilter = new AngelFilter();
+		CacheUtil.vcrBorderFilter = new VCRBorderFilter();
+		CacheUtil.vcrMario85Filter = new VCRMario85Filter();
+		CacheUtil.ycbuEndingFilter = new YCBUEndingFilter();
 		FlxG.game.setFilters([
 			new ShaderFilter(CacheUtil.angelFilter),
 			new ShaderFilter(CacheUtil.vcrBorderFilter),
@@ -136,7 +143,7 @@ class InitState extends FlxState {
 				FlxG.sound.volume = (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.1 : 0;
 				CacheUtil.isWindowFocused = true;
 				// Set the volume back to the last volume used
-				FlxTween.num(FlxG.sound.volume, CacheUtil.lastVolumeUsed, 0.3, { type: FlxTweenType.ONESHOT }, (v) -> {
+				FlxTween.num(FlxG.sound.volume, CacheUtil.lastVolumeUsed, 0.3, {type: FlxTweenType.ONESHOT}, (v) -> {
 					FlxG.sound.volume = v;
 				});
 			}
@@ -149,7 +156,7 @@ class InitState extends FlxState {
 				CacheUtil.lastVolumeUsed = FlxG.sound.volume;
 				CacheUtil.isWindowFocused = false;
 				// Tween the volume to 0.03
-				FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.05 : 0, 0.3, { type: FlxTweenType.ONESHOT }, (v) -> {
+				FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.05 : 0, 0.3, {type: FlxTweenType.ONESHOT}, (v) -> {
 					FlxG.sound.volume = v;
 				});
 			}
@@ -168,7 +175,5 @@ class InitState extends FlxState {
 		});
 	}
 
-	function registerEntities():Void {
-		CacheUtil.registeredEntities.push(new ComplexEntity('test'));
-	}
+	function registerEntities():Void {}
 }

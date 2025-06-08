@@ -60,6 +60,16 @@ final class PathUtil {
 	}
 
 	/**
+	 * Get the path to a `.frag` shader file.
+	 * 
+	 * @param name The name of the `.frag` file.
+	 * @return     The path to the `.frag` file.
+	 */
+	public static inline function ofFrag(name:String):String {
+		return 'assets/shaders/$name.frag';
+	}
+
+	/**
 	 * Get the paths of a sprite sheets' image and `.xml` file from the `shared` folder.
 	 * Note that this will return an array of both pathways, with the
 	 * first element being to the image and the second one being its

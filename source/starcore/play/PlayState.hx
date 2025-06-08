@@ -1,6 +1,6 @@
-package starcore.states;
+package starcore.play;
 
-import starcore.states.menus.MainMenuState;
+import starcore.menus.MainMenuState;
 import flixel.math.FlxMath;
 import starcore.backend.Controls;
 import starcore.backend.data.Constants;

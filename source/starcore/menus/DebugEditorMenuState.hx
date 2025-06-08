@@ -1,5 +1,6 @@
-package starcore.states.menus;
+package starcore.menus;
 
+import starcore.debug.editors.EntityCreationEditorState;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
@@ -8,7 +9,6 @@ import starcore.backend.Controls;
 import starcore.backend.data.ClientPrefs;
 import starcore.backend.data.Constants;
 import starcore.backend.util.CacheUtil;
-import starcore.states.editors.*;
 #if FILTERS_ALLOWED
 import openfl.filters.ShaderFilter;
 #end

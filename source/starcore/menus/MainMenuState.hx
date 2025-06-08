@@ -1,5 +1,6 @@
-package starcore.states.menus;
+package starcore.menus;
 
+import starcore.play.PlayState;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
@@ -71,7 +72,7 @@ class MainMenuState extends FlxTransitionableState {
 			}
 		];
 
-		var newY:Float = 350;  // Change this to the starting Y position for the menu buttons
+		var newY:Float = 350; // Change this to the starting Y position for the menu buttons
 		for (btn in buttons) {
 			var coolSwaggerButton:ClickableSprite = new ClickableSprite();
 			coolSwaggerButton.loadGraphic(PathUtil.ofSharedImage('menus/main/$btn-button'));

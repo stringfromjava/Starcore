@@ -1,16 +1,15 @@
 package starcore.objects.states;
 
-import lime.ui.FileDialog;
+import starcore.menus.DebugEditorMenuState;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import starcore.backend.Controls;
 import starcore.backend.data.Constants;
-import starcore.states.menus.DebugEditorMenuState;
 
 /**
- * Base class for creating a new editor for the debug menu.
+ * Base class for creating a new editor on the debug menu.
  */
 abstract class DebugEditorState extends FlxState {
 

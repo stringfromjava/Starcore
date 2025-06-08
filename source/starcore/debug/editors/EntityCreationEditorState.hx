@@ -1,4 +1,4 @@
-package starcore.states.editors;
+package starcore.debug.editors;
 
 import starcore.backend.util.AssetUtil;
 import openfl.Assets;

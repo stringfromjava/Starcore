@@ -43,22 +43,22 @@ final class CacheUtil {
 	/**
 	 * Angel filter for Starcore.
 	 */
-	public static var angelFilter:AngelFilter = new AngelFilter();
+	public static var angelFilter:AngelFilter;
 
 	/**
 	 * VCR border filter for Starcore.
 	 */
-	public static var vcrBorderFilter:VCRBorderFilter = new VCRBorderFilter();
+	public static var vcrBorderFilter:VCRBorderFilter;
 
 	/**
 	 * VCR Mario 85 filter for Starcore.
 	 */
-	public static var vcrMario85Filter:VCRMario85Filter = new VCRMario85Filter();
+	public static var vcrMario85Filter:VCRMario85Filter;
 
 	/**
 	 * YCBU ending filter for Starcore.
 	 */
-	public static var ycbuEndingFilter:YCBUEndingFilter = new YCBUEndingFilter();
+	public static var ycbuEndingFilter:YCBUEndingFilter;
 
 	function new() {}
 }
