@@ -124,7 +124,7 @@ class Project extends HXProject
 	 * Enables the game to programmatically change sounds and add
 	 * all kinds of effects to them.
 	 */
-	static final SOUND_EFFECTS_ALLOWED:FeatureFlag = 'REVERB_ALLOWED';
+	static final SOUND_EFFECTS_ALLOWED:FeatureFlag = 'SOUND_EFFECTS_ALLOWED';
 
 	public function new()
 	{
