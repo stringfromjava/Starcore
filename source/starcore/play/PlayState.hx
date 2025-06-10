@@ -14,8 +14,8 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
-import starcore.objects.background.BackgroundPlanet;
-import starcore.objects.background.BackgroundStar;
+import starcore.background.BackgroundPlanet;
+import starcore.background.BackgroundStar;
 
 /**
  * Core state where all of the major and common gameplay
@@ -47,6 +47,9 @@ class PlayState extends FlxState
 	override function create():Void
 	{
 		super.create();
+		setupCameras();
+		setupBackground();
+		setupWorld();
 	}
 
 	override function update(elapsed:Float):Void

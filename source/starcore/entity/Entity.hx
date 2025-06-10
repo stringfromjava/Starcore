@@ -1,4 +1,4 @@
-package starcore.objects.entity;
+package starcore.entity;
 
 import starcore.backend.util.EntityUtil;
 import flixel.FlxObject;

@@ -1,4 +1,4 @@
-package starcore.objects.background;
+package starcore.background;
 
 import flixel.FlxG;
 import flixel.FlxSprite;

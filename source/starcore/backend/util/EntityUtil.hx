@@ -1,7 +1,7 @@
 package starcore.backend.util;
 
 import starcore.backend.data.Constants;
-import starcore.objects.entity.Entity;
+import starcore.entity.Entity;
 
 /**
  * Utility class for handling and modifying entities in

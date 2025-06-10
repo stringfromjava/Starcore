@@ -55,6 +55,7 @@ final class FlixelUtil
 	 */
 	public static function playSoundWithReverb(path:String, volume:Float = 1, decayTime:Float = 4):Void
 	{
+		#if SOUND_EFFECTS_ALLOWED
 		if (!(CacheUtil.currentReverbSoundsAmount > Constants.REVERB_SOUND_EFFECT_LIMIT))
 		{
 			// Make the sound and filter
@@ -84,6 +85,9 @@ final class FlixelUtil
 				CacheUtil.currentReverbSoundsAmount--;
 			});
 		}
+		#else
+		FlxG.sound.play(path, volume);
+		#end
 	}
 
 	/**

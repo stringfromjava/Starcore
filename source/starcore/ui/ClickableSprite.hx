@@ -1,4 +1,4 @@
-package starcore.objects.ui;
+package starcore.ui;
 
 import flixel.FlxSprite;
 

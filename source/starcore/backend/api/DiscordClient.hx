@@ -15,10 +15,10 @@ import sys.thread.Thread;
  */
 final class DiscordClient
 {
-	private static var _presence:DiscordRichPresence = new DiscordRichPresence();
-	private static var _appId:String = '1361513332883980309'; // ID for the Discord application
+	static var presence:DiscordRichPresence = new DiscordRichPresence();
+	static var appId:String = '1361513332883980309'; // ID for the Discord application
 
-	private function new() {}
+	function new() {}
 
 	/**
 	 * Initializes Discord rich presence.
@@ -30,9 +30,9 @@ final class DiscordClient
 			// Log info
 			LoggerUtil.log('Initializing Discord rich presence');
 			// Initialize the client
-			Discord.Initialize(_appId, null, true, null);
+			Discord.Initialize(appId, null, true, null);
 			// Start the timer (for the amount of time the player has played the game)
-			_presence.startTimestamp = Math.floor(Sys.time());
+			presence.startTimestamp = Math.floor(Sys.time());
 			// Start a thread that runs in the background which
 			// makes regular callbacks to Discord
 			Thread.create(() ->
@@ -41,7 +41,7 @@ final class DiscordClient
 				while (true)
 				{
 					// Set rich presence
-					Discord.UpdatePresence(RawConstPointer.addressOf(_presence));
+					Discord.UpdatePresence(RawConstPointer.addressOf(presence));
 					// Update rich presence
 					Discord.RunCallbacks();
 					// Wait for one second so the game doesn't crash lol

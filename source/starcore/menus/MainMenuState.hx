@@ -14,9 +14,9 @@ import starcore.backend.data.Constants;
 import starcore.backend.util.FlixelUtil;
 import starcore.backend.util.PathUtil;
 import starcore.backend.util.WorldUtil;
-import starcore.objects.background.BackgroundPlanet;
-import starcore.objects.background.BackgroundStar;
-import starcore.objects.ui.ClickableSprite;
+import starcore.background.BackgroundPlanet;
+import starcore.background.BackgroundStar;
+import starcore.ui.ClickableSprite;
 
 /**
  * State that represents the main menu of the game.
@@ -82,16 +82,20 @@ class MainMenuState extends FlxTransitionableState
 			coolSwaggerButton.loadGraphic(PathUtil.ofSharedImage('menus/main/$btn-button'));
 			coolSwaggerButton.scale.set(4, 4);
 			coolSwaggerButton.updateHitbox();
-			coolSwaggerButton.updateHoverBounds();
+			coolSwaggerButton.behavior.updateHoverBounds(
+				coolSwaggerButton.x,
+				coolSwaggerButton.y,
+				coolSwaggerButton.width,
+				coolSwaggerButton.height
+			);
 			coolSwaggerButton.setPosition(0, newY);
-			coolSwaggerButton.onClick = buttonClickFunctions.get(btn);
-			coolSwaggerButton.onHover = () ->
+			coolSwaggerButton.behavior.onClick = buttonClickFunctions.get(btn);
+			coolSwaggerButton.behavior.onHover = () ->
 			{
-				// Play a sound
 				FlixelUtil.playSoundWithReverb(PathUtil.ofSharedSound('blip'), 1);
 				FlxSpriteUtil.setBrightness(coolSwaggerButton, 0.3);
 			};
-			coolSwaggerButton.onHoverLost = () ->
+			coolSwaggerButton.behavior.onHoverLost = () ->
 			{
 				if (!buttonWasClicked)
 				{

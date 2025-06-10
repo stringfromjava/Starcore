@@ -20,7 +20,7 @@ enum LogType
  * Utility class for displaying logs in the console and
  * the Flixel logs.
  * 
- * This will also store logs in the games `logs` folder
+ * This will also store all made logs inside a `.txt` in the games `logs` folder
  * when the game closes.
  * 
  * If you would like to find these log files, they will be located in the

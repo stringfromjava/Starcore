@@ -1,7 +1,7 @@
 package starcore.backend.util;
 
 import starcore.filters.*;
-import starcore.objects.entity.Entity;
+import starcore.entity.Entity;
 
 /**
  * Class that holds general, temporary data for pretty much anything.

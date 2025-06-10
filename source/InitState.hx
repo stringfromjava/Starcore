@@ -108,6 +108,7 @@ class InitState extends FlxState
 		CacheUtil.vcrBorderFilter = new VCRBorderFilter();
 		CacheUtil.vcrMario85Filter = new VCRMario85Filter();
 		CacheUtil.ycbuEndingFilter = new YCBUEndingFilter();
+
 		FlxG.game.setFilters([
 			new ShaderFilter(CacheUtil.angelFilter),
 			new ShaderFilter(CacheUtil.vcrBorderFilter),

@@ -10,7 +10,6 @@ import lime.ui.FileDialog;
 import flixel.util.FlxColor;
 import starcore.backend.data.Constants;
 import flixel.ui.FlxButton;
-import starcore.objects.states.DebugEditorState;
 
 using StringTools;
 

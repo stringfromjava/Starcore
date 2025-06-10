@@ -1,6 +1,4 @@
-package starcore.objects.entity;
-
-import flixel.FlxSprite;
+package starcore.entity;
 
 /**
  * Core class for creating entities with multiple

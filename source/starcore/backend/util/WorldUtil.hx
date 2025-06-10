@@ -1,15 +1,10 @@
 package starcore.backend.util;
 
-import starcore.backend.data.Constants;
 import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.addons.tile.FlxCaveGenerator;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.tile.FlxBaseTilemap.FlxTilemapAutoTiling;
-import flixel.tile.FlxTilemap;
-import flixel.util.FlxSpriteUtil;
-import starcore.objects.background.BackgroundPlanet;
-import starcore.objects.background.BackgroundStar;
+import starcore.background.BackgroundPlanet;
+import starcore.background.BackgroundStar;
 
 /**
  * Utility class for creating, generating and 

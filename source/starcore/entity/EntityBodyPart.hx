@@ -1,7 +1,6 @@
-package objects.entity;
+package starcore.entity;
 
 import starcore.backend.util.EntityUtil;
-import starcore.backend.util.FlixelUtil;
 import flixel.FlxSprite;
 import haxe.Exception;
 

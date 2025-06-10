@@ -1,4 +1,4 @@
-package starcore.objects.ui;
+package starcore.ui;
 
 import openfl.ui.MouseCursor;
 import openfl.ui.Mouse;
@@ -87,6 +87,7 @@ class ClickableBehavior
 			}
 			if (FlxG.mouse.justPressed)
 			{
+				Mouse.cursor = MouseCursor.ARROW;
 				onClick();
 			}
 		}

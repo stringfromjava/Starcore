@@ -1,4 +1,4 @@
-package starcore.objects.states;
+package starcore.debug;
 
 import starcore.menus.DebugEditorMenuState;
 import flixel.FlxG;

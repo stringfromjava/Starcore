@@ -153,5 +153,5 @@ final class Constants
 	 */
 	public static final WORLD_CAMERA_SCROLL_MULTIPLIER:Float = 0.125;
 
-	private function new() {}
+	function new() {}
 }
