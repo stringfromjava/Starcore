@@ -8,8 +8,8 @@ import haxe.Exception;
 /**
  * Component for creating the body parts of a complex entity.
  */
-class EntityBodyPart extends FlxSprite {
-
+class EntityBodyPart extends FlxSprite
+{
 	/**
 	 * The ID of `this` entity body part. Note that IDs for entities may only 
 	 * contain the following:
@@ -18,11 +18,15 @@ class EntityBodyPart extends FlxSprite {
 	 */
 	public var id:String;
 
-	public function new(id:String, ox:Float, oy:Float, width:Float, height:Float, angle:Float, scaleX:Float, scaleY:Float, alpha:Float) {
+	public function new(id:String, ox:Float, oy:Float, width:Float, height:Float, angle:Float, alpha:Float)
+	{
 		super();
-		if (EntityUtil.isValidName(id)) {
+		if (EntityUtil.isValidName(id))
+		{
 			this.id = id;
-		} else {
+		}
+		else
+		{
 			throw new Exception('"$id" is not a valid name for an entity!');
 		}
 		this.width = width;

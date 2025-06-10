@@ -7,8 +7,8 @@ import starcore.objects.entity.Entity;
  * Utility class for handling and modifying entities in
  * the world of Starcore.
  */
-final class EntityUtil {
-
+final class EntityUtil
+{
 	function new() {}
 
 	/**
@@ -17,9 +17,12 @@ final class EntityUtil {
 	 * @param id      The ID of the entity to get.
 	 * @return        The entity with the given ID, or null if not found.
 	 */
-	public static function getEntityById(id:String):Entity {
-		for (entity in CacheUtil.registeredEntities) {
-			if (entity.id == id) {
+	public static function getEntityById(id:String):Entity
+	{
+		for (entity in CacheUtil.registeredEntities)
+		{
+			if (entity.id == id)
+			{
 				return entity;
 			}
 		}
@@ -32,10 +35,13 @@ final class EntityUtil {
 	 * @param name  The name of the entity/item.
 	 * @return      If the name has no invalid characters. 
 	 */
-	public static function isValidName(name:String):Bool {
-		for (i in 0...name.length) {
+	public static function isValidName(name:String):Bool
+	{
+		for (i in 0...name.length)
+		{
 			var char:String = name.charAt(i);
-			if (!Constants.VALID_ITEM_ENTITY_NAME_CHARACTERS.match(char)) {
+			if (!Constants.VALID_ITEM_ENTITY_NAME_CHARACTERS.match(char))
+			{
 				return false;
 			}
 		}

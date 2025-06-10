@@ -16,12 +16,13 @@ import openfl.filters.ShaderFilter;
 /**
  * The state where all the different editors can be access from.
  */
-class DebugEditorMenuState extends FlxState {
-
+class DebugEditorMenuState extends FlxState
+{
 	var titleText:FlxText;
 	var infoText:FlxText;
 
-	override function create():Void {
+	override function create():Void
+	{
 		super.create();
 
 		CacheUtil.canPlayMenuMusic = true;
@@ -32,7 +33,8 @@ class DebugEditorMenuState extends FlxState {
 		// Disable only the VCRBorder filter, since it
 		// would most likely mess with development
 		#if FILTERS_ALLOWED
-		if (ClientPrefs.getOption('editorFilters')) {
+		if (ClientPrefs.getOption('editorFilters'))
+		{
 			FlxG.game.setFilters([
 				new ShaderFilter(CacheUtil.angelFilter),
 				new ShaderFilter(CacheUtil.vcrMario85Filter),
@@ -66,14 +68,17 @@ class DebugEditorMenuState extends FlxState {
 		add(titleText);
 	}
 
-	override function update(elapsed:Float):Void {
+	override function update(elapsed:Float):Void
+	{
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.ONE) {
+		if (FlxG.keys.justPressed.ONE)
+		{
 			FlxG.switchState(() -> new EntityCreationEditorState('Entity Creation', Constants.ENTITY_CREATION_EDITOR_VERSION));
 		}
 
-		if (Controls.getBinds().UI_BACK_JUST_PRESSED) {
+		if (Controls.getBinds().UI_BACK_JUST_PRESSED)
+		{
 			// Switch back the filters, since we're going
 			// back into the main game!
 			#if FILTERS_ALLOWED

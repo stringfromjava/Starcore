@@ -9,9 +9,10 @@ import starcore.backend.util.PathUtil;
 /**
  * Represents a background planet in the game.
  */
-class BackgroundPlanet extends FlxSprite {
-
-	public function new() {
+class BackgroundPlanet extends FlxSprite
+{
+	public function new()
+	{
 		super();
 		var newScale:Float = FlxG.random.float(4, 7);
 		loadGraphic(PathUtil.ofSharedImage('bg/bg-planet-${FlxG.random.int(1, 2)}'));
@@ -21,10 +22,12 @@ class BackgroundPlanet extends FlxSprite {
 		FlxSpriteUtil.setBrightness(this, (newScale / 8.2) * -1);
 	}
 
-	override function update(elapsed:Float):Void {
+	override function update(elapsed:Float):Void
+	{
 		super.update(elapsed);
 		x += Constants.BACKGROUND_PLANET_SCROLL_SPEED;
-		if (x > FlxG.width) {
+		if (x > FlxG.width)
+		{
 			x = 0 - width;
 		}
 	}

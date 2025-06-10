@@ -6,8 +6,8 @@ import openfl.utils.Assets;
 /**
  * Utility class for obtaining and manipulating data in files or variables.
  */
-final class AssetUtil {
-
+final class AssetUtil
+{
 	function new() {}
 
 	/**
@@ -16,7 +16,8 @@ final class AssetUtil {
 	 * @param fileName The file name.
 	 * @return         The file name (but with the extension removed).
 	 */
-	public static function removeFileExtension(fileName:String):String {
+	public static function removeFileExtension(fileName:String):String
+	{
 		var dotIndex:Int = fileName.lastIndexOf(".");
 		return (dotIndex > 0) ? fileName.substr(0, dotIndex) : fileName;
 	}
@@ -27,11 +28,13 @@ final class AssetUtil {
 	 * 
 	 * @return A new random file name.
 	 */
-	public static function generateRandomFileName():String {
+	public static function generateRandomFileName():String
+	{
 		var chars:String = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		var result:StringBuf = new StringBuf();
 
-		for (i in 0...chars.length) {
+		for (i in 0...chars.length)
+		{
 			var index = Std.int(Math.random() * chars.length);
 			result.add(chars.charAt(index));
 		}
@@ -46,7 +49,8 @@ final class AssetUtil {
 	 * @param defaultData The data that is returned if the `.json` file does not exist.
 	 * @return            The data that was obtained from the said file. If it was not found, then `null` is returned instead.
 	 */
-	public static inline function getJsonData(path:String, ?defaultData:Dynamic):Dynamic {
+	public static inline function getJsonData(path:String, ?defaultData:Dynamic):Dynamic
+	{
 		return (Assets.exists(path)) ? Json.parse(Assets.getText(path)) : defaultData;
 	}
 
@@ -60,7 +64,8 @@ final class AssetUtil {
 	 * @return             The value found from the said field. If it isn't found, then the
 	 *                     `defaultValue` parameter is returned instead.
 	 */
-	public static inline function getDynamicField(object:Dynamic, field:String, defaultValue:Dynamic):Any {
+	public static inline function getDynamicField(object:Dynamic, field:String, defaultValue:Dynamic):Any
+	{
 		return (Reflect.hasField(object, field)) ? Reflect.field(object, field) : defaultValue;
 	}
 
@@ -69,8 +74,10 @@ final class AssetUtil {
 	 * 
 	 * @param soundArray The list of the file pathways for each sound file to precache.
 	 */
-	public static function precacheSoundArray(soundArray:Array<String>):Void {
-		for (snd in soundArray) {
+	public static function precacheSoundArray(soundArray:Array<String>):Void
+	{
+		for (snd in soundArray)
+		{
 			Assets.loadSound(snd);
 		}
 	}

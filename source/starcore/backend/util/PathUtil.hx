@@ -5,8 +5,8 @@ import flixel.FlxG;
 /**
  * Utility class that creates and returns paths to assets or other files.
  */
-final class PathUtil {
-
+final class PathUtil
+{
 	function new() {}
 
 	/**
@@ -15,7 +15,8 @@ final class PathUtil {
 	 * @param name The name of the font (this does not include the file extension).
 	 * @return     The path of the font.
 	 */
-	public static inline function ofFont(name:String):String {
+	public static inline function ofFont(name:String):String
+	{
 		return 'assets/fonts/$name.ttf';
 	}
 
@@ -25,7 +26,8 @@ final class PathUtil {
 	 * @param name The name of the image (this does not include the file extension).
 	 * @return     The path of the image.
 	 */
-	public static inline function ofSharedImage(name:String):String {
+	public static inline function ofSharedImage(name:String):String
+	{
 		return 'assets/shared/images/$name.png';
 	}
 
@@ -35,7 +37,8 @@ final class PathUtil {
 	 * @param name The name of the JSON file (this does not include the file extension).
 	 * @return     The path of the JSON file.
 	 */
-	public static inline function ofSharedJson(name:String):String {
+	public static inline function ofSharedJson(name:String):String
+	{
 		return 'assets/shared/data/$name.json';
 	}
 
@@ -45,7 +48,8 @@ final class PathUtil {
 	 * @param name The name of the sound effect (this does not include the file extension).
 	 * @return     The path of the sound effect.
 	 */
-	public static inline function ofSharedSound(name:String):String {
+	public static inline function ofSharedSound(name:String):String
+	{
 		return 'assets/shared/sounds/$name${#if html5 '.mp3' #else '.ogg' #end}';
 	}
 
@@ -55,7 +59,8 @@ final class PathUtil {
 	 * @param name The name of the soundtrack (this does not include the file extension).
 	 * @return     The path of the soundtrack.
 	 */
-	public static inline function ofSharedMusic(name:String):String {
+	public static inline function ofSharedMusic(name:String):String
+	{
 		return 'assets/shared/music/$name${#if html5 '.mp3' #else '.ogg' #end}';
 	}
 
@@ -65,7 +70,8 @@ final class PathUtil {
 	 * @param name The name of the `.frag` file.
 	 * @return     The path to the `.frag` file.
 	 */
-	public static inline function ofFrag(name:String):String {
+	public static inline function ofFrag(name:String):String
+	{
 		return 'assets/shaders/$name.frag';
 	}
 
@@ -81,7 +87,8 @@ final class PathUtil {
 	 * @param name The name of the sprite sheet.
 	 * @return     An array of the paths to the image and the `.xml` file.
 	 */
-	public static inline function ofSharedSpritesheet(name:String):Array<String> {
+	public static inline function ofSharedSpritesheet(name:String):Array<String>
+	{
 		return [
 			'assets/shared/images/spritesheets/$name.png',
 			'assets/shared/images/spritesheets/$name.xml'
@@ -94,7 +101,8 @@ final class PathUtil {
 	 * @param type The type of tile (e.g. `grass`, `dirt`, `rocky-dirt`, etc.).
 	 * @return     The path of the tile.
 	 */
-	public static inline function ofTileSpritesheetTexture(type:String):String {
+	public static inline function ofTileSpritesheetTexture(type:String):String
+	{
 		return 'assets/tiles/textures/$type.png';
 	}
 
@@ -110,7 +118,8 @@ final class PathUtil {
 	 * @param name The name of the entity.
 	 * @return     An array of the paths to the image and the `.xml` file.
 	 */
-	public static inline function ofEntitySpritesheet(name:String):Array<String> {
+	public static inline function ofEntitySpritesheet(name:String):Array<String>
+	{
 		return ['assets/entities/textures/$name.png', 'assets/entities/textures/$name.xml'];
 	}
 
@@ -122,7 +131,8 @@ final class PathUtil {
 	 *                     that was appended after with `trailingPath`).
 	 */
 	@:access(flixel.util.FlxSave.validate)
-	public static function getSavePath(trailingPath:String = ''):String {
+	public static function getSavePath(trailingPath:String = ''):String
+	{
 		var company:String = FlxG.stage.application.meta.get('company');
 		var toReturn:String = '${company}/${flixel.util.FlxSave.validate(FlxG.stage.application.meta.get('file'))}';
 		toReturn += (trailingPath != '') ? '/$trailingPath' : ''; // For making sure there isn't a trailing `/` if there isn't a trailing path

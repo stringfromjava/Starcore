@@ -11,8 +11,8 @@ import starcore.backend.data.Constants;
 /**
  * Base class for creating a new editor on the debug menu.
  */
-abstract class DebugEditorState extends FlxState {
-
+abstract class DebugEditorState extends FlxState
+{
 	/**
 	 * The name of `this` debug editor.
 	 */
@@ -29,13 +29,15 @@ abstract class DebugEditorState extends FlxState {
 	 * @param name    The name of `this` debug editor (note that "Editor" will be concatenated after it).
 	 * @param version The version of `this` debug editor ("v" will be concatenated before it).
 	 */
-	public function new(name:String, version:String) {
+	public function new(name:String, version:String)
+	{
 		super();
 		this.name = name;
 		this.version = version;
 	}
 
-	override public function create():Void {
+	override public function create():Void
+	{
 		// TIP: when you call super for your
 		// subclass (new editor), it's strongly advised that you
 		// call super AFTER you're done creating everything in your
@@ -55,12 +57,14 @@ abstract class DebugEditorState extends FlxState {
 		add(versionText);
 	}
 
-	override public function update(elapsed:Float):Void {
+	override public function update(elapsed:Float):Void
+	{
 		super.update(elapsed);
 
 		// I added this here so that way you don't have to
 		// do this in every editor that extends to this class ;3
-		if (Controls.getBinds().UI_BACK_JUST_PRESSED) {
+		if (Controls.getBinds().UI_BACK_JUST_PRESSED)
+		{
 			FlxG.switchState(() -> new DebugEditorMenuState());
 		}
 	}

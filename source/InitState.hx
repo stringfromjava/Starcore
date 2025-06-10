@@ -30,13 +30,14 @@ import js.Browser;
  * The initial state of the game. This is where
  * you can load assets and set up the game.
  */
-class InitState extends FlxState {
-
-	override public function create():Void {
+class InitState extends FlxState
+{
+	override public function create():Void
+	{
 		// Setup the logger for Starcore
 		LoggerUtil.initialize();
 
-		// Log that we are setting up STARCORE
+		// Log that we are setting up Starcore
 		LoggerUtil.log('INITIALIZING STARCORE SETUP', INFO, false);
 
 		// Assign and configure Flixel settings
@@ -65,7 +66,8 @@ class InitState extends FlxState {
 		FlxG.switchState(() -> new MainMenuState());
 	}
 
-	function configureFlixelSettings():Void {
+	function configureFlixelSettings():Void
+	{
 		// Log info
 		LoggerUtil.log('Configuring Flixel settings');
 
@@ -93,7 +95,8 @@ class InitState extends FlxState {
 
 		// Disable the right-click context menu for HTML5
 		#if html5
-		Browser.document.addEventListener("contextmenu", (e) -> {
+		Browser.document.addEventListener("contextmenu", (e) ->
+		{
 			e.preventDefault();
 		});
 		#end
@@ -114,13 +117,15 @@ class InitState extends FlxState {
 		#end
 	}
 
-	function addBackgroundProcesses():Void {
+	function addBackgroundProcesses():Void
+	{
 		// Log info
 		LoggerUtil.log('Adding background processes');
 		// Update the filters that need to
 		// constantly be reset
 		#if FILTERS_ALLOWED
-		FlxG.signals.postUpdate.add(() -> {
+		FlxG.signals.postUpdate.add(() ->
+		{
 			CacheUtil.angelFilter.update(FlxG.elapsed);
 			CacheUtil.vcrMario85Filter.update(FlxG.elapsed);
 			CacheUtil.ycbuEndingFilter.update(0, FlxG.elapsed);
@@ -128,35 +133,42 @@ class InitState extends FlxState {
 		#end
 	}
 
-	function addEventListeners():Void {
+	function addEventListeners():Void
+	{
 		// Log info
 		LoggerUtil.log('Adding event listeners');
 
 		#if desktop
 		// Minimize volume when the window is out of focus
-		Application.current.window.onFocusIn.add(() -> {
+		Application.current.window.onFocusIn.add(() ->
+		{
 			// Bring the volume back up when the window is focused again
 			var minimizeVolume:Bool = ClientPrefs.getOption('minimizeVolume');
-			if (minimizeVolume && !CacheUtil.isWindowFocused) {
+			if (minimizeVolume && !CacheUtil.isWindowFocused)
+			{
 				// Set back to one decimal place (0.1) when the screen gains focus again
 				// (note that if the user had the volume all the way down, it will be set to zero)
 				FlxG.sound.volume = (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.1 : 0;
 				CacheUtil.isWindowFocused = true;
 				// Set the volume back to the last volume used
-				FlxTween.num(FlxG.sound.volume, CacheUtil.lastVolumeUsed, 0.3, {type: FlxTweenType.ONESHOT}, (v) -> {
+				FlxTween.num(FlxG.sound.volume, CacheUtil.lastVolumeUsed, 0.3, {type: FlxTweenType.ONESHOT}, (v) ->
+				{
 					FlxG.sound.volume = v;
 				});
 			}
 		});
-		Application.current.window.onFocusOut.add(() -> {
+		Application.current.window.onFocusOut.add(() ->
+		{
 			// Minimize the volume when the window loses focus
 			var minimizeVolume:Bool = ClientPrefs.getOption('minimizeVolume');
-			if (minimizeVolume && CacheUtil.isWindowFocused) {
+			if (minimizeVolume && CacheUtil.isWindowFocused)
+			{
 				// Set the last volume used to the current volume
 				CacheUtil.lastVolumeUsed = FlxG.sound.volume;
 				CacheUtil.isWindowFocused = false;
 				// Tween the volume to 0.03
-				FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.05 : 0, 0.3, {type: FlxTweenType.ONESHOT}, (v) -> {
+				FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.05 : 0, 0.3, {type: FlxTweenType.ONESHOT}, (v) ->
+				{
 					FlxG.sound.volume = v;
 				});
 			}
@@ -164,7 +176,8 @@ class InitState extends FlxState {
 		#end
 
 		// Do shit like saving the user's data when the game closes
-		Application.current.window.onClose.add(() -> {
+		Application.current.window.onClose.add(() ->
+		{
 			// Despite it saying "closeGame", it's not actually closing
 			// the game since the parameter "sysShutdown" is false. What's
 			// actually happening is all of the data is still saving and other utilities

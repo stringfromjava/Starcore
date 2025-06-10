@@ -8,8 +8,8 @@ import haxe.Exception;
 /**
  * Core class for creating entities in Starcore.
  */
-abstract class Entity extends FlxTypedGroup<FlxObject> {
-
+abstract class Entity extends FlxTypedGroup<FlxObject>
+{
 	/**
 	 * The ID of `this` entity. Note that IDs for entities may only 
 	 * contain the following:
@@ -18,13 +18,17 @@ abstract class Entity extends FlxTypedGroup<FlxObject> {
 	 */
 	public var id(get, never):String;
 
-	private var _id:String;
+	var _id:String;
 
-	public function new(id:String) {
+	public function new(id:String)
+	{
 		super();
-		if (EntityUtil.isValidName(id)) {
+		if (EntityUtil.isValidName(id))
+		{
 			this._id = id;
-		} else {
+		}
+		else
+		{
 			throw new Exception('"$id" is not a valid name for an entity!');
 		}
 	}
@@ -34,7 +38,8 @@ abstract class Entity extends FlxTypedGroup<FlxObject> {
 	// ==============================
 
 	@:noCompletion
-	private function get_id():String {
+	function get_id():String
+	{
 		return this._id;
 	}
 }

@@ -9,9 +9,10 @@ import flixel.addons.display.FlxRuntimeShader;
 /**
  * Allows the screen to bend like an old school TV.
  */
-class VCRBorderFilter extends FlxRuntimeShader {
-
-	public function new() {
+class VCRBorderFilter extends FlxRuntimeShader
+{
+	public function new()
+	{
 		super(Assets.getText(PathUtil.ofFrag('vcrborder')));
 	}
 }

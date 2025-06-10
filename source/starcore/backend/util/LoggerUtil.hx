@@ -9,7 +9,8 @@ import sys.io.FileOutput;
 /**
  * The types of logs.
  */
-enum LogType {
+enum LogType
+{
 	INFO;
 	WARNING;
 	ERROR;
@@ -26,8 +27,8 @@ enum LogType {
  * folder where the executable is located inside of (aka, the `bin` folder where
  * the game's output is located).
  */
-final class LoggerUtil {
-
+final class LoggerUtil
+{
 	#if LOGGING_ALLOWED
 	static var file:FileOutput;
 	#end
@@ -40,14 +41,16 @@ final class LoggerUtil {
 	 * 
 	 * This function does nothing if the conditional `LOGGING_ALLOWED` is disabled.
 	 */
-	public static function initialize():Void {
+	public static function initialize():Void
+	{
 		#if LOGGING_ALLOWED
 		// Create the new logging file
 		var currentDate:String = DateTools.format(Date.now(), '%Y-%m-%d %H-%M-%S');
 		var logsFolder:String = 'logs';
 
 		// Make sure the logs folder exists
-		if (!FileSystem.exists(logsFolder)) {
+		if (!FileSystem.exists(logsFolder))
+		{
 			FileSystem.createDirectory(logsFolder);
 		}
 
@@ -62,10 +65,11 @@ final class LoggerUtil {
 	 * 
 	 * This function does nothing if the conditional `LOGGING_ALLOWED` is disabled.
 	 */
-	public static function shutdown():Void {
+	public static function shutdown():Void
+	{
 		#if LOGGING_ALLOWED
-		file.flush(); // Write all info to the file
-		file.close(); // Close access to the file
+		file.flush();
+		file.close();
 		#end
 	}
 
@@ -79,23 +83,20 @@ final class LoggerUtil {
 	 * @param includeDots Whether or not to add dots (`...`) at the end of a log.
 	 *                    By default this is true.
 	 */
-	public static inline function log(info:String, logType:LogType = INFO, includeDots:Bool = true):Void {
+	public static inline function log(info:String, logType:LogType = INFO, includeDots:Bool = true):Void
+	{
 		#if LOGGING_ALLOWED
 		writeToFile('$info${includeDots ? '...' : ''}', logType);
 		#end
 	}
 
-	static function writeToFile(logMsg:String, logType:LogType = INFO):Void {
+	static function writeToFile(logMsg:String, logType:LogType = INFO):Void
+	{
 		#if LOGGING_ALLOWED
-		// Get the current timestamp as a string
 		var timestamp:String = Date.now().toString();
-		// Format the log message with log type and timestamp
 		var newLog:String = '[STARCORE][$logType][$timestamp]: $logMsg';
-		// Write the formatted log message to the file, followed by a newline
 		file.writeString('$newLog\n');
-		// Flush the file buffer to ensure the log is written immediately
 		file.flush();
-		// Output the log message to the console for debugging
 		trace(newLog);
 		#end
 	}

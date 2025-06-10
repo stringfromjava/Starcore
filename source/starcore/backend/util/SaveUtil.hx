@@ -8,14 +8,15 @@ import starcore.backend.data.Constants;
 /**
  * Utility class for handling and saving user save data.
  */
-final class SaveUtil {
-
+final class SaveUtil
+{
 	function new() {}
 
 	/**
 	 * Save ***ALL*** of the user's preferences and progress.
 	 */
-	public static function saveAll():Void {
+	public static function saveAll():Void
+	{
 		saveUserOptions();
 		saveUserControls();
 		saveUserProgress();
@@ -24,7 +25,8 @@ final class SaveUtil {
 	/**
 	 * Saves all of the user's options.
 	 */
-	public static function saveUserOptions():Void {
+	public static function saveUserOptions():Void
+	{
 		// Log info
 		LoggerUtil.log('Saving user options');
 
@@ -52,7 +54,8 @@ final class SaveUtil {
 	/**
 	 * Saves all of the user's controls.
 	 */
-	public static function saveUserControls():Void {
+	public static function saveUserControls():Void
+	{
 		// Log info
 		LoggerUtil.log('Saving user controls');
 		// Create and bind the saves
@@ -76,7 +79,8 @@ final class SaveUtil {
 	/**
 	 * Saves all of the user's progress.
 	 */
-	public static function saveUserProgress():Void {
+	public static function saveUserProgress():Void
+	{
 		// Log info
 		LoggerUtil.log('Saving user progress');
 		// Create and bind the save
@@ -100,7 +104,8 @@ final class SaveUtil {
 	/**
 	 * Loads all of the user's progress.
 	 */
-	public static function loadUserProgress():Void {
+	public static function loadUserProgress():Void
+	{
 		// Log info
 		LoggerUtil.log('Loading user progress');
 		// Create and bind the save
@@ -117,7 +122,8 @@ final class SaveUtil {
 	/**
 	 * Deletes ***ALL*** of the user save data.
 	 */
-	public static function deleteAll():Void {
+	public static function deleteAll():Void
+	{
 		LoggerUtil.log('Deleting all user data', WARNING);
 		// Create and bind the saves
 		var optionsSave:FlxSave = new FlxSave();

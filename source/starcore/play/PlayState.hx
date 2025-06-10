@@ -21,26 +21,74 @@ import starcore.objects.background.BackgroundStar;
  * Core state where all of the major and common gameplay
  * occurs for the player(s), entities, etc.
  */
-class PlayState extends FlxState {
-
-	// Background stars and planets
-	var planets:FlxTypedGroup<BackgroundPlanet>;
-	var stars:FlxTypedGroup<BackgroundStar>;
-
-	// Tilemap shit
-	var worldTilemap:FlxTilemap;
-
-	// Cameras
+class PlayState extends FlxState
+{
+	//
+	// CAMERAS
+	// ======================================
 	var backgroundCamera:FlxCamera; // For the stars and planets in the background
 	var worldCamera:FlxCamera; // For the player, monstrosities, other entities, etc.
 
-	override function create():Void {
+	//
+	// BACKGROUND ELEMENTS
+	// ==============================================
+	var planets:FlxTypedGroup<BackgroundPlanet>;
+	var stars:FlxTypedGroup<BackgroundStar>;
+
+	//
+	// TILEMAP COMPONENTS
+	// ========================================
+	var worldTilemap:FlxTilemap;
+
+	//
+	// METHOD OVERRIDES
+	// ==================================
+
+	override function create():Void
+	{
 		super.create();
+	}
 
-		// =============
-		//    CAMERAS
-		// =============
+	override function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
 
+		if (Controls.getBinds().MV_UP_PRESSED)
+		{
+			worldTilemap.y += 13;
+		}
+		if (Controls.getBinds().MV_LEFT_PRESSED)
+		{
+			worldTilemap.x += 13;
+		}
+		if (Controls.getBinds().MV_DOWN_PRESSED)
+		{
+			worldTilemap.y -= 13;
+		}
+		if (Controls.getBinds().MV_RIGHT_PRESSED)
+		{
+			worldTilemap.x -= 13;
+		}
+
+		if (Controls.getBinds().UI_BACK_JUST_PRESSED)
+		{
+			FlxG.switchState(() -> new MainMenuState());
+		}
+
+		if (Controls.getBinds().UI_SELECT_JUST_PRESSED)
+		{
+			generateNewPlanet();
+		}
+
+		scrollCamerasFromMousePos(elapsed);
+	}
+
+	//
+	// SETUP FUNCTIONS
+	// ====================================
+
+	function setupCameras():Void
+	{
 		// Set the background camera
 		backgroundCamera = new FlxCamera(0, 0, FlxG.width, FlxG.height);
 		backgroundCamera.bgColor = FlxColor.BLACK;
@@ -51,11 +99,10 @@ class PlayState extends FlxState {
 		worldCamera.bgColor = FlxColor.BLACK;
 		worldCamera.bgColor.alpha = 150;
 		FlxG.cameras.add(worldCamera, false);
+	}
 
-		// ================
-		//    BACKGROUND
-		// ================
-
+	function setupBackground():Void
+	{
 		// Add the stars and planets in the background
 		planets = WorldUtil.generatePlanets();
 		stars = WorldUtil.generateStars();
@@ -63,11 +110,10 @@ class PlayState extends FlxState {
 		stars.cameras = [backgroundCamera];
 		add(planets);
 		add(stars);
+	}
 
-		// ===========
-		//    WORLD
-		// ===========
-
+	function setupWorld():Void
+	{
 		// Set the tilemap
 		worldTilemap = new FlxTilemap();
 		worldTilemap.scale.set(4, 4);
@@ -89,40 +135,23 @@ class PlayState extends FlxState {
 		add(test);
 	}
 
-	override function update(elapsed:Float):Void {
-		super.update(elapsed);
+	//
+	// PLANET FUNCTIONS
+	// ===================================
 
-		if (Controls.getBinds().MV_UP_PRESSED) {
-			worldTilemap.y += 13;
-		}
-		if (Controls.getBinds().MV_LEFT_PRESSED) {
-			worldTilemap.x += 13;
-		}
-		if (Controls.getBinds().MV_DOWN_PRESSED) {
-			worldTilemap.y -= 13;
-		}
-		if (Controls.getBinds().MV_RIGHT_PRESSED) {
-			worldTilemap.x -= 13;
-		}
-
-		if (Controls.getBinds().UI_BACK_JUST_PRESSED) {
-			FlxG.switchState(() -> new MainMenuState());
-		}
-
-		if (Controls.getBinds().UI_SELECT_JUST_PRESSED) {
-			generateNewPlanet();
-		}
-
-		scrollCamerasFromMousePos(elapsed);
-	}
-
-	function generateNewPlanet(tileType:String = 'grass'):Void {
+	function generateNewPlanet(tileType:String = 'grass'):Void
+	{
 		var caveData:String = WorldUtil.generateNewPlanetData([80, 200], [120, 300], 7, 0.528);
 		worldTilemap.loadMapFromCSV(caveData, PathUtil.ofTileSpritesheetTexture(tileType), Constants.TILE_WIDTH, Constants.TILE_HEIGHT, AUTO);
 		worldTilemap.updateBuffers();
 	}
 
-	function scrollCamerasFromMousePos(elapsed:Float):Void {
+	//
+	// EFFECT FUNCTIONS
+	// ======================================
+
+	function scrollCamerasFromMousePos(elapsed:Float):Void
+	{
 		// Scroll background camera
 		backgroundCamera.scroll.x = FlxMath.lerp(backgroundCamera.scroll.x,
 			(FlxG.mouse.viewX - (FlxG.width / 2)) * Constants.BACKGROUND_CAMERA_SCROLL_MULTIPLIER, (1 / 30) * 240 * elapsed);

@@ -15,8 +15,8 @@ import starcore.objects.background.BackgroundStar;
  * Utility class for creating, generating and 
  * manipulating the world of Starcore.
  */
-final class WorldUtil {
-
+final class WorldUtil
+{
 	function new() {}
 
 	/**
@@ -31,7 +31,8 @@ final class WorldUtil {
 	 * @param wallRatio           How many walls there are in the planet. The higher the number, the more walls there will be.
 	 * @return 			          A fresh new string of CSV data for a new planet.
 	 */
-	public static function generateNewPlanetData(widthRange:Array<Int>, heightRange:Array<Int>, smoothingIterations:Int, wallRatio:Float):String {
+	public static function generateNewPlanetData(widthRange:Array<Int>, heightRange:Array<Int>, smoothingIterations:Int, wallRatio:Float):String
+	{
 		var width:Int = FlxG.random.int(80, 200);
 		var height:Int = FlxG.random.int(120, 400);
 		var caveData:String = FlxCaveGenerator.generateCaveString(width, height, smoothingIterations, wallRatio);
@@ -43,12 +44,15 @@ final class WorldUtil {
 	 * 
 	 * @return A group of background planets.
 	 */
-	public static function generatePlanets():FlxTypedGroup<BackgroundPlanet> {
+	public static function generatePlanets():FlxTypedGroup<BackgroundPlanet>
+	{
 		var planets:FlxTypedGroup<BackgroundPlanet> = new FlxTypedGroup<BackgroundPlanet>();
-		for (_ in 0...8) {
+		for (_ in 0...8)
+		{
 			planets.add(new BackgroundPlanet());
 		}
-		planets.members.sort((a:BackgroundPlanet, b:BackgroundPlanet) -> {
+		planets.members.sort((a:BackgroundPlanet, b:BackgroundPlanet) ->
+		{
 			var areaA:Float = a.width * a.height;
 			var areaB:Float = b.width * b.height;
 			if (areaA > areaB)
@@ -65,9 +69,11 @@ final class WorldUtil {
 	 * 
 	 * @return A group of background stars.
 	 */
-	public static function generateStars():FlxTypedGroup<BackgroundStar> {
+	public static function generateStars():FlxTypedGroup<BackgroundStar>
+	{
 		var stars:FlxTypedGroup<BackgroundStar> = new FlxTypedGroup<BackgroundStar>();
-		for (_ in 0...150) {
+		for (_ in 0...150)
+		{
 			stars.add(new BackgroundStar());
 		}
 		return stars;

@@ -38,8 +38,8 @@ import flixel.FlxG;
  * inline function get_YOUR_BIND_JUST_RELEASED():Bool return justReleased('your_bind_id');
  * ```
  */
-final class Controls {
-
+final class Controls
+{
 	// Movement (pressed)
 	public var MV_UP_PRESSED(get, never):Bool;
 	public var MV_LEFT_PRESSED(get, never):Bool;
@@ -120,17 +120,19 @@ final class Controls {
 	 * 
 	 * @return All of the binds the user is interacting with.
 	 */
-	public static inline function getBinds():Controls {
+	public static inline function getBinds():Controls
+	{
 		return binds;
 	}
 
 	/**
 	 * Check if the user is holding down a certain control.
-     * 
+	 * 
 	 * @param bind The bind to check.
 	 * @return     If the said bind is being held down.
 	 */
-	public static inline function pressed(bind:String):Bool {
+	public static inline function pressed(bind:String):Bool
+	{
 		return FlxG.keys.anyPressed([ClientPrefs.getBinds().get(bind)]);
 	}
 
@@ -140,7 +142,8 @@ final class Controls {
 	 * @param bind The bind to check.
 	 * @return     If the said bind was just pressed.
 	 */
-	public static inline function justPressed(bind:String):Bool {
+	public static inline function justPressed(bind:String):Bool
+	{
 		return FlxG.keys.anyJustPressed([ClientPrefs.getBinds().get(bind)]);
 	}
 
@@ -150,16 +153,18 @@ final class Controls {
 	 * @param bind The bind to check.
 	 * @return     If the said bind just released.
 	 */
-	public static inline function justReleased(bind:String):Bool {
+	public static inline function justReleased(bind:String):Bool
+	{
 		return FlxG.keys.anyJustReleased([ClientPrefs.getBinds().get(bind)]);
 	}
 
 	/**
 	 * Check if the user just pressed ***ANY*** volume keys.
 	 *  
-     * @return If the user just pressed any volume keys.
+	 * @return If the user just pressed any volume keys.
 	 */
-	public static inline function justPressedAnyVolumeKeys():Bool {
+	public static inline function justPressedAnyVolumeKeys():Bool
+	{
 		return justPressed('vl_up') || justPressed('vl_down') || justPressed('vl_mute');
 	}
 }

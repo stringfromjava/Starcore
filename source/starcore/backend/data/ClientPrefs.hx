@@ -25,8 +25,8 @@ import haxe.Exception;
  * To access controls, use `backend.Controls`. (**TIP**: Read `backend.Controls`'s
  * documentation for accessing if binds are pressed!)
  */
-final class ClientPrefs {
-
+final class ClientPrefs
+{
 	static var options:Map<String, Any> = Constants.DEFAULT_OPTIONS;
 	static var controlsKeyboard:Map<String, FlxKey>;
 
@@ -43,10 +43,14 @@ final class ClientPrefs {
 	 * @return     The value of the said bind. If it does not exist, then the
 	 *             default value is returned instead.
 	 */
-	public static inline function getBind(bind:String):FlxKey {
-		if (controlsKeyboard.exists(bind)) {
+	public static inline function getBind(bind:String):FlxKey
+	{
+		if (controlsKeyboard.exists(bind))
+		{
 			return controlsKeyboard.get(bind);
-		} else {
+		}
+		else
+		{
 			LoggerUtil.log('Attempted to obtain non-existent bind "$bind".', ERROR, false);
 			FlixelUtil.closeGame(false);
 			throw new Exception('No such bind as "$bind".');
@@ -58,7 +62,8 @@ final class ClientPrefs {
 	 * 
 	 * @return A `Map` of all client binds.
 	 */
-	public static inline function getBinds():Map<String, FlxKey> {
+	public static inline function getBinds():Map<String, FlxKey>
+	{
 		return controlsKeyboard.copy();
 	}
 
@@ -70,10 +75,14 @@ final class ClientPrefs {
 	 * @return             The value of the option. If it does not exist, then the
 	 *                     default value is returned instead.
 	 */
-	public static inline function getOption(option:String):Dynamic {
-		if (options.exists(option)) {
+	public static inline function getOption(option:String):Dynamic
+	{
+		if (options.exists(option))
+		{
 			return options.get(option);
-		} else {
+		}
+		else
+		{
 			LoggerUtil.log('Client option "$option" doesn\'t exist!', ERROR, false);
 			FlixelUtil.closeGame(false);
 			throw new Exception('Client option "$option" doesn\'t exist!');
@@ -85,7 +94,8 @@ final class ClientPrefs {
 	 * 
 	 * @return A `Map` of all client options.
 	 */
-	public static inline function getOptions():Map<String, Any> {
+	public static inline function getOptions():Map<String, Any>
+	{
 		return options.copy();
 	}
 
@@ -96,11 +106,15 @@ final class ClientPrefs {
 	 * @param value       The value to set the option to.
 	 * @throws Exception  If the option does not exist.
 	 */
-	public static function setOption(option:String, value:Any):Void {
-		if (options.exists(option)) {
+	public static function setOption(option:String, value:Any):Void
+	{
+		if (options.exists(option))
+		{
 			options.set(option, value);
 			SaveUtil.saveUserOptions();
-		} else {
+		}
+		else
+		{
 			LoggerUtil.log('Client option "$option" doesn\'t exist!', ERROR, false);
 			FlixelUtil.closeGame(false);
 			throw new Exception('Client option "$option" doesn\'t exist!');
@@ -114,10 +128,14 @@ final class ClientPrefs {
 	 * @param newKey      The key to set it to.
 	 * @throws Exception  If the bind does not exist.
 	 */
-	public static function setBind(bind:String, newKey:FlxKey):Void {
-		if (controlsKeyboard.exists(bind)) {
+	public static function setBind(bind:String, newKey:FlxKey):Void
+	{
+		if (controlsKeyboard.exists(bind))
+		{
 			controlsKeyboard.set(bind, newKey);
-		} else {
+		}
+		else
+		{
 			LoggerUtil.log('Attempted to change non-existent bind "$bind".', ERROR, false);
 			FlixelUtil.closeGame(false);
 			throw new Exception('No such bind as "$bind".');
@@ -131,7 +149,8 @@ final class ClientPrefs {
 	/**
 	 * Load and obtain all of the user's options and controls.
 	 */
-	public static function loadAll():Void {
+	public static function loadAll():Void
+	{
 		// Log info
 		LoggerUtil.log('Loading all client preferences');
 
@@ -149,16 +168,20 @@ final class ClientPrefs {
 
 		// Check if the user has any new options
 		// (this is for when new options are added in an update!)
-		for (key in Constants.DEFAULT_OPTIONS.keys()) {
-			if (!options.exists(key)) {
+		for (key in Constants.DEFAULT_OPTIONS.keys())
+		{
+			if (!options.exists(key))
+			{
 				options.set(key, Constants.DEFAULT_OPTIONS.get(key));
 			}
 		}
 
 		// Filter out any options that are not present in the current
 		// standard set of options (which is determined by the default options)
-		for (key in options.keys()) {
-			if (!Constants.DEFAULT_OPTIONS.exists(key)) {
+		for (key in options.keys())
+		{
+			if (!Constants.DEFAULT_OPTIONS.exists(key))
+			{
 				options.remove(key);
 			}
 		}
@@ -171,16 +194,20 @@ final class ClientPrefs {
 
 		// Check if the user has any new controls
 		// (this is for when new controls are added in an update!)
-		for (key in Constants.DEFAULT_CONTROLS_KEYBOARD.keys()) {
-			if (!controlsKeyboard.exists(key)) {
+		for (key in Constants.DEFAULT_CONTROLS_KEYBOARD.keys())
+		{
+			if (!controlsKeyboard.exists(key))
+			{
 				controlsKeyboard.set(key, Constants.DEFAULT_CONTROLS_KEYBOARD.get(key));
 			}
 		}
 
 		// Filter out any binds that are not present in the current
 		// standard set of binds (which is determined by the default binds)
-		for (key in controlsKeyboard.keys()) {
-			if (!Constants.DEFAULT_CONTROLS_KEYBOARD.exists(key)) {
+		for (key in controlsKeyboard.keys())
+		{
+			if (!Constants.DEFAULT_CONTROLS_KEYBOARD.exists(key))
+			{
 				controlsKeyboard.remove(key);
 			}
 		}

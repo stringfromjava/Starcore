@@ -7,16 +7,18 @@ import starcore.backend.util.PathUtil;
 /**
  * What do you think?
  */
-class GrayscaleFilter extends FlxRuntimeShader {
-
+class GrayscaleFilter extends FlxRuntimeShader
+{
 	public var amount:Float = 1;
 
-	public function new(amount:Float = 1) {
+	public function new(amount:Float = 1)
+	{
 		super(Assets.getText(PathUtil.ofFrag('grayscale')));
 		setAmount(amount);
 	}
 
-	public function setAmount(value:Float):Void {
+	public function setAmount(value:Float):Void
+	{
 		amount = value;
 		setFloat("_amount", amount);
 	}

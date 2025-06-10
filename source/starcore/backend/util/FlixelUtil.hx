@@ -22,8 +22,8 @@ import js.Browser;
 /**
  * Utility class for handling objects and components specific to Flixel.
  */
-final class FlixelUtil {
-
+final class FlixelUtil
+{
 	function new() {}
 
 	/**
@@ -33,12 +33,15 @@ final class FlixelUtil {
 	 * @param duration          How long it takes to switch from one state to the next state.
 	 * @param playTransitionSfx Should the game play a sound when it switches states?
 	 */
-	public static function fadeIntoState(state:FlxState, duration:Float, playTransitionSfx:Bool = true):Void {
-		if (playTransitionSfx) {
+	public static function fadeIntoState(state:FlxState, duration:Float, playTransitionSfx:Bool = true):Void
+	{
+		if (playTransitionSfx)
+		{
 			FlxG.sound.play(PathUtil.ofSharedSound(''), 1, false, false);
 		}
 
-		FlxG.camera.fade(FlxColor.BLACK, duration, false, () -> {
+		FlxG.camera.fade(FlxColor.BLACK, duration, false, () ->
+		{
 			FlxG.switchState(() -> state);
 		});
 	}
@@ -50,8 +53,10 @@ final class FlixelUtil {
 	 * @param volume    The volume of the sound.
 	 * @param decayTime How long it echoes for.
 	 */
-	public static function playSoundWithReverb(path:String, volume:Float = 1, decayTime:Float = 4):Void {
-		if (!(CacheUtil.currentReverbSoundsAmount > Constants.REVERB_SOUND_EFFECT_LIMIT)) {
+	public static function playSoundWithReverb(path:String, volume:Float = 1, decayTime:Float = 4):Void
+	{
+		if (!(CacheUtil.currentReverbSoundsAmount > Constants.REVERB_SOUND_EFFECT_LIMIT))
+		{
 			// Make the sound and filter
 			var sound:FlxFilteredSound = new FlxFilteredSound();
 			var effect = new FlxSoundReverbEffect();
@@ -69,7 +74,8 @@ final class FlixelUtil {
 			sound.play();
 			CacheUtil.currentReverbSoundsAmount++;
 			// Recycle the sound after it finishes playing
-			new FlxTimer().start((sound.length / 1000) + (decayTime / 1.85), (_) -> {
+			new FlxTimer().start((sound.length / 1000) + (decayTime / 1.85), (_) ->
+			{
 				sound.filter.clearEffects();
 				sound.filter = null;
 				FlxG.sound.list.remove(sound, true);
@@ -85,8 +91,10 @@ final class FlixelUtil {
 	 * 
 	 * @param volume How loud the menu music should be.
 	 */
-	public static function playMenuMusic(volume:Float = 1):Void {
-		if (CacheUtil.canPlayMenuMusic) {
+	public static function playMenuMusic(volume:Float = 1):Void
+	{
+		if (CacheUtil.canPlayMenuMusic)
+		{
 			FlxG.sound.playMusic(PathUtil.ofSharedMusic(Constants.MENU_MUSIC_NAME), volume, true);
 			CacheUtil.canPlayMenuMusic = false;
 		}
@@ -100,9 +108,12 @@ final class FlixelUtil {
 	 * @param duration How long the tween should last for.
 	 * @param types    The types and eases for the group to tween with.
 	 */
-	public static function tweenSpriteGroup(group:FlxTypedGroup<FlxSprite>, options:Dynamic, duration:Float, types:Dynamic):Void {
-		for (obj in group.members) {
-			if (obj != null) {
+	public static function tweenSpriteGroup(group:FlxTypedGroup<FlxSprite>, options:Dynamic, duration:Float, types:Dynamic):Void
+	{
+		for (obj in group.members)
+		{
+			if (obj != null)
+			{
 				FlxTween.tween(obj, options, duration, types);
 			}
 		}
@@ -116,7 +127,8 @@ final class FlixelUtil {
 	 * 					  is in `InitState` when the event listener for the game closing
 	 * 					  is added.
 	 */
-	public static function closeGame(sysShutdown:Bool = true):Void {
+	public static function closeGame(sysShutdown:Bool = true):Void
+	{
 		// Log info
 		LoggerUtil.log('SHUTTING DOWN STARCORE', INFO, false);
 		// Save all of the user's data
@@ -128,7 +140,8 @@ final class FlixelUtil {
 		// Shutdown the logging system
 		LoggerUtil.shutdown();
 		// Close the game respectfully
-		if (sysShutdown) {
+		if (sysShutdown)
+		{
 			#if web
 			Browser.window.close();
 			#elseif desktop

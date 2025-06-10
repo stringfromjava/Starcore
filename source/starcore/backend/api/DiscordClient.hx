@@ -1,10 +1,8 @@
 package starcore.backend.api;
 
-import starcore.backend.util.LoggerUtil;
 #if DISCORD_ALLOWED
-import starcore.backend.data.Constants;
+import starcore.backend.util.LoggerUtil;
 import starcore.backend.data.ClientPrefs;
-import flixel.FlxG;
 import cpp.RawConstPointer;
 import hxdiscord_rpc.Discord;
 import hxdiscord_rpc.Types.DiscordRichPresence;
@@ -15,8 +13,8 @@ import sys.thread.Thread;
  * Class that handles Discord rich presence for the client's
  * "Activity" box.
  */
-final class DiscordClient {
-
+final class DiscordClient
+{
 	private static var _presence:DiscordRichPresence = new DiscordRichPresence();
 	private static var _appId:String = '1361513332883980309'; // ID for the Discord application
 
@@ -25,8 +23,10 @@ final class DiscordClient {
 	/**
 	 * Initializes Discord rich presence.
 	 */
-	public static function initialize():Void {
-		if (ClientPrefs.getOption('discordRPC')) {
+	public static function initialize():Void
+	{
+		if (ClientPrefs.getOption('discordRPC'))
+		{
 			// Log info
 			LoggerUtil.log('Initializing Discord rich presence');
 			// Initialize the client
@@ -35,9 +35,11 @@ final class DiscordClient {
 			_presence.startTimestamp = Math.floor(Sys.time());
 			// Start a thread that runs in the background which
 			// makes regular callbacks to Discord
-			Thread.create(() -> {
+			Thread.create(() ->
+			{
 				// Keep looping until the game exits
-				while (true) {
+				while (true)
+				{
 					// Set rich presence
 					Discord.UpdatePresence(RawConstPointer.addressOf(_presence));
 					// Update rich presence
@@ -49,7 +51,8 @@ final class DiscordClient {
 		}
 		// Add an event listener that shuts down Discord rich presence
 		// when the game closes
-		Application.current.window.onClose.add(() -> {
+		Application.current.window.onClose.add(() ->
+		{
 			shutdown();
 		});
 	}
@@ -57,7 +60,8 @@ final class DiscordClient {
 	/**
 	 * Shutdowns Discord rich presence.
 	 */
-	public static function shutdown():Void {
+	public static function shutdown():Void
+	{
 		LoggerUtil.log('Shutting down Discord rich presence');
 		Discord.Shutdown();
 	}

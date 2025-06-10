@@ -7,8 +7,8 @@ import starcore.backend.util.PathUtil;
 /**
  * Class that holds all of the general values that do not change.
  */
-final class Constants {
-
+final class Constants
+{
 	/**
 	 * DEFAULTS
 	 * ======================
@@ -41,7 +41,7 @@ final class Constants {
 
 	/**
 	 * The default options for the game. These are only really used when
-     * the player either updated the game ***OR*** is missing anything important.
+	 * the player either updated the game ***OR*** is missing anything important.
 	 */
 	public static final DEFAULT_OPTIONS:Map<String, Any> = [
 		// Misc.

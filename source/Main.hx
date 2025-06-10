@@ -9,11 +9,11 @@ import openfl.display.Sprite;
  * add or change the setup by modifying the `InitState.hx` class and 
  * doing whatever you want from there.
  */
-class Main extends Sprite {
-
+class Main extends Sprite
+{
 	// The game object that holds the data
 	// for the FlxGame instance
-	final _GAME:Dynamic = {
+	var game:Dynamic = {
 		// The width of the game's window
 		// You can set this to 0 to use the default value in the Project.xml file
 		width: 960,
@@ -30,16 +30,17 @@ class Main extends Sprite {
 		startFullscreen: true
 	};
 
-	public function new() {
+	public function new()
+	{
 		super();
 		addChild(new FlxGame(
-			_GAME.width,
-			_GAME.height,
-			_GAME.initialState,
-			_GAME.framerate,
-			_GAME.framerate,
-			_GAME.skipSplash,
-			_GAME.startFullscreen
+			game.width,
+			game.height,
+			game.initialState,
+			game.framerate,
+			game.framerate,
+			game.skipSplash,
+			game.startFullscreen
 		));
 	}
 }

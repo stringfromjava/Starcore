@@ -12,14 +12,16 @@ import flixel.addons.display.FlxRuntimeShader;
 /**
  * Gives the screen a creepy, old Super Mario-like vibe.
  */
-class VCRMario85Filter extends FlxRuntimeShader {
-
-	public function new() {
+class VCRMario85Filter extends FlxRuntimeShader
+{
+	public function new()
+	{
 		super(Assets.getText(PathUtil.ofFrag('vcrmario85')));
 		setFloat('time', 0);
 	}
 
-	public function update(elapsed:Float):Void {
+	public function update(elapsed:Float):Void
+	{
 		setFloat('time', getFloat('time') + elapsed);
 	}
 }

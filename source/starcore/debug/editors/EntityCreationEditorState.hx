@@ -19,12 +19,13 @@ using StringTools;
  * define the name of the entity, its body parts, how big each body
  * part is, etc.
  */
-class EntityCreationEditorState extends DebugEditorState {
-
+class EntityCreationEditorState extends DebugEditorState
+{
 	var loadSpriteSheetButton:FlxButton;
 	var test:FlxSprite;
 
-	override public function create():Void {
+	override public function create():Void
+	{
 		createButtons();
 
 		test = new FlxSprite();
@@ -34,13 +35,16 @@ class EntityCreationEditorState extends DebugEditorState {
 		super.create();
 	}
 
-	function createButtons():Void {
-		loadSpriteSheetButton = new FlxButton('Load Sprite Sheet', () -> {
+	function createButtons():Void
+	{
+		loadSpriteSheetButton = new FlxButton('Load Sprite Sheet', () ->
+		{
 			LoggerUtil.log('Attempting to open a sprite sheet');
 			var dialog:FileDialog = new FileDialog();
 			var onSelectEvent:Event<String->Void> = new Event<String->Void>();
 
-			onSelectEvent.add((path:String) -> {
+			onSelectEvent.add((path:String) ->
+			{
 				// Modify the path passed down and replace all
 				// back slashes (\) with slashes (/)
 				var p:String = path.replace('\\', '/');
@@ -57,19 +61,25 @@ class EntityCreationEditorState extends DebugEditorState {
 				LoggerUtil.log('Path "$p" was converted to "$destPathXml"', false);
 
 				// Log and check if the .png asset is valid
-				if (Assets.exists(destPathPng)) {
+				if (Assets.exists(destPathPng))
+				{
 					LoggerUtil.log('Entity spritesheet "$destPathPng" was successfully loaded.', false);
 					test.loadGraphic(destPathPng);
-				} else {
+				}
+				else
+				{
 					LoggerUtil.log('Entity spritesheet "$destPathPng" is not cached! Add the entity\'s .png file in '
 						+ '"assets/entities/textures/" to properly load the entity\'s spritesheet.',
 						WARNING, false);
 				}
 
 				// Log and check if the .xml asset is valid
-				if (Assets.exists(destPathXml)) {
+				if (Assets.exists(destPathXml))
+				{
 					LoggerUtil.log('Entity format "$destPathXml" was successfully loaded.', false);
-				} else {
+				}
+				else
+				{
 					LoggerUtil.log('Entity format "$destPathXml" is not cached! Add the entity\'s .xml file in '
 						+ '"assets/entities/textures/" to properly load the entity\'s format.',
 						WARNING, false);

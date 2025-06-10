@@ -22,8 +22,8 @@ import starcore.objects.ui.ClickableSprite;
  * State that represents the main menu of the game.
  * This is where the player can start a new game, load a game, or quit the game.
  */
-class MainMenuState extends FlxTransitionableState {
-
+class MainMenuState extends FlxTransitionableState
+{
 	var logo:FlxText;
 
 	var buttons:Array<String> = ['play', 'quit'];
@@ -35,7 +35,8 @@ class MainMenuState extends FlxTransitionableState {
 	var planets:FlxTypedGroup<BackgroundPlanet>;
 	var starChangeAlphaTimer:FlxTimer;
 
-	override function create():Void {
+	override function create():Void
+	{
 		super.create();
 
 		// Play menu music
@@ -64,16 +65,19 @@ class MainMenuState extends FlxTransitionableState {
 		add(buttonsGroup);
 
 		buttonClickFunctions = [
-			'play' => () -> {
+			'play' => () ->
+			{
 				FlxG.switchState(() -> new PlayState());
 			},
-			'quit' => () -> {
+			'quit' => () ->
+			{
 				FlixelUtil.closeGame();
 			}
 		];
 
 		var newY:Float = 350; // Change this to the starting Y position for the menu buttons
-		for (btn in buttons) {
+		for (btn in buttons)
+		{
 			var coolSwaggerButton:ClickableSprite = new ClickableSprite();
 			coolSwaggerButton.loadGraphic(PathUtil.ofSharedImage('menus/main/$btn-button'));
 			coolSwaggerButton.scale.set(4, 4);
@@ -81,13 +85,16 @@ class MainMenuState extends FlxTransitionableState {
 			coolSwaggerButton.updateHoverBounds();
 			coolSwaggerButton.setPosition(0, newY);
 			coolSwaggerButton.onClick = buttonClickFunctions.get(btn);
-			coolSwaggerButton.onHover = () -> {
+			coolSwaggerButton.onHover = () ->
+			{
 				// Play a sound
 				FlixelUtil.playSoundWithReverb(PathUtil.ofSharedSound('blip'), 1);
 				FlxSpriteUtil.setBrightness(coolSwaggerButton, 0.3);
 			};
-			coolSwaggerButton.onHoverLost = () -> {
-				if (!buttonWasClicked) {
+			coolSwaggerButton.onHoverLost = () ->
+			{
+				if (!buttonWasClicked)
+				{
 					FlxSpriteUtil.setBrightness(coolSwaggerButton, 0);
 				}
 			};
@@ -101,18 +108,21 @@ class MainMenuState extends FlxTransitionableState {
 		// });
 	}
 
-	override function update(elapsed:Float):Void {
+	override function update(elapsed:Float):Void
+	{
 		super.update(elapsed);
 
 		#if EDITORS_ALLOWED
-		if (Controls.getBinds().MS_OPENEDITORS_JUST_PRESSED) {
+		if (Controls.getBinds().MS_OPENEDITORS_JUST_PRESSED)
+		{
 			FlxG.sound.music.stop();
 			FlxG.sound.playMusic(PathUtil.ofSharedMusic(Constants.DEBUG_EDITOR_MUSIC_NAME), 0.15);
 			FlxG.switchState(() -> new DebugEditorMenuState());
 		}
 		#end
 
-		if (Controls.getBinds().UI_BACK_JUST_PRESSED) {
+		if (Controls.getBinds().UI_BACK_JUST_PRESSED)
+		{
 			FlixelUtil.closeGame();
 		}
 	}
