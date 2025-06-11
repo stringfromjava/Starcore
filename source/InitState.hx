@@ -101,20 +101,10 @@ class InitState extends FlxState
 		});
 		#end
 
-		// Apply cool but creepy filters
-		#if FILTERS_ALLOWED
 		// Assign the filters AFTER all assets have been loaded!
-		CacheUtil.angelFilter = new AngelFilter();
+		#if FILTERS_ALLOWED
 		CacheUtil.vcrBorderFilter = new VCRBorderFilter();
 		CacheUtil.vcrMario85Filter = new VCRMario85Filter();
-		CacheUtil.ycbuEndingFilter = new YCBUEndingFilter();
-
-		FlxG.game.setFilters([
-			new ShaderFilter(CacheUtil.angelFilter),
-			new ShaderFilter(CacheUtil.vcrBorderFilter),
-			new ShaderFilter(CacheUtil.vcrMario85Filter),
-			new ShaderFilter(CacheUtil.ycbuEndingFilter)
-		]);
 		#end
 	}
 
@@ -127,9 +117,7 @@ class InitState extends FlxState
 		#if FILTERS_ALLOWED
 		FlxG.signals.postUpdate.add(() ->
 		{
-			CacheUtil.angelFilter.update(FlxG.elapsed);
 			CacheUtil.vcrMario85Filter.update(FlxG.elapsed);
-			CacheUtil.ycbuEndingFilter.update(0, FlxG.elapsed);
 		});
 		#end
 	}

@@ -1,5 +1,6 @@
 package starcore.menus;
 
+import starcore.backend.util.FlixelUtil;
 import starcore.debug.editors.EntityCreationEditorState;
 import flixel.FlxG;
 import flixel.FlxState;
@@ -9,9 +10,6 @@ import starcore.backend.Controls;
 import starcore.backend.data.ClientPrefs;
 import starcore.backend.data.Constants;
 import starcore.backend.util.CacheUtil;
-#if FILTERS_ALLOWED
-import openfl.filters.ShaderFilter;
-#end
 
 /**
  * The state where all the different editors can be access from.
@@ -35,11 +33,14 @@ class DebugEditorMenuState extends FlxState
 		#if FILTERS_ALLOWED
 		if (ClientPrefs.getOption('editorFilters'))
 		{
-			FlxG.game.setFilters([
-				new ShaderFilter(CacheUtil.angelFilter),
-				new ShaderFilter(CacheUtil.vcrMario85Filter),
-				new ShaderFilter(CacheUtil.ycbuEndingFilter)
-			]);
+			if (ClientPrefs.getOption('shaderMode') != MINIMAL)
+			{
+				FlixelUtil.setFilters(FAST);
+			}
+			else
+			{
+				FlixelUtil.setFilters(MINIMAL);
+			}
 		}
 		#end
 
@@ -81,14 +82,7 @@ class DebugEditorMenuState extends FlxState
 		{
 			// Switch back the filters, since we're going
 			// back into the main game!
-			#if FILTERS_ALLOWED
-			FlxG.game.setFilters([
-				new ShaderFilter(CacheUtil.angelFilter),
-				new ShaderFilter(CacheUtil.vcrBorderFilter),
-				new ShaderFilter(CacheUtil.vcrMario85Filter),
-				new ShaderFilter(CacheUtil.ycbuEndingFilter)
-			]);
-			#end
+			FlixelUtil.setFilters(ClientPrefs.getOption('shaderMode'));
 			FlxG.switchState(() -> new MainMenuState());
 		}
 	}

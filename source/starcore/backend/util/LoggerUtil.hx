@@ -92,12 +92,12 @@ final class LoggerUtil
 
 	static function writeToFile(logMsg:String, logType:LogType = INFO):Void
 	{
-		#if LOGGING_ALLOWED
 		var timestamp:String = Date.now().toString();
 		var newLog:String = '[STARCORE][$logType][$timestamp]: $logMsg';
+		#if LOGGING_ALLOWED
 		file.writeString('$newLog\n');
 		file.flush();
-		trace(newLog);
 		#end
+		trace(newLog);
 	}
 }

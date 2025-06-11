@@ -1,5 +1,6 @@
 package starcore.backend.data;
 
+import starcore.backend.data.ClientPrefs.ShaderModeType;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxColor;
 import starcore.backend.util.PathUtil;
@@ -44,6 +45,8 @@ final class Constants
 	 * the player either updated the game ***OR*** is missing anything important.
 	 */
 	public static final DEFAULT_OPTIONS:Map<String, Any> = [
+		// Graphics
+		'shaderMode' => ShaderModeType.DEFAULT,
 		// Misc.
 		'discordRPC' => true,
 		'minimizeVolume' => true,
@@ -94,7 +97,7 @@ final class Constants
 	public static final DEBUG_EDITOR_MUSIC_NAME:String = '2 Sided';
 
 	/**
-	 * The default color for any debug editor extending to `objects.states.DebugEditorState`.
+	 * The default color for any debug editor extending to `starcore.debug.DebugEditorState`.
 	 */
 	public static final DEBUG_EDITOR_BACKGROUND_COLOR:FlxColor = FlxColor.fromRGB(210, 210, 210);
 

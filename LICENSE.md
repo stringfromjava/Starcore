@@ -1,3 +1,13 @@
+# Starcore Official License
+
+As of right now, Starcore uses a license called the *Apache License*, meaning that you
+can redistribute it and make money off of it (if you give credit of course).
+
+***NOTE: THIS LICENSE WILL MOST LIKELY CHANGE WHEN STARCORE BECOMES MORE COMPLEX!***
+
+## License
+
+```
 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -188,3 +198,4 @@ Apache License
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+```

@@ -57,10 +57,19 @@ class ClickableBehavior
 	public var canClick:Bool = true;
 
 	/**
-	 * Should `this` clickable sprite change to the pointer
-	 * icon when hovered over?
+	 * The cursor that gets displayed (when whatever
+	 * `FlxObject` has `this` behavior applied to it) is hovered over.
+	 * 
+	 * The attribute `displayHoverCursor` must be set to
+	 * `true`, otherwise this will be ignored.
 	 */
-	public var hoverMouseIcon:Bool = true;
+	public var hoverCursor:MouseCursor = MouseCursor.BUTTON;
+
+	/**
+	 * Should `this` clickable sprite change to the
+	 * set pointer cursor when hovered over?
+	 */
+	public var displayHoverCursor:Bool = true;
 
 	public function new() {}
 
@@ -79,15 +88,19 @@ class ClickableBehavior
 			if (!isHovered)
 			{
 				onHover();
-				if (hoverMouseIcon)
+				if (displayHoverCursor)
 				{
-					Mouse.cursor = MouseCursor.BUTTON;
+					Mouse.cursor = hoverCursor;
 				}
 				isHovered = true;
 			}
+
 			if (FlxG.mouse.justPressed)
 			{
-				Mouse.cursor = MouseCursor.ARROW;
+				if (displayHoverCursor)
+				{
+					Mouse.cursor = MouseCursor.ARROW;
+				}
 				onClick();
 			}
 		}
@@ -95,7 +108,7 @@ class ClickableBehavior
 		if (!isHoveringOverMouse() && isHovered)
 		{
 			isHovered = false;
-			if (hoverMouseIcon)
+			if (displayHoverCursor)
 			{
 				Mouse.cursor = MouseCursor.ARROW;
 			}

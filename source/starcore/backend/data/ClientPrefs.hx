@@ -10,6 +10,16 @@ import flixel.util.FlxSave;
 import haxe.Exception;
 
 /**
+ * The filter mode to display.
+ */
+enum ShaderModeType
+{
+	DEFAULT; // All filters applied
+	FAST; // Only the VCRMario85 filter enabled
+	MINIMAL; // No filters enabled at all
+}
+
+/**
  * Class that handles, modifies and stores the user's
  * options and settings.
  * 
@@ -40,8 +50,8 @@ final class ClientPrefs
 	 * Get and return a client bind by its ID.
 	 * 
 	 * @param bind The bind to get as a `String`.
-	 * @return     The value of the said bind. If it does not exist, then the
-	 *             default value is returned instead.
+	 * @return     The value of the said bind. If it does not exist, then an
+	 * 			   exception is thrown.
 	 */
 	public static inline function getBind(bind:String):FlxKey
 	{
@@ -72,8 +82,8 @@ final class ClientPrefs
 	 * 
 	 * @param option       The option to get as a `String`.
 	 * @param defaultValue The value that is returned instead if the said option isn't found.
-	 * @return             The value of the option. If it does not exist, then the
-	 *                     default value is returned instead.
+	 * @return             The value of the option. If it does not exist, then an
+	 * 					   exception is thrown.
 	 */
 	public static inline function getOption(option:String):Dynamic
 	{
@@ -185,6 +195,13 @@ final class ClientPrefs
 				options.remove(key);
 			}
 		}
+
+		// Set the filters based on the user's options
+		#if FILTERS_ALLOWED
+		FlixelUtil.setFilters(getOption('shaderMode'));
+		#else
+		FlixelUtil.setFilters(MINIMAL);
+		#end
 
 		// Load controls
 		if (controlsData.data.keyboard != null)

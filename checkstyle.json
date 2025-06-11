@@ -204,7 +204,7 @@
     },
     {
       "props": {
-        "character": "  ",
+        "character": "tab",
         "severity": "IGNORE"
       },
       "type": "Indentation"
@@ -455,7 +455,7 @@
     },
     {
       "props": {
-        "max": 7,
+        "max": 8,
         "ignoreOverriddenMethods": false
       },
       "type": "ParameterNumber"

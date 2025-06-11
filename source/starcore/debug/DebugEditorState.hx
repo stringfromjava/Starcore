@@ -44,6 +44,9 @@ abstract class DebugEditorState extends FlxState
 		// subclass so that way everything is layered correctly!
 		super.create();
 
+		createStage();
+		createUI();
+
 		bgColor = Constants.DEBUG_EDITOR_BACKGROUND_COLOR;
 
 		versionText = new FlxText();
@@ -61,11 +64,22 @@ abstract class DebugEditorState extends FlxState
 	{
 		super.update(elapsed);
 
-		// I added this here so that way you don't have to
+		// This is added here so that way you don't have to
 		// do this in every editor that extends to this class ;3
 		if (Controls.getBinds().UI_BACK_JUST_PRESSED)
 		{
 			FlxG.switchState(() -> new DebugEditorMenuState());
 		}
 	}
+
+	/**
+	 * Creates the main part of the editor.
+	 */
+	abstract function createStage():Void;
+
+	/**
+	 * Creates the interface for interacting with
+	 * the subclassed editor.
+	 */
+	abstract function createUI():Void;
 }

@@ -1,15 +1,16 @@
 package starcore.debug.editors;
 
-import starcore.backend.util.AssetUtil;
-import openfl.Assets;
-import flixel.FlxSprite;
-import starcore.backend.util.LoggerUtil;
-import lime.app.Event;
-import lime.ui.FileDialogType;
-import lime.ui.FileDialog;
 import flixel.util.FlxColor;
+import starcore.backend.util.PathUtil;
+import flixel.FlxG;
 import starcore.backend.data.Constants;
-import flixel.ui.FlxButton;
+import lime.ui.FileDialogType;
+import openfl.utils.Assets;
+import starcore.backend.util.AssetUtil;
+import lime.app.Event;
+import lime.ui.FileDialog;
+import starcore.backend.util.LoggerUtil;
+import starcore.ui.ClickableText;
 
 using StringTools;
 
@@ -20,23 +21,34 @@ using StringTools;
  */
 class EntityCreationEditorState extends DebugEditorState
 {
-	var loadSpriteSheetButton:FlxButton;
-	var test:FlxSprite;
+	var loadSpriteSheetButton:ClickableText;
+	var currentLoadedPath:String = '';
 
-	override public function create():Void
+	//
+	// METHOD OVERRIDES
+	// =========================================
+
+	function createStage():Void {}
+
+	function createUI():Void
 	{
-		createButtons();
-
-		test = new FlxSprite();
-		test.setPosition(0, 0);
-		add(test);
-
-		super.create();
+		setupButtons();
 	}
 
-	function createButtons():Void
+	//
+	// SETUP FUNCTIONS
+	// ================================
+
+	function setupButtons():Void
 	{
-		loadSpriteSheetButton = new FlxButton('Load Sprite Sheet', () ->
+		loadSpriteSheetButton = new ClickableText();
+		loadSpriteSheetButton.text = 'Load Sprite Sheet';
+		loadSpriteSheetButton.size = 32;
+		loadSpriteSheetButton.font = Constants.DEBUG_EDITOR_FONT;
+		loadSpriteSheetButton.setBorderStyle(OUTLINE, FlxColor.BLACK, 2);
+		loadSpriteSheetButton.updateHitbox();
+		loadSpriteSheetButton.setPosition(10, 50);
+		loadSpriteSheetButton.behavior.onClick = () ->
 		{
 			LoggerUtil.log('Attempting to open a sprite sheet');
 			var dialog:FileDialog = new FileDialog();
@@ -54,8 +66,9 @@ class EntityCreationEditorState extends DebugEditorState
 				LoggerUtil.log('Converting pathway into path to game entity textures folder');
 				var assetsDir:String = 'assets/entities/textures/';
 				var fileName:String = AssetUtil.removeFileExtension(p.split('/').pop());
-				var destPathPng:String = '$assetsDir$fileName.png';
-				var destPathXml:String = '$assetsDir$fileName.xml';
+				currentLoadedPath = '$assetsDir$fileName';
+				var destPathPng:String = '$currentLoadedPath.png';
+				var destPathXml:String = '$currentLoadedPath.xml';
 				LoggerUtil.log('Path "$p" was converted to "$destPathPng"', false);
 				LoggerUtil.log('Path "$p" was converted to "$destPathXml"', false);
 
@@ -63,7 +76,6 @@ class EntityCreationEditorState extends DebugEditorState
 				if (Assets.exists(destPathPng))
 				{
 					LoggerUtil.log('Entity spritesheet "$destPathPng" was successfully loaded.', false);
-					test.loadGraphic(destPathPng);
 				}
 				else
 				{
@@ -86,15 +98,16 @@ class EntityCreationEditorState extends DebugEditorState
 			});
 			dialog.onSelect = onSelectEvent;
 			dialog.browse(FileDialogType.OPEN, 'png', null, 'Open a sprite sheet');
-		});
-		loadSpriteSheetButton.makeGraphic(50, 20, FlxColor.fromRGB(80, 80, 80));
-		loadSpriteSheetButton.updateHitbox();
-		loadSpriteSheetButton.setPosition(5, 50);
-		loadSpriteSheetButton.label.color = FlxColor.WHITE;
-		loadSpriteSheetButton.label.font = Constants.DEBUG_EDITOR_FONT;
-		loadSpriteSheetButton.label.size = 12;
-		loadSpriteSheetButton.label.alignment = 'center';
-		loadSpriteSheetButton.label.setBorderStyle(OUTLINE, FlxColor.BLACK, 1);
+		};
+		loadSpriteSheetButton.behavior.onHover = () ->
+		{
+			loadSpriteSheetButton.underline = true;
+			FlxG.sound.play(PathUtil.ofSharedSound('blip'));
+		};
+		loadSpriteSheetButton.behavior.onHoverLost = () ->
+		{
+			loadSpriteSheetButton.underline = false;
+		};
 		add(loadSpriteSheetButton);
 	}
 }

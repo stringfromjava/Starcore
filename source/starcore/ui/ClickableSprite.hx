@@ -13,8 +13,6 @@ class ClickableSprite extends FlxSprite
 	public var behavior:ClickableBehavior;
 
 	/**
-	 * Constructor.
-	 * 
 	 * @param x The X position of `this` clickable sprite.
 	 * @param y The Y position of `this` clickable sprite.
 	 */
@@ -24,8 +22,8 @@ class ClickableSprite extends FlxSprite
 		behavior = new ClickableBehavior();
 	}
 
-	// =============================
-	//            METHODS
+	//
+	// METHODS
 	// =============================
 
 	override function update(elapsed:Float):Void

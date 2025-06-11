@@ -1,5 +1,9 @@
 package starcore.backend.util;
 
+#if FILTERS_ALLOWED
+import openfl.filters.ShaderFilter;
+#end
+import starcore.backend.data.ClientPrefs.ShaderModeType;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -62,7 +66,7 @@ final class FlixelUtil
 		{
 			// Make the sound and filter
 			var sound:FlxFilteredSound = new FlxFilteredSound();
-			var effect = new FlxSoundReverbEffect();
+			var effect:FlxSoundReverbEffect = new FlxSoundReverbEffect();
 			// Settings for the echo
 			effect.decayTime = decayTime;
 			// Load the sound
@@ -104,6 +108,33 @@ final class FlixelUtil
 			FlxG.sound.playMusic(PathUtil.ofSharedMusic(Constants.MENU_MUSIC_NAME), volume, true);
 			CacheUtil.canPlayMenuMusic = false;
 		}
+	}
+
+	/**
+	 * Sets the game's filters.
+	 * 
+	 * @param mode The mode the filters should apply with.
+	 * 			   Check `starcore.backend.ClientPrefs.ShaderModeType` for
+	 * 			   what each mode means. `null` = `DEFAULT`.
+	 */
+	public static function setFilters(?mode:ShaderModeType):Void
+	{
+		#if FILTERS_ALLOWED
+		switch (mode)
+		{
+			case DEFAULT | null:
+				FlxG.game.setFilters([
+					new ShaderFilter(CacheUtil.vcrBorderFilter),
+					new ShaderFilter(CacheUtil.vcrMario85Filter)
+				]);
+			case FAST:
+				FlxG.game.setFilters([
+					new ShaderFilter(CacheUtil.vcrMario85Filter)
+				]);
+			case MINIMAL:
+				FlxG.game.setFilters([]);
+		}
+		#end
 	}
 
 	/**

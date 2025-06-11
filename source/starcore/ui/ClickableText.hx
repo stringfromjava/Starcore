@@ -13,8 +13,6 @@ class ClickableText extends FlxText
 	public var behavior:ClickableBehavior;
 
 	/**
-	 * Constructor.
-	 * 
 	 * @param x The X position of `this` clickable text.
 	 * @param y The Y position of `this` clickable text.
 	 */
@@ -24,8 +22,8 @@ class ClickableText extends FlxText
 		behavior = new ClickableBehavior();
 	}
 
-	// =============================
-	//            METHODS
+	// 
+	// METHODS
 	// =============================
 
 	override function update(elapsed:Float):Void
