@@ -1,8 +1,8 @@
-package starcore.filters;
+package starcore.shaders;
 
-import starcore.backend.util.PathUtil;
-import openfl.Assets;
 import flixel.addons.display.FlxRuntimeShader;
+import openfl.Assets;
+import starcore.backend.util.PathUtil;
 
 // https://www.shadertoy.com/view/ldjGzV
 // https://www.shadertoy.com/view/Ms23DR
@@ -12,7 +12,7 @@ import flixel.addons.display.FlxRuntimeShader;
 /**
  * Gives the screen a creepy, old Super Mario-like vibe.
  */
-class VCRMario85Filter extends FlxRuntimeShader
+class VCRMario85Shader extends FlxRuntimeShader
 {
 	public function new()
 	{

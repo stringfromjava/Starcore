@@ -1,5 +1,10 @@
 package starcore.ui;
 
+import starcore.backend.data.Constants;
+import flixel.FlxG;
+import starcore.backend.util.FlixelUtil;
+import flixel.input.keyboard.FlxKey;
+import flixel.util.FlxColor;
 import openfl.ui.MouseCursor;
 import flixel.text.FlxText;
 import flixel.group.FlxSpriteGroup;
@@ -27,6 +32,7 @@ class TextBox extends FlxSpriteGroup
 	// DATA
 	// ===================
 	var text:String = ''; // The text the user has typed out
+	var isFocused:Bool = false;
 
 	//
 	// DISPLAY OBJECTS
@@ -50,8 +56,12 @@ class TextBox extends FlxSpriteGroup
 		super();
 
 		bg = new ClickableSprite();
-		bg.makeGraphic(1, 1);
+		bg.makeGraphic(1, 1, FlxColor.GRAY);
 		bg.behavior.hoverCursor = MouseCursor.IBEAM;
+		bg.behavior.onClick = () ->
+		{
+			isFocused = true;
+		};
 		add(bg);
 
 		displayText = new FlxText();
@@ -69,5 +79,42 @@ class TextBox extends FlxSpriteGroup
 		bg.updateHitbox();
 		bg.setPosition(x, y);
 		displayText.setPosition(x, y);
+	}
+
+	//
+	// FUNCTION OVERRIDES
+	// ======================================
+
+	override function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
+
+		if (FlxG.mouse.justPressed && !bg.behavior.isHoveringOverMouse())
+		{
+			isFocused = false;
+		}
+
+		if (!isFocused)
+		{
+			return;
+		}
+
+		var lastKeyPressed:FlxKey = FlixelUtil.getLastKeyPressed();
+		var isAllowedChar:Bool = Constants.ALLOWED_TEXT_BOX_CHARACTERS.contains(lastKeyPressed);
+
+		if (lastKeyPressed == FlxKey.NONE)
+		{
+			return;
+		}
+
+		// Check if the user is pressing SHIFT
+		if (FlxG.keys.pressed.SHIFT && isAllowedChar)
+		{
+			trace(FlixelUtil.convertFlxKeyToChar(lastKeyPressed, true));
+		}
+		else
+		{
+			trace(FlixelUtil.convertFlxKeyToChar(lastKeyPressed));
+		}
 	}
 }

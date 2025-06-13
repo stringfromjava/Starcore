@@ -1,13 +1,13 @@
 package starcore.filters;
 
-import openfl.utils.Assets;
 import flixel.addons.display.FlxRuntimeShader;
+import openfl.utils.Assets;
 import starcore.backend.util.PathUtil;
 
 /**
  * What do you think?
  */
-class GrayscaleFilter extends FlxRuntimeShader
+class GrayscaleShader extends FlxRuntimeShader
 {
 	public var amount:Float = 1;
 

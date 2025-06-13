@@ -28,21 +28,21 @@ class DebugEditorMenuState extends FlxState
 		// Set the editor menu background
 		FlxG.camera.bgColor = Constants.DEBUG_EDITOR_BACKGROUND_COLOR;
 
-		// Disable only the VCRBorder filter, since it
+		// Disable only the VCRBorder shader, since it
 		// would most likely mess with development
-		#if FILTERS_ALLOWED
 		if (ClientPrefs.getOption('editorFilters'))
 		{
-			if (ClientPrefs.getOption('shaderMode') != MINIMAL)
+			if (ClientPrefs.getOption('shaderMode') == DEFAULT)
 			{
 				FlixelUtil.setFilters(FAST);
 			}
 			else
 			{
-				FlixelUtil.setFilters(MINIMAL);
+				// This means the user has either FAST, MINIMAL or NONE enabled, so
+				// we can just leave it be and move on since it won't mess with development
+				// inside of the editors!
 			}
 		}
-		#end
 
 		infoText = new FlxText();
 		infoText.text = 'This is where you, the developer, can access multiple editors to \n'
@@ -80,8 +80,8 @@ class DebugEditorMenuState extends FlxState
 
 		if (Controls.getBinds().UI_BACK_JUST_PRESSED)
 		{
-			// Switch back the filters, since we're going
-			// back into the main game!
+			// Switch back the shaders, since we're going
+			// back into the main game
 			FlixelUtil.setFilters(ClientPrefs.getOption('shaderMode'));
 			FlxG.switchState(() -> new MainMenuState());
 		}

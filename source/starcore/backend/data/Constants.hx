@@ -10,10 +10,10 @@ import starcore.backend.util.PathUtil;
  */
 final class Constants
 {
-	/**
-	 * DEFAULTS
-	 * ======================
-	 */
+	//
+	// DEFAULTS
+	// =================================
+
 	/**
 	 * The default controls for the player. This is typically used when
 	 * the player wishes to reset all of their binds.
@@ -54,10 +54,10 @@ final class Constants
 		'editorFilters' => true
 	];
 
-	/**
-	 * SAVE BIND ID'S
-	 * ==========================
-	 */
+	//
+	// SAVE BIND ID'S
+	// ======================================
+
 	/**
 	 * The name of the save file for the player's options.
 	 */
@@ -73,19 +73,19 @@ final class Constants
 	 */
 	public static final PROGRESS_SAVE_BIND_ID:String = 'progress';
 
-	/**
-	 * VERSIONS
-	 * =================================
-	 */
+	//
+	// VERSIONS
+	// ============================================
+
 	/**
 	 * The version of the entity creation editor.
 	 */
 	public static final ENTITY_CREATION_EDITOR_VERSION:String = '0.1.0-PROTOTYPE';
 
-	/**
-	 * DEBUG EDITORS
-	 * ===================
-	 */
+	//
+	// DEBUG EDITORS
+	// ========================================
+
 	/**
 	 * The pathway to the font for all debug editors.
 	 */
@@ -101,10 +101,10 @@ final class Constants
 	 */
 	public static final DEBUG_EDITOR_BACKGROUND_COLOR:FlxColor = FlxColor.fromRGB(210, 210, 210);
 
-	/**
-	 * MUSIC
-	 * ========================
-	 */
+	//
+	// MUSIC & SOUNDS
+	// =========================================
+
 	/**
 	 * Name of the music that plays when in the main menus.
 	 */
@@ -114,6 +114,10 @@ final class Constants
 	 * The maximum amount of reverb sound effects that can be played at once.
 	 */
 	public static final REVERB_SOUND_EFFECT_LIMIT:Int = 15;
+
+	//
+	// BACKGROUND
+	// ============================
 
 	/**
 	 * How fast background stars scroll in the distance.
@@ -131,10 +135,23 @@ final class Constants
 	public static final STAR_CHANGE_ALPHA_DELAY:Float = 2;
 
 	/**
+	 * How much the background camera of the play state scrolls when the mouse moves.
+	 */
+	public static final BACKGROUND_CAMERA_SCROLL_MULTIPLIER:Float = 0.025;
+
+	//
+	// ITEMS & ENTITIES
+	// ====================================
+
+	/**
 	 * A regular expression that holds characters which are valid for
 	 * creating names for entities and items.
 	 */
 	public static final VALID_ITEM_ENTITY_NAME_CHARACTERS:EReg = ~/[a-z_]/;
+
+	//
+	// WORLD
+	// ======================
 
 	/**
 	 * How wide in pixels a tile is. This is used for the world tilemap.
@@ -147,14 +164,93 @@ final class Constants
 	public static final TILE_HEIGHT:Int = 16;
 
 	/**
-	 * How much the background camera of the play state scrolls when the mouse moves.
-	 */
-	public static final BACKGROUND_CAMERA_SCROLL_MULTIPLIER:Float = 0.025;
-
-	/**
 	 * How much the gameplay camera of the play state scrolls when the mouse moves.
 	 */
 	public static final WORLD_CAMERA_SCROLL_MULTIPLIER:Float = 0.125;
+
+	//
+	// UI
+	// ===========================
+
+	/**
+	 * The allowed characters that can be added to text in a
+	 * `starcore.ui.TextBox` object.
+	 */
+	public static final ALLOWED_TEXT_BOX_CHARACTERS:Array<FlxKey> = [
+		A,
+		B,
+		C,
+		D,
+		E,
+		F,
+		G,
+		H,
+		I,
+		J,
+		K,
+		L,
+		M,
+		N,
+		O,
+		P,
+		Q,
+		R,
+		S,
+		T,
+		U,
+		V,
+		W,
+		X,
+		Y,
+		Z,
+		ONE,
+		TWO,
+		THREE,
+		FOUR,
+		FIVE,
+		SIX,
+		SEVEN,
+		EIGHT,
+		NINE,
+		ZERO,
+		GRAVEACCENT,
+		MINUS,
+		PLUS,
+		LBRACKET,
+		RBRACKET,
+		BACKSLASH,
+		SEMICOLON,
+		QUOTE,
+		COMMA,
+		PERIOD,
+		SLASH,
+		NUMPADZERO,
+		NUMPADONE,
+		NUMPADTWO,
+		NUMPADTHREE,
+		NUMPADFOUR,
+		NUMPADFIVE,
+		NUMPADSIX,
+		NUMPADSEVEN,
+		NUMPADEIGHT,
+		NUMPADNINE,
+		NUMPADMINUS,
+		NUMPADPLUS,
+		NUMPADPERIOD,
+		NUMPADMULTIPLY,
+		NUMPADSLASH
+	];
+
+	//
+	// API
+	// =============================
+
+	/**
+	 * The ID for the app on Discord to display in the user's
+	 * "Activity" box, showing that they are playing Starcore and
+	 * for displaying how long they have played it.
+	 */
+	public static final DISCORD_APP_ID:String = '1361513332883980309';
 
 	function new() {}
 }

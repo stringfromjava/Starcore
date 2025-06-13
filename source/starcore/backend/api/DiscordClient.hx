@@ -1,5 +1,6 @@
 package starcore.backend.api;
 
+import starcore.backend.data.Constants;
 #if DISCORD_ALLOWED
 import starcore.backend.util.LoggerUtil;
 import starcore.backend.data.ClientPrefs;
@@ -16,7 +17,6 @@ import sys.thread.Thread;
 final class DiscordClient
 {
 	static var presence:DiscordRichPresence = new DiscordRichPresence();
-	static var appId:String = '1361513332883980309'; // ID for the Discord application
 
 	function new() {}
 
@@ -30,7 +30,7 @@ final class DiscordClient
 			// Log info
 			LoggerUtil.log('Initializing Discord rich presence');
 			// Initialize the client
-			Discord.Initialize(appId, null, true, null);
+			Discord.Initialize(Constants.DISCORD_APP_ID, null, true, null);
 			// Start the timer (for the amount of time the player has played the game)
 			presence.startTimestamp = Math.floor(Sys.time());
 			// Start a thread that runs in the background which
@@ -49,8 +49,8 @@ final class DiscordClient
 				}
 			});
 		}
-		// Add an event listener that shuts down Discord rich presence
-		// when the game closes
+		// Add an event listener that shuts down
+		// Discord rich presence when the game closes
 		Application.current.window.onClose.add(() ->
 		{
 			shutdown();

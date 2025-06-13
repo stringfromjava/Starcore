@@ -1,7 +1,7 @@
 package starcore.backend.util;
 
-import starcore.filters.*;
 import starcore.entity.Entity;
+import starcore.shaders.*;
 
 /**
  * Class that holds general, temporary data for pretty much anything.
@@ -41,14 +41,14 @@ final class CacheUtil
 	public static var registeredEntities:Array<Entity> = [];
 
 	/**
-	 * VCR border filter for Starcore.
+	 * VCR border shader for Starcore.
 	 */
-	public static var vcrBorderFilter:VCRBorderFilter;
+	public static var vcrBorderFilter:VCRBorderShader;
 
 	/**
-	 * VCR Mario 85 filter for Starcore.
+	 * VCR Mario 85 shader for Starcore.
 	 */
-	public static var vcrMario85Filter:VCRMario85Filter;
+	public static var vcrMario85Filter:VCRMario85Shader;
 
 	function new() {}
 }

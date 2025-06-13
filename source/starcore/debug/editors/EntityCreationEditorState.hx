@@ -1,5 +1,6 @@
 package starcore.debug.editors;
 
+import starcore.ui.TextBox;
 import flixel.util.FlxColor;
 import starcore.backend.util.PathUtil;
 import flixel.FlxG;
@@ -23,6 +24,7 @@ class EntityCreationEditorState extends DebugEditorState
 {
 	var loadSpriteSheetButton:ClickableText;
 	var currentLoadedPath:String = '';
+	var test:TextBox;
 
 	//
 	// METHOD OVERRIDES
@@ -109,5 +111,8 @@ class EntityCreationEditorState extends DebugEditorState
 			loadSpriteSheetButton.underline = false;
 		};
 		add(loadSpriteSheetButton);
+
+		test = new TextBox(300, 400, 300, 16, Constants.DEBUG_EDITOR_FONT, 'Type something OwO');
+		add(test);
 	}
 }

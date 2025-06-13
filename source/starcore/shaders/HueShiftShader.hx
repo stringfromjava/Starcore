@@ -5,7 +5,7 @@ import openfl.Assets;
 import flixel.addons.display.FlxRuntimeShader;
 
 /**
- * Allows an object or sprite to shift its colors
+ * Allows a sprite to shift its colors
  * to another set.
  */
 class HueShiftShader extends FlxRuntimeShader

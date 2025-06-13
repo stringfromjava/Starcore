@@ -1,17 +1,35 @@
 {
-	"search.exclude": {
-		"export/**/*.*": true
-	},
-	"[haxe]": {
-		"editor.formatOnSave": true,
-		"editor.formatOnSaveMode":"modifications",
-		"editor.formatOnPaste": false,
-		"editor.codeActionsOnSave": {
-			"source.sortImports": "explicit"
-		}
-	},
-	"haxe.enableExtendedIndentation": true,
-	"cSpell.words": [
-		"Haxe"
-	]
+  "search.exclude": {
+    "export/**/*.*": true
+  },
+  "[haxe]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modifications",
+    "editor.formatOnPaste": false,
+    "editor.codeActionsOnSave": {
+      "source.sortImports": "explicit"
+    }
+  },
+  "haxe.enableExtendedIndentation": true,
+  "cSpell.words": [
+    "GRAVEACCENT",
+    "Haxe",
+    "IBEAM",
+    "NUMPADEIGHT",
+    "NUMPADFIVE",
+    "NUMPADFOUR",
+    "NUMPADMINUS",
+    "NUMPADMULTIPLY",
+    "NUMPADNINE",
+    "NUMPADONE",
+    "NUMPADPERIOD",
+    "NUMPADPLUS",
+    "NUMPADSEVEN",
+    "NUMPADSIX",
+    "NUMPADTHREE",
+    "NUMPADTWO",
+    "NUMPADZERO",
+    "NUMPADSLASH",
+    "openeditors"
+  ]
 }

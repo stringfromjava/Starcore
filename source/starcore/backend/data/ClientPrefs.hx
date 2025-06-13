@@ -10,13 +10,14 @@ import flixel.util.FlxSave;
 import haxe.Exception;
 
 /**
- * The filter mode to display.
+ * The shader(s) to display.
  */
 enum ShaderModeType
 {
-	DEFAULT; // All filters applied
-	FAST; // Only the VCRMario85 filter enabled
-	MINIMAL; // No filters enabled at all
+	DEFAULT; // All shaders applied
+	FAST; // Only the VCRMario85 shader enabled
+	MINIMAL; // Only scanline shader enabled
+	NONE; // No shaders at all
 }
 
 /**
@@ -29,11 +30,11 @@ enum ShaderModeType
  * Controls are saved in their own variable, *NOT* in `options`.
  * 
  * The way controls are created is with this structure: `'keybind_id' => FlxKey.YOUR_KEY`.
- * To create a control, go to `backend.data.Constants`, search for `DEFAULT_CONTROLS_KEYBOARD`
+ * To create a control, go to `starcore.backend.data.Constants`, search for `DEFAULT_CONTROLS_KEYBOARD`
  * and then add your controls accordingly.
  * 
- * To access controls, use `backend.Controls`. (**TIP**: Read `backend.Controls`'s
- * documentation for accessing if binds are pressed!)
+ * To access controls, use `starcore.backend.Controls`. (**TIP**: Read `starcore.backend.Controls`'s
+ * documentation for how to access if binds are pressed!)
  */
 final class ClientPrefs
 {
@@ -42,9 +43,9 @@ final class ClientPrefs
 
 	function new() {}
 
-	// ==============================
-	//      GETTERS AND SETTERS
-	// ==============================
+	//
+	// GETTERS AND SETTERS
+	// =====================================
 
 	/**
 	 * Get and return a client bind by its ID.
@@ -63,7 +64,7 @@ final class ClientPrefs
 		{
 			LoggerUtil.log('Attempted to obtain non-existent bind "$bind".', ERROR, false);
 			FlixelUtil.closeGame(false);
-			throw new Exception('No such bind as "$bind".');
+			throw new Exception('Attempted to obtain non-existent bind "$bind".');
 		}
 	}
 
@@ -81,7 +82,6 @@ final class ClientPrefs
 	 * Get and return a client option by its ID.
 	 * 
 	 * @param option       The option to get as a `String`.
-	 * @param defaultValue The value that is returned instead if the said option isn't found.
 	 * @return             The value of the option. If it does not exist, then an
 	 * 					   exception is thrown.
 	 */
@@ -148,12 +148,12 @@ final class ClientPrefs
 		{
 			LoggerUtil.log('Attempted to change non-existent bind "$bind".', ERROR, false);
 			FlixelUtil.closeGame(false);
-			throw new Exception('No such bind as "$bind".');
+			throw new Exception('Attempted to change non-existent bind "$bind".');
 		}
 	}
 
-	// =============================
-	//            METHODS
+	//
+	// METHODS
 	// =============================
 
 	/**
@@ -196,12 +196,8 @@ final class ClientPrefs
 			}
 		}
 
-		// Set the filters based on the user's options
-		#if FILTERS_ALLOWED
+		// Set the shaders based on the user's options
 		FlixelUtil.setFilters(getOption('shaderMode'));
-		#else
-		FlixelUtil.setFilters(MINIMAL);
-		#end
 
 		// Load controls
 		if (controlsData.data.keyboard != null)

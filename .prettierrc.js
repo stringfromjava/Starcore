@@ -10,8 +10,8 @@ module.exports = {
   useTabs: false,
   tabWidth: 2,
 
-  // Use single quotes
-  singleQuote: true,
+  // Use double quotes
+  singleQuote: false,
   quoteProps: "preserve",
   parser: "json",
 

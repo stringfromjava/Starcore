@@ -105,7 +105,7 @@ class Project extends HXProject
 	 * Enables the game to use filters, giving it a more unsettling and unnerving vibe.
 	 * Sort of like the analog horror videos you see on YouTube.
 	 */
-	static final FILTERS_ALLOWED:FeatureFlag = 'FILTERS_ALLOWED';
+	static final SHADERS_ALLOWED:FeatureFlag = 'SHADERS_ALLOWED';
 
 	/**
 	 * Allows the developer(s) to use built-in editors, 
@@ -124,7 +124,7 @@ class Project extends HXProject
 	 * Enables the game to programmatically change sounds and add
 	 * all kinds of effects to them.
 	 */
-	static final SOUND_EFFECTS_ALLOWED:FeatureFlag = 'SOUND_EFFECTS_ALLOWED';
+	static final SOUND_FILTERS_ALLOWED:FeatureFlag = 'SOUND_FILTERS_ALLOWED';
 
 	public function new()
 	{
@@ -360,7 +360,7 @@ class Project extends HXProject
 
 		// Enable dope ass screen filters
 		// (if the platform is on desktop)
-		FILTERS_ALLOWED.apply(this, isDesktop());
+		SHADERS_ALLOWED.apply(this, isDesktop());
 
 		// Enable the editors if the game is in debug mode,
 		// otherwise, disable them of course
@@ -372,7 +372,7 @@ class Project extends HXProject
 
 		// Allows the game to programmatically change sounds
 		// (only works on desktop)
-		SOUND_EFFECTS_ALLOWED.apply(this, isDesktop());
+		SOUND_FILTERS_ALLOWED.apply(this, isDesktop());
 	}
 
 	/**
@@ -444,7 +444,7 @@ class Project extends HXProject
 		// ===================
 
 		// Manipulating sound effects programmatically
-		if (SOUND_EFFECTS_ALLOWED.isEnabled(this))
+		if (SOUND_FILTERS_ALLOWED.isEnabled(this))
 		{
 			addHaxelib('flxsoundfilters');
 		}
@@ -458,7 +458,7 @@ class Project extends HXProject
 
 	function configureAssets()
 	{
-		info('ADDING ASSET PATHS');
+		// info('ADDING ASSET PATHS');
 
 		// Add font assets
 		addAssetPath('assets/fonts', 'assets/fonts', 'default', ['*.ttf'], []);
@@ -722,7 +722,7 @@ class Project extends HXProject
 		}
 		else
 		{
-			info('  Adding asset path ${path}...');
+			// info('  Adding asset path ${path}...');
 		}
 
 		for (file in sys.FileSystem.readDirectory(path))

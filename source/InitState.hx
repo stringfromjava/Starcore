@@ -1,26 +1,25 @@
 package;
 
-import starcore.menus.MainMenuState;
-import starcore.backend.util.FlixelUtil;
-import starcore.backend.util.LoggerUtil;
-import openfl.display.StageQuality;
-import flixel.tweens.FlxTween;
-import flixel.math.FlxMath;
-import starcore.backend.util.CacheUtil;
-import starcore.backend.data.ClientPrefs;
-import starcore.backend.util.PathUtil;
-import flixel.system.FlxAssets;
-import openfl.filters.ShaderFilter;
 import flixel.FlxG;
 import flixel.FlxState;
+import flixel.math.FlxMath;
+import flixel.system.FlxAssets;
+import flixel.tweens.FlxTween;
+import lime.app.Application;
+import openfl.Lib;
+import openfl.display.StageQuality;
+import openfl.display.StageScaleMode;
+import starcore.backend.data.ClientPrefs;
+import starcore.backend.util.CacheUtil;
+import starcore.backend.util.FlixelUtil;
+import starcore.backend.util.LoggerUtil;
+import starcore.backend.util.PathUtil;
+import starcore.menus.MainMenuState;
 #if DISCORD_ALLOWED
 import starcore.backend.api.DiscordClient;
 #end
-import lime.app.Application;
-import openfl.Lib;
-import openfl.display.StageScaleMode;
-#if FILTERS_ALLOWED
-import starcore.filters.*;
+#if SHADERS_ALLOWED
+import starcore.shaders.*;
 #end
 #if web
 import js.Browser;
@@ -101,10 +100,10 @@ class InitState extends FlxState
 		});
 		#end
 
-		// Assign the filters AFTER all assets have been loaded!
-		#if FILTERS_ALLOWED
-		CacheUtil.vcrBorderFilter = new VCRBorderFilter();
-		CacheUtil.vcrMario85Filter = new VCRMario85Filter();
+		// Assign the shaders AFTER all assets have been loaded!
+		#if SHADERS_ALLOWED
+		CacheUtil.vcrBorderFilter = new VCRBorderShader();
+		CacheUtil.vcrMario85Filter = new VCRMario85Shader();
 		#end
 	}
 
@@ -112,9 +111,9 @@ class InitState extends FlxState
 	{
 		// Log info
 		LoggerUtil.log('Adding background processes');
-		// Update the filters that need to
+		// Update the shaders that need to
 		// constantly be reset
-		#if FILTERS_ALLOWED
+		#if SHADERS_ALLOWED
 		FlxG.signals.postUpdate.add(() ->
 		{
 			CacheUtil.vcrMario85Filter.update(FlxG.elapsed);
@@ -140,7 +139,7 @@ class InitState extends FlxState
 				FlxG.sound.volume = (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.1 : 0;
 				CacheUtil.isWindowFocused = true;
 				// Set the volume back to the last volume used
-				FlxTween.num(FlxG.sound.volume, CacheUtil.lastVolumeUsed, 0.3, {type: FlxTweenType.ONESHOT}, (v) ->
+				FlxTween.num(FlxG.sound.volume, CacheUtil.lastVolumeUsed, 0.3, {type: FlxTweenType.ONESHOT}, (v:Float) ->
 				{
 					FlxG.sound.volume = v;
 				});
@@ -155,8 +154,8 @@ class InitState extends FlxState
 				// Set the last volume used to the current volume
 				CacheUtil.lastVolumeUsed = FlxG.sound.volume;
 				CacheUtil.isWindowFocused = false;
-				// Tween the volume to 0.03
-				FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.05 : 0, 0.3, {type: FlxTweenType.ONESHOT}, (v) ->
+				// Tween the volume to 0.05
+				FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.05 : 0, 0.3, {type: FlxTweenType.ONESHOT}, (v:Float) ->
 				{
 					FlxG.sound.volume = v;
 				});
@@ -167,12 +166,6 @@ class InitState extends FlxState
 		// Do shit like saving the user's data when the game closes
 		Application.current.window.onClose.add(() ->
 		{
-			// Despite it saying "closeGame", it's not actually closing
-			// the game since the parameter "sysShutdown" is false. What's
-			// actually happening is all of the data is still saving and other utilities
-			// (i.e. Discord RPC and logging) are still being shutdown. This is just for keeping the
-			// code D.R.Y and still doing everything that is needed when the game closes!
-			// - Kori ;3
 			FlixelUtil.closeGame(false);
 		});
 	}

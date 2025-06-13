@@ -1,6 +1,9 @@
 package starcore.backend.util;
 
-#if FILTERS_ALLOWED
+import haxe.Exception;
+import starcore.shaders.ScanlineShader;
+import flixel.input.keyboard.FlxKey;
+#if SHADERS_ALLOWED
 import openfl.filters.ShaderFilter;
 #end
 import starcore.backend.data.ClientPrefs.ShaderModeType;
@@ -9,7 +12,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.sound.FlxSound;
-#if SOUND_EFFECTS_ALLOWED
+#if SOUND_FILTERS_ALLOWED
 import flixel.sound.filters.FlxFilteredSound;
 import flixel.sound.filters.FlxSoundFilter;
 import flixel.sound.filters.effects.FlxSoundReverbEffect;
@@ -61,8 +64,8 @@ final class FlixelUtil
 	 */
 	public static function playSoundWithReverb(path:String, volume:Float = 1, decayTime:Float = 4):Void
 	{
-		#if SOUND_EFFECTS_ALLOWED
-		if (!(CacheUtil.currentReverbSoundsAmount > Constants.REVERB_SOUND_EFFECT_LIMIT))
+		#if SOUND_FILTERS_ALLOWED
+		if (!(CacheUtil.currentReverbSoundsAmount >= Constants.REVERB_SOUND_EFFECT_LIMIT))
 		{
 			// Make the sound and filter
 			var sound:FlxFilteredSound = new FlxFilteredSound();
@@ -75,7 +78,7 @@ final class FlixelUtil
 			sound.filter.addEffect(effect);
 			// Add the sound to the game so that way it
 			// gets lowered when the game loses focus and
-			// the user has "minimizeVolume" enabled
+			// the user has 'minimizeVolume' enabled
 			FlxG.sound.list.add(sound);
 			// Play the sound
 			sound.play();
@@ -119,7 +122,7 @@ final class FlixelUtil
 	 */
 	public static function setFilters(?mode:ShaderModeType):Void
 	{
-		#if FILTERS_ALLOWED
+		#if SHADERS_ALLOWED
 		switch (mode)
 		{
 			case DEFAULT | null:
@@ -128,13 +131,201 @@ final class FlixelUtil
 					new ShaderFilter(CacheUtil.vcrMario85Filter)
 				]);
 			case FAST:
-				FlxG.game.setFilters([
-					new ShaderFilter(CacheUtil.vcrMario85Filter)
-				]);
+				FlxG.game.setFilters([new ShaderFilter(CacheUtil.vcrMario85Filter)]);
 			case MINIMAL:
+				FlxG.game.setFilters([new ShaderFilter(new ScanlineShader())]);
+			case NONE:
 				FlxG.game.setFilters([]);
 		}
 		#end
+	}
+
+	/**
+	 * Get's the last key that was pressed on the current frame.
+	 * 
+	 * @return The last key that was pressed. If no keys were pressed, then
+	 *         `FlxKey.NONE` is returned instead.
+	 */
+	public static function getLastKeyPressed():FlxKey
+	{
+		for (key in 9...303)  // Loop through all keys in FlxKey
+		{
+			try
+			{
+				if (FlxG.keys.anyJustPressed([key]))
+				{
+					return key;
+				}
+			}
+			catch (e:Exception)
+			{
+				// Skip and move on if it is not a valid key
+			}
+		}
+		return FlxKey.NONE;
+	}
+
+	/**
+	 * Converts an `FlxKey` constant to it's respective character.
+	 * 
+	 * ## Examples
+	 * ```
+	 * convertFlxKeyToChar(FlxKey.THREE) -> '3'
+	 * convertFlxKeyToChar(FlxKey.SEMICOLON) -> ';'
+	 * convertFlxKeyToChar(FlxKey.BACKSLASH) -> '\\'
+	 * ```
+	 * 
+	 * ### *NOTE: If `FlxKey.PLUS` is passed down, it will be returned as `=` if `shiftVariant` is false!*
+	 * 
+	 * @param key          The key to be converted.
+	 * @param shiftVariant If the key should be converted to the variant when the
+	 *                     user is pressing shift (i.e. `a` would become `A`, `;` would
+	 *                     become `:`, etc.). Default value is `false`.
+	 * @return             The converted character.
+	 */
+	public static function convertFlxKeyToChar(key:FlxKey, shiftVariant:Bool = false):String
+	{
+		var toReturn:String;
+
+		switch (key)
+		{
+			case ZERO:
+				toReturn = '0';
+			case ONE:
+				toReturn = '1';
+			case TWO:
+				toReturn = '2';
+			case THREE:
+				toReturn = '3';
+			case FOUR:
+				toReturn = '4';
+			case FIVE:
+				toReturn = '5';
+			case SIX:
+				toReturn = '6';
+			case SEVEN:
+				toReturn = '7';
+			case EIGHT:
+				toReturn = '8';
+			case NINE:
+				toReturn = '9';
+			case NUMPADZERO:
+				toReturn = '0';
+			case NUMPADONE:
+				toReturn = '1';
+			case NUMPADTWO:
+				toReturn = '2';
+			case NUMPADTHREE:
+				toReturn = '3';
+			case NUMPADFOUR:
+				toReturn = '4';
+			case NUMPADFIVE:
+				toReturn = '5';
+			case NUMPADSIX:
+				toReturn = '6';
+			case NUMPADSEVEN:
+				toReturn = '7';
+			case NUMPADEIGHT:
+				toReturn = '8';
+			case NUMPADNINE:
+				toReturn = '9';
+			case NUMPADMULTIPLY:
+				toReturn = '*';
+			case NUMPADMINUS:
+				toReturn = '-';
+			case NUMPADPERIOD:
+				toReturn = '.';
+			case SEMICOLON:
+				toReturn = ';';
+			case COMMA:
+				toReturn = ',';
+			case PERIOD:
+				toReturn = '.';
+			case SLASH:
+				toReturn = '/';
+			case GRAVEACCENT:
+				toReturn = '`';
+			case LBRACKET:
+				toReturn = '[';
+			case RBRACKET:
+				toReturn = ']';
+			case BACKSLASH:
+				toReturn = '\\';
+			case QUOTE:
+				toReturn = '\'';
+			case PLUS: // Why can't it be "EQUALS"...
+				toReturn = '=';
+			case MINUS:
+				toReturn = '-';
+			default:
+				toReturn = key.toString().toLowerCase();
+		}
+
+		return (!shiftVariant) ? toReturn : convertCharToShiftChar(toReturn);
+	}
+
+	/**
+	 * Converts an `FlxKey` constant to it's respective character.
+	 * 
+	 * ### Examples
+	 * ```
+	 * convertFlxKeyToChar('3') -> '*'
+	 * convertFlxKeyToChar(';') -> ':'
+	 * convertFlxKeyToChar('\\') -> '|'
+	 * ```
+	 * 
+	 * @param key The key to be converted.
+	 * @return    The converted character (as its shift variant).
+	 */
+	public static function convertCharToShiftChar(key:String):String
+	{
+		switch (key)
+		{
+			case '1':
+				return '!';
+			case '2':
+				return '@';
+			case '3':
+				return '#';
+			case '4':
+				return '$';
+			case '5':
+				return '%';
+			case '6':
+				return '^';
+			case '7':
+				return '&';
+			case '8':
+				return '*';
+			case '9':
+				return '(';
+			case '0':
+				return ')';
+			case ';':
+				return ':';
+			case ',':
+				return '<';
+			case '.':
+				return '>';
+			case '/':
+				return '?';
+			case '`':
+				return '~';
+			case '[':
+				return '{';
+			case ']':
+				return '}';
+			case '\\':
+				return '|';
+			case '\'':
+				return '"';
+			case '=':
+				return '+';
+			case '-':
+				return '_';
+			default:
+				return key.toUpperCase();
+		}
 	}
 
 	/**
@@ -160,9 +351,9 @@ final class FlixelUtil
 	 * Close the entire game.
 	 * 
 	 * @param sysShutdown Whether to close the game using the dedicated platform
-	 * 					  shutdown method or not. Only place this is set to `false`
-	 * 					  is in `InitState` when the event listener for the game closing
-	 * 					  is added.
+	 * 					  shutdown method or not. Set this to `false` when you
+	 *                    just need to save the user's data and shutdown the utilities and
+	 *                    wish to shut the game down another way (i.e. throwing an exception).
 	 */
 	public static function closeGame(sysShutdown:Bool = true):Void
 	{
