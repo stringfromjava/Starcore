@@ -76,7 +76,8 @@ final class LoggerUtil
 	/**
 	 * Log basic info into the console and Flixel logs.
 	 * 
-	 * This function does nothing if the conditional `LOGGING_ALLOWED` is disabled.
+	 * This function does not write to a file and instead 
+	 * only traces the message in the console if the conditional `LOGGING_ALLOWED` is disabled.
 	 * 
 	 * @param info        The information to log.
 	 * @param logType     The type of log to be displayed. This is just regular info by default.
@@ -85,9 +86,7 @@ final class LoggerUtil
 	 */
 	public static inline function log(info:String, logType:LogType = INFO, includeDots:Bool = true):Void
 	{
-		#if LOGGING_ALLOWED
 		writeToFile('$info${includeDots ? '...' : ''}', logType);
-		#end
 	}
 
 	static function writeToFile(logMsg:String, logType:LogType = INFO):Void

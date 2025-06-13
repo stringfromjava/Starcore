@@ -28,13 +28,13 @@ class DebugEditorMenuState extends FlxState
 		// Set the editor menu background
 		FlxG.camera.bgColor = Constants.DEBUG_EDITOR_BACKGROUND_COLOR;
 
-		// Disable only the VCRBorder shader, since it
+		// Enable only the Scanline shader, since all the others
 		// would most likely mess with development
 		if (ClientPrefs.getOption('editorFilters'))
 		{
-			if (ClientPrefs.getOption('shaderMode') == DEFAULT)
+			if (ClientPrefs.getOption('shaderMode') == DEFAULT || ClientPrefs.getOption('shaderMode') == FAST)
 			{
-				FlixelUtil.setFilters(FAST);
+				FlixelUtil.setFilters(MINIMAL);
 			}
 			else
 			{

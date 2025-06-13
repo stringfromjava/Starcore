@@ -116,7 +116,7 @@ class MainMenuState extends FlxTransitionableState
 	{
 		super.update(elapsed);
 
-		#if EDITORS_ALLOWED
+		#if DEBUG_EDITORS_ALLOWED
 		if (Controls.getBinds().MS_OPENEDITORS_JUST_PRESSED)
 		{
 			FlxG.sound.music.stop();

@@ -46,7 +46,11 @@ final class Constants
 	 */
 	public static final DEFAULT_OPTIONS:Map<String, Any> = [
 		// Graphics
+		#if !web
 		'shaderMode' => ShaderModeType.DEFAULT,
+		#else
+		'shaderMode' => ShaderModeType.MINIMAL,
+		#end
 		// Misc.
 		'discordRPC' => true,
 		'minimizeVolume' => true,

@@ -12,9 +12,10 @@
   },
   "haxe.enableExtendedIndentation": true,
   "cSpell.words": [
-    "GRAVEACCENT",
+    "openeditors",
     "Haxe",
     "IBEAM",
+    "GRAVEACCENT",
     "NUMPADEIGHT",
     "NUMPADFIVE",
     "NUMPADFOUR",
@@ -29,7 +30,6 @@
     "NUMPADTHREE",
     "NUMPADTWO",
     "NUMPADZERO",
-    "NUMPADSLASH",
-    "openeditors"
+    "NUMPADSLASH"
   ]
 }

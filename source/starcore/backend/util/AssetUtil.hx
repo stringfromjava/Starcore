@@ -55,21 +55,6 @@ final class AssetUtil
 	}
 
 	/**
-	 * Get a dynamic value from a `Dynamic` object. Note that this is meant 
-	 * for JSON specific objects.
-	 * 
-	 * @param object       The JSON `Dynamic` object to obtain the field from.
-	 * @param field        The field to get.
-	 * @param defaultValue The value that is returned if the field does not exist.
-	 * @return             The value found from the said field. If it isn't found, then the
-	 *                     `defaultValue` parameter is returned instead.
-	 */
-	public static inline function getDynamicField(object:Dynamic, field:String, defaultValue:Dynamic):Any
-	{
-		return (Reflect.hasField(object, field)) ? Reflect.field(object, field) : defaultValue;
-	}
-
-	/**
 	 * Caches a list of sounds from an `Array`.
 	 * 
 	 * @param soundArray The list of the file pathways for each sound file to precache.

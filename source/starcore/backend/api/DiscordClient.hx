@@ -1,18 +1,18 @@
 package starcore.backend.api;
 
 import starcore.backend.data.Constants;
-#if DISCORD_ALLOWED
 import starcore.backend.util.LoggerUtil;
 import starcore.backend.data.ClientPrefs;
+#if DISCORD_RPC_ALLOWED
 import cpp.RawConstPointer;
 import hxdiscord_rpc.Discord;
 import hxdiscord_rpc.Types.DiscordRichPresence;
-import lime.app.Application;
 import sys.thread.Thread;
+#end
+import lime.app.Application;
 
 /**
- * Class that handles Discord rich presence for the client's
- * "Activity" box.
+ * Class that handles Discord rich presence for the client's "Activity" box.
  */
 final class DiscordClient
 {
@@ -25,6 +25,7 @@ final class DiscordClient
 	 */
 	public static function initialize():Void
 	{
+		#if DISCORD_RPC_ALLOWED
 		if (ClientPrefs.getOption('discordRPC'))
 		{
 			// Log info
@@ -55,6 +56,7 @@ final class DiscordClient
 		{
 			shutdown();
 		});
+		#end
 	}
 
 	/**
@@ -62,8 +64,9 @@ final class DiscordClient
 	 */
 	public static function shutdown():Void
 	{
+		#if DISCORD_RPC_ALLOWED
 		LoggerUtil.log('Shutting down Discord rich presence');
 		Discord.Shutdown();
+		#end
 	}
 }
-#end

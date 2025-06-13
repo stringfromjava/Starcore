@@ -3,9 +3,7 @@ package starcore.backend.util;
 import haxe.Exception;
 import starcore.shaders.ScanlineShader;
 import flixel.input.keyboard.FlxKey;
-#if SHADERS_ALLOWED
 import openfl.filters.ShaderFilter;
-#end
 import starcore.backend.data.ClientPrefs.ShaderModeType;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -122,22 +120,29 @@ final class FlixelUtil
 	 */
 	public static function setFilters(?mode:ShaderModeType):Void
 	{
-		#if SHADERS_ALLOWED
 		switch (mode)
 		{
+			#if ADVANCED_SHADERS_ALLOWED
 			case DEFAULT | null:
 				FlxG.game.setFilters([
 					new ShaderFilter(CacheUtil.vcrBorderFilter),
-					new ShaderFilter(CacheUtil.vcrMario85Filter)
+					new ShaderFilter(CacheUtil.vcrMario85Filter),
+					new ShaderFilter(new ScanlineShader())
 				]);
 			case FAST:
 				FlxG.game.setFilters([new ShaderFilter(CacheUtil.vcrMario85Filter)]);
+			#end
 			case MINIMAL:
 				FlxG.game.setFilters([new ShaderFilter(new ScanlineShader())]);
 			case NONE:
 				FlxG.game.setFilters([]);
+			default:
+				FlxG.game.setFilters([
+					new ShaderFilter(CacheUtil.vcrBorderFilter),
+					new ShaderFilter(CacheUtil.vcrMario85Filter),
+					new ShaderFilter(new ScanlineShader())
+				]);
 		}
-		#end
 	}
 
 	/**
@@ -148,7 +153,7 @@ final class FlixelUtil
 	 */
 	public static function getLastKeyPressed():FlxKey
 	{
-		for (key in 9...303)  // Loop through all keys in FlxKey
+		for (key in 8...303) // Loop through all keys in FlxKey
 		{
 			try
 			{
@@ -163,6 +168,58 @@ final class FlixelUtil
 			}
 		}
 		return FlxKey.NONE;
+	}
+
+	/**
+	 * Get's the current keys that were just pressed on the current frame.
+	 * 
+	 * @return All `FlxKey`s that were just pressed. If no keys were pressed, then
+	 *         an empty array (`[]`) is returned instead.
+	 */
+	public static function getCurrentKeysJustPressed():Array<FlxKey>
+	{
+		var toReturn:Array<FlxKey> = [];
+		for (key in 8...303) // Loop through all keys in FlxKey
+		{
+			try
+			{
+				if (FlxG.keys.anyJustPressed([key]))
+				{
+					toReturn.push(key);
+				}
+			}
+			catch (e:Exception)
+			{
+				// Skip and move on if it is not a valid key
+			}
+		}
+		return toReturn;
+	}
+
+	/**
+	 * Get's the current keys that are held down on the current frame.
+	 * 
+	 * @return All `FlxKey`s that are currently held down. If no keys are pressed, then
+	 *         an empty array (`[]`) is returned instead.
+	 */
+	public static function getCurrentKeysPressed():Array<FlxKey>
+	{
+		var toReturn:Array<FlxKey> = [];
+		for (key in 8...303) // Loop through all keys in FlxKey
+		{
+			try
+			{
+				if (FlxG.keys.anyPressed([key]))
+				{
+					toReturn.push(key);
+				}
+			}
+			catch (e:Exception)
+			{
+				// Skip and move on if it is not a valid key
+			}
+		}
+		return toReturn;
 	}
 
 	/**
@@ -229,10 +286,14 @@ final class FlixelUtil
 				toReturn = '8';
 			case NUMPADNINE:
 				toReturn = '9';
-			case NUMPADMULTIPLY:
-				toReturn = '*';
+			case NUMPADPLUS:
+				toReturn = '+';
 			case NUMPADMINUS:
 				toReturn = '-';
+			case NUMPADMULTIPLY:
+				toReturn = '*';
+			case NUMPADSLASH:
+				toReturn = '/';
 			case NUMPADPERIOD:
 				toReturn = '.';
 			case SEMICOLON:
@@ -265,13 +326,13 @@ final class FlixelUtil
 	}
 
 	/**
-	 * Converts an `FlxKey` constant to it's respective character.
+	 * Converts a `String` char to it's respective shifted character.
 	 * 
 	 * ### Examples
 	 * ```
-	 * convertFlxKeyToChar('3') -> '*'
-	 * convertFlxKeyToChar(';') -> ':'
-	 * convertFlxKeyToChar('\\') -> '|'
+	 * convertCharToShiftChar('3') -> '*'
+	 * convertCharToShiftChar(';') -> ':'
+	 * convertCharToShiftChar('\\') -> '|'
 	 * ```
 	 * 
 	 * @param key The key to be converted.

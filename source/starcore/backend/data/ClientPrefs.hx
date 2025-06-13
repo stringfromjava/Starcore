@@ -15,7 +15,7 @@ import haxe.Exception;
 enum ShaderModeType
 {
 	DEFAULT; // All shaders applied
-	FAST; // Only the VCRMario85 shader enabled
+	FAST; // Only the VCRMario85 and Scanline shaders enabled
 	MINIMAL; // Only scanline shader enabled
 	NONE; // No shaders at all
 }

@@ -92,26 +92,26 @@ class Project extends HXProject
 
 	//
 	// FEATURE FLAGS
-	// Inverse feature flags are automatically populated.
-	//
+	// (Inverse feature flags are automatically populated)
+	// ===========================================================================
 
 	/**
 	 * Allows the game to be displayed in the user's Discord "Activity" box 
 	 * (it can still be disabled by the user in-game if the option is off).
 	 */
-	static final DISCORD_ALLOWED:FeatureFlag = 'DISCORD_ALLOWED';
+	static final DISCORD_RPC_ALLOWED:FeatureFlag = 'DISCORD_RPC_ALLOWED';
 
 	/**
-	 * Enables the game to use filters, giving it a more unsettling and unnerving vibe.
+	 * Enables the game to use advanced shaders, giving it a more unsettling and unnerving vibe.
 	 * Sort of like the analog horror videos you see on YouTube.
 	 */
-	static final SHADERS_ALLOWED:FeatureFlag = 'SHADERS_ALLOWED';
+	static final ADVANCED_SHADERS_ALLOWED:FeatureFlag = 'ADVANCED_SHADERS_ALLOWED';
 
 	/**
 	 * Allows the developer(s) to use built-in editors, 
 	 * such as creating animations for entities.
 	 */
-	static final EDITORS_ALLOWED:FeatureFlag = 'EDITORS_ALLOWED';
+	static final DEBUG_EDITORS_ALLOWED:FeatureFlag = 'DEBUG_EDITORS_ALLOWED';
 
 	/**
 	 * Permits the game to use a built-in logging system, which writes all 
@@ -134,9 +134,9 @@ class Project extends HXProject
 		configureApp();
 
 		displayTarget();
+		configureOutputDir();
 		configureFeatureFlags();
 		configureCompileDefines();
-		configureOutputDir();
 		configureHaxelibs();
 		configureAssets();
 		configureIcons(); // TODO: Implement code when icons are made!
@@ -155,6 +155,7 @@ class Project extends HXProject
 		info('Git Commit:     ' + getGitCommit());
 		info('Git Modified?   ' + getGitModified());
 		info('Display?        ' + isDisplay());
+		info('-------------------------------------------------------------');
 	}
 
 	/**
@@ -356,15 +357,15 @@ class Project extends HXProject
 	{
 		// Enable Discord rich presence
 		// (works only for Windows)
-		DISCORD_ALLOWED.apply(this, isWindows());
+		DISCORD_RPC_ALLOWED.apply(this, isWindows());
 
 		// Enable dope ass screen filters
 		// (if the platform is on desktop)
-		SHADERS_ALLOWED.apply(this, isDesktop());
+		ADVANCED_SHADERS_ALLOWED.apply(this, isDesktop());
 
 		// Enable the editors if the game is in debug mode,
 		// otherwise, disable them of course
-		EDITORS_ALLOWED.apply(this, isDesktop() && isDebug());
+		DEBUG_EDITORS_ALLOWED.apply(this, isDesktop() && isDebug());
 
 		// Enables dope ass logging
 		// (only works on desktop)
@@ -373,6 +374,8 @@ class Project extends HXProject
 		// Allows the game to programmatically change sounds
 		// (only works on desktop)
 		SOUND_FILTERS_ALLOWED.apply(this, isDesktop());
+
+		info('-------------------------------------------------------------');
 	}
 
 	/**
@@ -417,6 +420,7 @@ class Project extends HXProject
 		buildDir += '/';
 		info('Output Directory: $buildDir');
 		app.path = buildDir;
+		info('-------------------------------------------------------------');
 	}
 
 	function configureHaxelibs()
@@ -450,7 +454,7 @@ class Project extends HXProject
 		}
 
 		// Discord rich presence
-		if (DISCORD_ALLOWED.isEnabled(this))
+		if (DISCORD_RPC_ALLOWED.isEnabled(this))
 		{
 			addHaxelib('hxdiscord_rpc');
 		}
@@ -475,10 +479,7 @@ class Project extends HXProject
 		addAssetPath('assets/shared/images', 'assets/shared/images', 'default', ['*.png'], []);
 
 		// Add shader frag assets
-		if (isDesktop())
-		{
-			addAssetPath('assets/shaders', 'assets/shaders', 'default', ['*.frag'], []);
-		}
+		addAssetPath('assets/shaders', 'assets/shaders', 'default', ['*.frag'], []);
 
 		// Add shared music and sound assets for web (.mp3)
 		if (isWeb())

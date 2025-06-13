@@ -1,6 +1,7 @@
 #pragma header
 
-vec2 curve(vec2 uv) {
+vec2 curve(vec2 uv)
+{
     uv = (uv - 0.5) * 2.0;
     uv *= 1.1;	
     uv.x *= 1.0 + pow((abs(uv.y) / 5.0), 2.0); // Increased horizontal distortion

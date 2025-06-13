@@ -1,5 +1,7 @@
 package;
 
+import starcore.backend.util.SaveUtil;
+import openfl.events.KeyboardEvent;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.math.FlxMath;
@@ -15,10 +17,8 @@ import starcore.backend.util.FlixelUtil;
 import starcore.backend.util.LoggerUtil;
 import starcore.backend.util.PathUtil;
 import starcore.menus.MainMenuState;
-#if DISCORD_ALLOWED
 import starcore.backend.api.DiscordClient;
-#end
-#if SHADERS_ALLOWED
+#if ADVANCED_SHADERS_ALLOWED
 import starcore.shaders.*;
 #end
 #if web
@@ -57,9 +57,7 @@ class InitState extends FlxState
 		registerEntities();
 
 		// Start up Discord rich presence
-		#if DISCORD_ALLOWED
 		DiscordClient.initialize();
-		#end
 
 		// Switch to the main menu state after everything has loaded
 		FlxG.switchState(() -> new MainMenuState());
@@ -101,7 +99,7 @@ class InitState extends FlxState
 		#end
 
 		// Assign the shaders AFTER all assets have been loaded!
-		#if SHADERS_ALLOWED
+		#if ADVANCED_SHADERS_ALLOWED
 		CacheUtil.vcrBorderFilter = new VCRBorderShader();
 		CacheUtil.vcrMario85Filter = new VCRMario85Shader();
 		#end
@@ -113,7 +111,7 @@ class InitState extends FlxState
 		LoggerUtil.log('Adding background processes');
 		// Update the shaders that need to
 		// constantly be reset
-		#if SHADERS_ALLOWED
+		#if ADVANCED_SHADERS_ALLOWED
 		FlxG.signals.postUpdate.add(() ->
 		{
 			CacheUtil.vcrMario85Filter.update(FlxG.elapsed);
@@ -159,6 +157,16 @@ class InitState extends FlxState
 				{
 					FlxG.sound.volume = v;
 				});
+			}
+		});
+		#end
+
+		#if (web && debug)
+		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, (_) ->
+		{
+			if (FlxG.keys.pressed.CONTROL && FlxG.keys.pressed.BACKSPACE)
+			{
+				SaveUtil.deleteAll();
 			}
 		});
 		#end

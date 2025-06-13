@@ -11,48 +11,48 @@ import flixel.FlxG;
 class ClickableBehavior
 {
 	/**
-	 * Called when `this` clickable sprite is clicked on.
+	 * Called when `this` clickable object is clicked on.
 	 */
 	public var onClick:Void->Void = () -> {};
 
 	/**
-	 * Called when `this` clickable sprite is hovered on.
+	 * Called when `this` clickable object is hovered on.
 	 */
 	public var onHover:Void->Void = () -> {};
 
 	/**
-	 * Called when `this` clickable sprite's hover boundaries are no longer overlapping
+	 * Called when `this` clickable object's hover boundaries are no longer overlapping
 	 * the mouse.
 	 */
 	public var onHoverLost:Void->Void = () -> {};
 
 	/**
-	 * X bounds for the *left* side of `this` clickable sprite.
+	 * X bounds for the *left* side of `this` clickable object.
 	 */
 	public var bxl:Float;
 
 	/**
-	 * X bounds for the *right* side of `this` clickable sprite.
+	 * X bounds for the *right* side of `this` clickable object.
 	 */
 	public var bxr:Float;
 
 	/**
-	 * Y bounds for the *top* side of `this` clickable sprite.
+	 * Y bounds for the *top* side of `this` clickable object.
 	 */
 	public var byt:Float;
 
 	/**
-	 * Y bounds for the *bottom* side of `this` clickable sprite.
+	 * Y bounds for the *bottom* side of `this` clickable object.
 	 */
 	public var byb:Float;
 
 	/**
-	 * Is `this` current clickable sprite being hovered on?
+	 * Is `this` current clickable object being hovered on?
 	 */
 	public var isHovered:Bool = false;
 
 	/**
-	 * Is it allowed to click `this` sprite?
+	 * Is it allowed to click `this` object?
 	 */
 	public var canClick:Bool = true;
 
@@ -66,10 +66,16 @@ class ClickableBehavior
 	public var hoverCursor:MouseCursor = MouseCursor.BUTTON;
 
 	/**
-	 * Should `this` clickable sprite change to the
+	 * Should `this` clickable object change to the
 	 * set pointer cursor when hovered over?
 	 */
 	public var displayHoverCursor:Bool = true;
+
+	/**
+	 * Should `this` clickable object reset back to
+	 * `Mouse.ARROW` when it is clicked on?
+	 */
+	public var resetCursorOnClick:Bool = true;
 
 	public function new() {}
 
@@ -97,7 +103,7 @@ class ClickableBehavior
 
 			if (FlxG.mouse.justPressed)
 			{
-				if (displayHoverCursor)
+				if (displayHoverCursor && resetCursorOnClick)
 				{
 					Mouse.cursor = MouseCursor.ARROW;
 				}
@@ -117,7 +123,7 @@ class ClickableBehavior
 	}
 
 	/**
-	 * Gets `this` clickable sprite's hover bounds as an array.
+	 * Gets `this` clickable object's hover bounds as an array.
 	 * @return The hover bounds as an array.
 	 */
 	public inline function getHoverBoundsArray():Array<Float>
@@ -150,8 +156,7 @@ class ClickableBehavior
 	}
 
 	/**
-	 * Sets the hover bounds for all four sides of `this`
-	 * clickable sprite. 
+	 * Sets the hover bounds for all four sides of `this` clickable object. 
 	 * 
 	 * @param bxl Left X hover bound.
 	 * @param bxr Right X hover bound.
@@ -167,7 +172,7 @@ class ClickableBehavior
 	}
 
 	/**
-	 * Reset the hover bounds to match `this` clickable sprite's hitbox.
+	 * Reset the hover bounds to match `this` clickable object's hitbox.
 	 * 
 	 * @param x      The X position of the object.
 	 * @param y      The Y position of the object.
@@ -183,9 +188,9 @@ class ClickableBehavior
 	}
 
 	/**
-	 * Is `this` clickable sprite's hover bounds overlapping the mouse?
+	 * Is `this` clickable object's hover bounds overlapping the mouse?
 	 * 
-	 * @return If the mouse is inside `this` clickable sprite's hover bounds.
+	 * @return If the mouse is inside `this` clickable object's hover bounds.
 	 */
 	public inline function isHoveringOverMouse():Bool
 	{

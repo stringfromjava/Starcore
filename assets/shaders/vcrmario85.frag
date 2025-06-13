@@ -7,15 +7,18 @@ uniform float time;
 // Noise generation functions borrowed from: 
 // https://github.com/ashima/webgl-noise/blob/master/src/noise2D.glsl
 
-vec3 mod289(vec3 x) {
+vec3 mod289(vec3 x)
+{
 	return x - floor(x * (1.0 / 289.0)) * 289.0;
 }
 
-vec2 mod289(vec2 x) {
+vec2 mod289(vec2 x)
+{
 	return x - floor(x * (1.0 / 289.0)) * 289.0;
 }
 
-vec3 permute(vec3 x) {
+vec3 permute(vec3 x)
+{
 	return mod289(((x*34.0)+1.0)*x);
 }
 
@@ -68,7 +71,8 @@ float snoise(vec2 v)
 	return 130.0 * dot(m, g);
 }
 
-void main() {
+void main()
+{
 	float fuzzOffset = snoise(vec2(time*15.0,openfl_TextureCoordv.y*80.0))*0.0005;
 	float largeFuzzOffset = snoise(vec2(time*1.0,openfl_TextureCoordv.y*25.0))*0.001;
 	float xOffset = (fuzzOffset + largeFuzzOffset);
