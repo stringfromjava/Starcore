@@ -1,26 +1,23 @@
 package starcore.backend.util;
 
-import haxe.Exception;
-import starcore.shaders.ScanlineShader;
-import flixel.input.keyboard.FlxKey;
-import openfl.filters.ShaderFilter;
-import starcore.backend.data.ClientPrefs.ShaderModeType;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.input.keyboard.FlxKey;
 import flixel.sound.FlxSound;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
+import haxe.Exception;
+import openfl.filters.ShaderFilter;
+import starcore.backend.data.ClientPrefs.ShaderModeType;
+import starcore.backend.data.Constants;
+import starcore.shaders.*;
 #if SOUND_FILTERS_ALLOWED
 import flixel.sound.filters.FlxFilteredSound;
 import flixel.sound.filters.FlxSoundFilter;
 import flixel.sound.filters.effects.FlxSoundReverbEffect;
-#end
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
-import starcore.backend.data.Constants;
-#if DISCORD_ALLOWED
-import starcore.backend.api.DiscordClient;
 #end
 #if html5
 import js.Browser;
@@ -125,23 +122,30 @@ final class FlixelUtil
 			#if ADVANCED_SHADERS_ALLOWED
 			case DEFAULT | null:
 				FlxG.game.setFilters([
-					new ShaderFilter(CacheUtil.vcrBorderFilter),
-					new ShaderFilter(CacheUtil.vcrMario85Filter),
-					new ShaderFilter(new ScanlineShader())
+					new ShaderFilter(CacheUtil.vcrBorderShader),
+					new ShaderFilter(CacheUtil.vcrMario85Shader),
+					new ShaderFilter(CacheUtil.grainShader),
+					new ShaderFilter(new Hq2xShader()),
+					new ShaderFilter(new TiltshiftShader())
 				]);
-			case FAST:
-				FlxG.game.setFilters([new ShaderFilter(CacheUtil.vcrMario85Filter)]);
 			#end
+			case FAST:
+				FlxG.game.setFilters([
+					new ShaderFilter(CacheUtil.grainShader),
+					new ShaderFilter(new ScanlineShader()),
+					new ShaderFilter(new Hq2xShader()),
+					new ShaderFilter(new TiltshiftShader())
+				]);
 			case MINIMAL:
-				FlxG.game.setFilters([new ShaderFilter(new ScanlineShader())]);
+				FlxG.game.setFilters([
+					new ShaderFilter(CacheUtil.grainShader),
+					new ShaderFilter(new ScanlineShader()),
+					new ShaderFilter(new Hq2xShader())
+				]);
 			case NONE:
 				FlxG.game.setFilters([]);
 			default:
-				FlxG.game.setFilters([
-					new ShaderFilter(CacheUtil.vcrBorderFilter),
-					new ShaderFilter(CacheUtil.vcrMario85Filter),
-					new ShaderFilter(new ScanlineShader())
-				]);
+				FlxG.game.setFilters([]);
 		}
 	}
 

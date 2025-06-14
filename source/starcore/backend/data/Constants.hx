@@ -49,7 +49,7 @@ final class Constants
 		#if !web
 		'shaderMode' => ShaderModeType.DEFAULT,
 		#else
-		'shaderMode' => ShaderModeType.MINIMAL,
+		'shaderMode' => ShaderModeType.FAST,
 		#end
 		// Misc.
 		'discordRPC' => true,

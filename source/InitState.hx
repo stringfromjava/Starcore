@@ -1,10 +1,8 @@
 package;
 
-import flixel.input.keyboard.FlxKey;
-import starcore.backend.util.SaveUtil;
-import openfl.events.KeyboardEvent;
 import flixel.FlxG;
 import flixel.FlxState;
+import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.system.FlxAssets;
 import flixel.tweens.FlxTween;
@@ -12,16 +10,16 @@ import lime.app.Application;
 import openfl.Lib;
 import openfl.display.StageQuality;
 import openfl.display.StageScaleMode;
+import openfl.events.KeyboardEvent;
+import starcore.backend.api.DiscordClient;
 import starcore.backend.data.ClientPrefs;
 import starcore.backend.util.CacheUtil;
 import starcore.backend.util.FlixelUtil;
 import starcore.backend.util.LoggerUtil;
 import starcore.backend.util.PathUtil;
+import starcore.backend.util.SaveUtil;
 import starcore.menus.MainMenuState;
-import starcore.backend.api.DiscordClient;
-#if ADVANCED_SHADERS_ALLOWED
 import starcore.shaders.*;
-#end
 #if web
 import js.Browser;
 #end
@@ -101,9 +99,10 @@ class InitState extends FlxState
 
 		// Assign the shaders AFTER all assets have been loaded!
 		#if ADVANCED_SHADERS_ALLOWED
-		CacheUtil.vcrBorderFilter = new VCRBorderShader();
-		CacheUtil.vcrMario85Filter = new VCRMario85Shader();
+		CacheUtil.vcrBorderShader = new VCRBorderShader();
+		CacheUtil.vcrMario85Shader = new VCRMario85Shader();
 		#end
+		CacheUtil.grainShader = new GrainShader();
 	}
 
 	function addBackgroundProcesses():Void
@@ -112,12 +111,13 @@ class InitState extends FlxState
 		LoggerUtil.log('Adding background processes');
 		// Update the shaders that need to
 		// constantly be reset
-		#if ADVANCED_SHADERS_ALLOWED
 		FlxG.signals.postUpdate.add(() ->
 		{
-			CacheUtil.vcrMario85Filter.update(FlxG.elapsed);
+			#if ADVANCED_SHADERS_ALLOWED
+			CacheUtil.vcrMario85Shader.update(FlxG.elapsed);
+			#end
+			CacheUtil.grainShader.update(FlxG.elapsed);
 		});
-		#end
 	}
 
 	function addEventListeners():Void

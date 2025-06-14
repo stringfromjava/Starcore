@@ -43,17 +43,22 @@ final class CacheUtil
 	/**
 	 * VCR border shader for Starcore.
 	 */
-	public static var vcrBorderFilter:VCRBorderShader;
+	public static var vcrBorderShader:VCRBorderShader;
 
 	/**
 	 * VCR Mario 85 shader for Starcore.
 	 */
-	public static var vcrMario85Filter:VCRMario85Shader;
+	public static var vcrMario85Shader:VCRMario85Shader;
+
+	/**
+	 * Grain shader for Starcore.
+	 */
+	public static var grainShader:GrainShader;
 
 	/**
 	 * Is caps lock enabled?
 	 */
-	public static var capsLockEnabled:Bool = false; // TODO: Find a better way to do this.
+	public static var capsLockEnabled:Bool = false; // TODO: Find a better way to do this...
 
 	function new() {}
 }

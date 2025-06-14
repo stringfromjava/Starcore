@@ -1,4 +1,4 @@
-package starcore.filters;
+package starcore.shaders;
 
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.utils.Assets;
