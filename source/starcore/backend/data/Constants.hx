@@ -1,8 +1,8 @@
 package starcore.backend.data;
 
-import starcore.backend.data.ClientPrefs.ShaderModeType;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxColor;
+import starcore.backend.data.ClientPrefs.ShaderModeType;
 import starcore.backend.util.PathUtil;
 
 /**
@@ -177,10 +177,10 @@ final class Constants
 	// ===========================
 
 	/**
-	 * The allowed characters that can be added to text in a
+	 * The allowed alphabetic characters that can be added to text in a
 	 * `starcore.ui.TextBox` object.
 	 */
-	public static final ALLOWED_TEXT_BOX_CHARACTERS:Array<FlxKey> = [
+	public static final ALLOWED_TEXT_BOX_ALPHABET_CHARACTERS:Array<FlxKey> = [
 		A,
 		B,
 		C,
@@ -243,6 +243,62 @@ final class Constants
 		NUMPADPERIOD,
 		NUMPADMULTIPLY,
 		NUMPADSLASH
+	];
+
+	/**
+	 * The allowed floating point number characters that can be added to text in a
+	 * `starcore.ui.TextBox` object.
+	 */
+	public static final ALLOWED_TEXT_BOX_FLOAT_CHARACTERS:Array<FlxKey> = [
+		ONE,
+		TWO,
+		THREE,
+		FOUR,
+		FIVE,
+		SIX,
+		SEVEN,
+		EIGHT,
+		NINE,
+		ZERO,
+		PERIOD,
+		NUMPADZERO,
+		NUMPADONE,
+		NUMPADTWO,
+		NUMPADTHREE,
+		NUMPADFOUR,
+		NUMPADFIVE,
+		NUMPADSIX,
+		NUMPADSEVEN,
+		NUMPADEIGHT,
+		NUMPADNINE,
+		NUMPADPERIOD
+	];
+
+	/**
+	 * The allowed integer characters that can be added to text in a
+	 * `starcore.ui.TextBox` object.
+	 */
+	public static final ALLOWED_TEXT_BOX_INT_CHARACTERS:Array<FlxKey> = [
+		ONE,
+		TWO,
+		THREE,
+		FOUR,
+		FIVE,
+		SIX,
+		SEVEN,
+		EIGHT,
+		NINE,
+		ZERO,
+		NUMPADZERO,
+		NUMPADONE,
+		NUMPADTWO,
+		NUMPADTHREE,
+		NUMPADFOUR,
+		NUMPADFIVE,
+		NUMPADSIX,
+		NUMPADSEVEN,
+		NUMPADEIGHT,
+		NUMPADNINE
 	];
 
 	//

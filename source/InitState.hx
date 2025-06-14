@@ -1,5 +1,6 @@
 package;
 
+import flixel.input.keyboard.FlxKey;
 import starcore.backend.util.SaveUtil;
 import openfl.events.KeyboardEvent;
 import flixel.FlxG;
@@ -129,8 +130,7 @@ class InitState extends FlxState
 		Application.current.window.onFocusIn.add(() ->
 		{
 			// Bring the volume back up when the window is focused again
-			var minimizeVolume:Bool = ClientPrefs.getOption('minimizeVolume');
-			if (minimizeVolume && !CacheUtil.isWindowFocused)
+			if (ClientPrefs.getOption('minimizeVolume') && !CacheUtil.isWindowFocused)
 			{
 				// Set back to one decimal place (0.1) when the screen gains focus again
 				// (note that if the user had the volume all the way down, it will be set to zero)
@@ -146,8 +146,7 @@ class InitState extends FlxState
 		Application.current.window.onFocusOut.add(() ->
 		{
 			// Minimize the volume when the window loses focus
-			var minimizeVolume:Bool = ClientPrefs.getOption('minimizeVolume');
-			if (minimizeVolume && CacheUtil.isWindowFocused)
+			if (ClientPrefs.getOption('minimizeVolume') && CacheUtil.isWindowFocused)
 			{
 				// Set the last volume used to the current volume
 				CacheUtil.lastVolumeUsed = FlxG.sound.volume;
@@ -161,6 +160,8 @@ class InitState extends FlxState
 		});
 		#end
 
+		// Delete all save data if CTRL + BACKSPACE
+		// is pressed on debug mode in the web version
 		#if (web && debug)
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, (_) ->
 		{
@@ -170,6 +171,15 @@ class InitState extends FlxState
 			}
 		});
 		#end
+
+		// Enable/disable caps lock
+		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, (_) ->
+		{
+			if (FlxG.keys.justPressed.CAPSLOCK)
+			{
+				CacheUtil.capsLockEnabled = !CacheUtil.capsLockEnabled;
+			}
+		});
 
 		// Do shit like saving the user's data when the game closes
 		Application.current.window.onClose.add(() ->

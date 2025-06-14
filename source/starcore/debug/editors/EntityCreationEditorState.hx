@@ -112,7 +112,10 @@ class EntityCreationEditorState extends DebugEditorState
 		};
 		add(loadSpriteSheetButton);
 
-		test = new TextBox(300, 400, 300, 16, Constants.DEBUG_EDITOR_FONT, 'Type something OwO');
+		test = new TextBox(300, 400, 300, 16, Constants.DEBUG_EDITOR_FONT, null, 'Type something OwO');
 		add(test);
+		add(new TextBox(300, 450, 300, 16, Constants.DEBUG_EDITOR_FONT, STRING, 'Type some text...'));
+		add(new TextBox(300, 500, 300, 16, Constants.DEBUG_EDITOR_FONT, INT, 'Type an integer...'));
+		add(new TextBox(300, 550, 300, 16, Constants.DEBUG_EDITOR_FONT, FLOAT, 'Type a number...'));
 	}
 }

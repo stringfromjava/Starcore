@@ -16,7 +16,9 @@ import lime.app.Application;
  */
 final class DiscordClient
 {
+	#if DISCORD_RPC_ALLOWED
 	static var presence:DiscordRichPresence = new DiscordRichPresence();
+	#end
 
 	function new() {}
 
