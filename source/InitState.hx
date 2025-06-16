@@ -74,7 +74,7 @@ class InitState extends FlxState
 		FlxG.autoPause = false;
 
 		// Set the stage and scaling modes
-		Lib.current.stage.align = "tl";
+		Lib.current.stage.align = 'tl';
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 
 		// Disable the binds for increasing/decreasing/muting
@@ -91,7 +91,7 @@ class InitState extends FlxState
 
 		// Disable the right-click context menu for HTML5
 		#if html5
-		Browser.document.addEventListener("contextmenu", (e) ->
+		Browser.document.addEventListener('contextmenu', (e) ->
 		{
 			e.preventDefault();
 		});
@@ -103,6 +103,19 @@ class InitState extends FlxState
 		CacheUtil.vcrMario85Shader = new VCRMario85Shader();
 		#end
 		CacheUtil.grainShader = new GrainShader();
+
+		// Configure the event listener for detecting caps lock
+		// if the target is set to HTML5
+		#if html5
+		untyped __js__('
+			window.__haxe_capslock__ = false;
+			document.addEventListener("keydown", function (e) {
+				if (e.getModifierState) {
+					window.__haxe_capslock__ = e.getModifierState("CapsLock");
+				}
+			});
+		');
+		#end
 	}
 
 	function addBackgroundProcesses():Void
@@ -171,15 +184,6 @@ class InitState extends FlxState
 			}
 		});
 		#end
-
-		// Enable/disable caps lock
-		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, (_) ->
-		{
-			if (FlxG.keys.justPressed.CAPSLOCK)
-			{
-				CacheUtil.capsLockEnabled = !CacheUtil.capsLockEnabled;
-			}
-		});
 
 		// Do shit like saving the user's data when the game closes
 		Application.current.window.onClose.add(() ->

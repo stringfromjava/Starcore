@@ -23,6 +23,21 @@ import flixel.sound.filters.effects.FlxSoundReverbEffect;
 import js.Browser;
 #end
 
+// Directly inject C++ code for 
+// detecting if caps lock is enabled
+// on Windows/C++ builds
+#if cpp
+@:headerCode('
+    extern "C" bool hx_isCapsLockOn();
+')
+@:cppFileCode('
+    #include <windows.h>
+    extern "C" bool hx_isCapsLockOn() {
+        return (GetKeyState(VK_CAPITAL) & 0x0001) != 0;
+    }
+')
+#end
+
 /**
  * Utility class for handling objects and components specific to Flixel.
  */
@@ -391,6 +406,47 @@ final class FlixelUtil
 			default:
 				return key.toUpperCase();
 		}
+	}
+
+	/**
+	 * Gets if caps lock is enabled.
+	 * Only works on HTML5, Windows/C++, macOS and Linux builds.
+	 * 
+	 * @return If caps lock is enabled.
+	 */
+	public static inline function getCapsLockedEnabled():Bool
+	{
+		#if html5
+		return untyped __js__('window.__haxe_capslock__');
+		#elseif cpp // This includes Windows builds
+		return untyped __cpp__('hx_isCapsLockOn()');
+		#elseif mac
+		try
+		{
+			var proc = new sys.io.Process("bash", ["-c", "osascript -e 'tell application \"System Events\" to get caps lock'"]);
+			var result = proc.stdout.readLine();
+			proc.close();
+			return result == "true";
+		}
+		catch (e:Dynamic)
+		{
+			return false;
+		}
+		#elseif linux
+		try
+		{
+			var proc = new sys.io.Process("bash", ["-c", "xset q | grep Caps"]);
+			var output = proc.stdout.readAll().toString();
+			proc.close();
+			return output.indexOf("on") != -1;
+		}
+		catch (e:Dynamic)
+		{
+			return false;
+		}
+		#else
+		return false;
+		#end
 	}
 
 	/**

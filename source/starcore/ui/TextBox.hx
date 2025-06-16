@@ -9,7 +9,6 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.ui.MouseCursor;
 import starcore.backend.data.Constants;
-import starcore.backend.util.CacheUtil;
 import starcore.backend.util.DataUtil;
 import starcore.backend.util.FlixelUtil;
 
@@ -106,6 +105,7 @@ class TextBox extends FlxSpriteGroup
 		displayText = new FlxText();
 		displayText.text = textHint;
 		displayText.color = FlxColor.BLACK;
+		trace(font);
 		displayText.font = font;
 		displayText.size = size;
 		displayText.fieldWidth = width;
@@ -208,7 +208,7 @@ class TextBox extends FlxSpriteGroup
 		{
 			if (currentJustPressedKeys.contains(key) || canHoldLetter)
 			{
-				var shift:Bool = ((!CacheUtil.capsLockEnabled) ? FlxG.keys.pressed.SHIFT : !FlxG.keys.pressed.SHIFT);
+				var shift:Bool = ((!FlixelUtil.getCapsLockedEnabled()) ? FlxG.keys.pressed.SHIFT : !FlxG.keys.pressed.SHIFT);
 				if (type != STRING && shift)
 				{
 					// Prevent the user from adding a new character

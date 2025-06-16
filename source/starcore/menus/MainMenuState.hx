@@ -1,5 +1,6 @@
 package starcore.menus;
 
+import starcore.ui.TextBox;
 import starcore.play.PlayState;
 import flixel.FlxG;
 import flixel.FlxSprite;

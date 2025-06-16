@@ -55,10 +55,5 @@ final class CacheUtil
 	 */
 	public static var grainShader:GrainShader;
 
-	/**
-	 * Is caps lock enabled?
-	 */
-	public static var capsLockEnabled:Bool = false; // TODO: Find a better way to do this...
-
 	function new() {}
 }
