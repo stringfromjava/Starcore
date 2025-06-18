@@ -12,7 +12,7 @@ import starcore.backend.data.Constants;
 import starcore.backend.util.CacheUtil;
 
 /**
- * The state where all the different editors can be access from.
+ * The state where all the different editors can be accessed from.
  */
 class DebugEditorMenuState extends FlxState
 {
@@ -44,12 +44,13 @@ class DebugEditorMenuState extends FlxState
 			}
 		}
 
+		var uiBackBind:String = ClientPrefs.getBind('ui_back').toString();
 		infoText = new FlxText();
-		infoText.text = 'This is where you, the developer, can access multiple editors to \n'
-			+ 'accomplish various tasks that otherwise would be difficult to do manually.\n\n\n'
-			+ '1: Entity Creation Editor\n\n'
-			+ ClientPrefs.getBind('ui_back').toString()
-			+ ': Back to Game';
+		infoText.text = 'This is where you, the developer, can access multiple editors to
+			accomplish various tasks that otherwise would be difficult to do manually.
+			
+			1: Entity Creation Editor
+			$uiBackBind: Back to Game';
 		infoText.font = Constants.DEBUG_EDITOR_FONT;
 		infoText.size = 20;
 		infoText.setBorderStyle(OUTLINE, FlxColor.BLACK, 1);

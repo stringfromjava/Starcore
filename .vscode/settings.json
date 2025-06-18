@@ -12,10 +12,13 @@
   },
   "haxe.enableExtendedIndentation": true,
   "cSpell.words": [
+    "borderless",
     "CAPSLOCK",
+    "contextmenu",
     "GRAVEACCENT",
     "Haxe",
     "IBEAM",
+    "keybinds",
     "NUMPADEIGHT",
     "NUMPADFIVE",
     "NUMPADFOUR",

@@ -11,6 +11,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import haxe.Exception;
 import openfl.filters.ShaderFilter;
+import starcore.backend.api.DiscordClient;
 import starcore.backend.data.ClientPrefs.ShaderModeType;
 import starcore.backend.data.Constants;
 import starcore.shaders.*;
@@ -21,6 +22,9 @@ import flixel.sound.filters.effects.FlxSoundReverbEffect;
 #end
 #if html5
 import js.Browser;
+#end
+#if (mac || linux)
+import sys.io.Process;
 #end
 
 // Directly inject C++ code for 
@@ -153,8 +157,7 @@ final class FlixelUtil
 				]);
 			case MINIMAL:
 				FlxG.game.setFilters([
-					new ShaderFilter(CacheUtil.grainShader),
-					new ShaderFilter(new ScanlineShader()),
+				new ShaderFilter(CacheUtil.grainShader),
 					new ShaderFilter(new Hq2xShader())
 				]);
 			case NONE:
@@ -347,7 +350,7 @@ final class FlixelUtil
 	/**
 	 * Converts a `String` char to it's respective shifted character.
 	 * 
-	 * ### Examples
+	 * ## Examples
 	 * ```
 	 * convertCharToShiftChar('3') -> '*'
 	 * convertCharToShiftChar(';') -> ':'
@@ -410,23 +413,23 @@ final class FlixelUtil
 
 	/**
 	 * Gets if caps lock is enabled.
-	 * Only works on HTML5, Windows/C++, macOS and Linux builds.
+	 * Only works on HTML5, Windows, macOS and Linux builds.
 	 * 
 	 * @return If caps lock is enabled.
 	 */
-	public static inline function getCapsLockedEnabled():Bool
+	public static inline function getCapsLockEnabled():Bool
 	{
 		#if html5
 		return untyped __js__('window.__haxe_capslock__');
-		#elseif cpp // This includes Windows builds
+		#elseif cpp
 		return untyped __cpp__('hx_isCapsLockOn()');
 		#elseif mac
 		try
 		{
-			var proc = new sys.io.Process("bash", ["-c", "osascript -e 'tell application \"System Events\" to get caps lock'"]);
-			var result = proc.stdout.readLine();
+			var proc:Process = new Process('bash', ['-c', 'osascript -e \'tell application \'System Events\' to get caps lock']);
+			var result:String = proc.stdout.readLine();
 			proc.close();
-			return result == "true";
+			return result == 'true';
 		}
 		catch (e:Dynamic)
 		{
@@ -435,10 +438,10 @@ final class FlixelUtil
 		#elseif linux
 		try
 		{
-			var proc = new sys.io.Process("bash", ["-c", "xset q | grep Caps"]);
-			var output = proc.stdout.readAll().toString();
+			var proc:Process = new Process('bash', ['-c', 'xset q | grep Caps']);
+			var output:String = proc.stdout.readAll().toString();
 			proc.close();
-			return output.indexOf("on") != -1;
+			return output.indexOf('on') != -1;
 		}
 		catch (e:Dynamic)
 		{
@@ -483,9 +486,7 @@ final class FlixelUtil
 		// Save all of the user's data
 		SaveUtil.saveAll();
 		// Shutdown Discord rich presence
-		#if DISCORD_ALLOWED
 		DiscordClient.shutdown();
-		#end
 		// Shutdown the logging system
 		LoggerUtil.shutdown();
 		// Close the game respectfully

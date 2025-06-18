@@ -16,7 +16,7 @@ enum ShaderModeType
 {
 	DEFAULT; // All shaders applied (excluding Scanline)
 	FAST; // Grain, Scanline, Hq2x and Tiltshift shaders are applied
-	MINIMAL; // Grain, Scanline and Hq2x shaders are applied
+	MINIMAL; // Grain and Hq2x shaders are applied
 	NONE; // No shaders at all
 }
 

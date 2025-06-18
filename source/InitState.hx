@@ -2,7 +2,7 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxState;
-import flixel.input.keyboard.FlxKey;
+
 import flixel.math.FlxMath;
 import flixel.system.FlxAssets;
 import flixel.tweens.FlxTween;
@@ -10,18 +10,20 @@ import lime.app.Application;
 import openfl.Lib;
 import openfl.display.StageQuality;
 import openfl.display.StageScaleMode;
-import openfl.events.KeyboardEvent;
 import starcore.backend.api.DiscordClient;
 import starcore.backend.data.ClientPrefs;
 import starcore.backend.util.CacheUtil;
 import starcore.backend.util.FlixelUtil;
 import starcore.backend.util.LoggerUtil;
 import starcore.backend.util.PathUtil;
-import starcore.backend.util.SaveUtil;
 import starcore.menus.MainMenuState;
 import starcore.shaders.*;
 #if web
 import js.Browser;
+#end
+#if (web && debug)
+import starcore.backend.util.SaveUtil;
+import openfl.events.KeyboardEvent;
 #end
 
 /**
@@ -87,7 +89,18 @@ class InitState extends FlxState
 		FlxAssets.FONT_DEFAULT = PathUtil.ofFont('Born2bSportyFS');
 
 		// Set the stage quality
+		#if !web
+		FlxG.stage.quality = StageQuality.LOW;
+		#else
 		FlxG.stage.quality = StageQuality.MEDIUM;
+		#end
+
+		// Make the window borderless when it is
+		// not in fullscreen mode
+		// TODO: Figure out how to make it draggable
+		#if desktop
+		Application.current.window.borderless = true;
+		#end
 
 		// Disable the right-click context menu for HTML5
 		#if html5

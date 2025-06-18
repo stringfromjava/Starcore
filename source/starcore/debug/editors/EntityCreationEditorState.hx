@@ -1,17 +1,17 @@
 package starcore.debug.editors;
 
-import starcore.ui.TextBox;
-import flixel.util.FlxColor;
-import starcore.backend.util.PathUtil;
 import flixel.FlxG;
-import starcore.backend.data.Constants;
-import lime.ui.FileDialogType;
-import openfl.utils.Assets;
-import starcore.backend.util.AssetUtil;
+import flixel.util.FlxColor;
 import lime.app.Event;
 import lime.ui.FileDialog;
+import lime.ui.FileDialogType;
+import openfl.utils.Assets;
+import starcore.backend.data.Constants;
+import starcore.backend.util.AssetUtil;
 import starcore.backend.util.LoggerUtil;
-import starcore.ui.ClickableText;
+import starcore.backend.util.PathUtil;
+import starcore.ui.UIClickableText;
+import starcore.ui.UITextBox;
 
 using StringTools;
 
@@ -22,9 +22,9 @@ using StringTools;
  */
 class EntityCreationEditorState extends DebugEditorState
 {
-	var loadSpriteSheetButton:ClickableText;
+	var loadSpriteSheetButton:UIClickableText;
 	var currentLoadedPath:String = '';
-	var test:TextBox;
+	var test:UITextBox;
 
 	//
 	// METHOD OVERRIDES
@@ -43,7 +43,7 @@ class EntityCreationEditorState extends DebugEditorState
 
 	function setupButtons():Void
 	{
-		loadSpriteSheetButton = new ClickableText();
+		loadSpriteSheetButton = new UIClickableText();
 		loadSpriteSheetButton.text = 'Load Sprite Sheet';
 		loadSpriteSheetButton.size = 32;
 		loadSpriteSheetButton.font = Constants.DEBUG_EDITOR_FONT;
@@ -112,10 +112,10 @@ class EntityCreationEditorState extends DebugEditorState
 		};
 		add(loadSpriteSheetButton);
 
-		test = new TextBox(300, 400, 300, 16, Constants.DEBUG_EDITOR_FONT, null, 'Type something OwO');
+		test = new UITextBox(300, 400, 300, 16, Constants.DEBUG_EDITOR_FONT, 'Type something OwO');
 		add(test);
-		add(new TextBox(300, 450, 300, 16, Constants.DEBUG_EDITOR_FONT, STRING, 'Type some text...'));
-		add(new TextBox(300, 500, 300, 16, Constants.DEBUG_EDITOR_FONT, INT, 'Type an integer...'));
-		add(new TextBox(300, 550, 300, 16, Constants.DEBUG_EDITOR_FONT, FLOAT, 'Type a number...'));
+		add(new UITextBox(300, 450, 300, 16, Constants.DEBUG_EDITOR_FONT, 'Type some text...'));
+		add(new UITextBox(300, 500, 300, 16, Constants.DEBUG_EDITOR_FONT, 'Type an integer...'));
+		add(new UITextBox(300, 550, 300, 16, Constants.DEBUG_EDITOR_FONT, 'Type a number...'));
 	}
 }

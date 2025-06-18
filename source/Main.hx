@@ -1,13 +1,17 @@
 package;
 
 import flixel.FlxGame;
+import openfl.Lib;
 import openfl.display.Sprite;
 
 /**
  * The main entry point of the game. You don't need to modify this class.
  * Unless you want to change settings for the game (i.e., window size), you can
  * add or change the setup by modifying the `InitState.hx` class and 
- * doing whatever you want from there.
+ * doing whatever is needed from there.
+ * 
+ * Otherwise, all other code needs to go into states (or wherever else
+ * it makes sense to put something).
  */
 class Main extends Sprite
 {
@@ -29,6 +33,14 @@ class Main extends Sprite
 		// Should the game start in fullscreen mode?
 		startFullscreen: true
 	};
+
+	/**
+	 * The main function that starts it all.
+	 */
+	public static function main():Void
+	{
+		Lib.current.addChild(new Main());
+	}
 
 	public function new()
 	{

@@ -1,7 +1,5 @@
 package starcore.menus;
 
-import starcore.ui.TextBox;
-import starcore.play.PlayState;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
@@ -17,7 +15,9 @@ import starcore.backend.util.PathUtil;
 import starcore.backend.util.WorldUtil;
 import starcore.background.BackgroundPlanet;
 import starcore.background.BackgroundStar;
-import starcore.ui.ClickableSprite;
+import starcore.play.PlayState;
+import starcore.ui.UIClickableSprite;
+import starcore.ui.UITextBox;
 
 /**
  * State that represents the main menu of the game.
@@ -79,7 +79,7 @@ class MainMenuState extends FlxTransitionableState
 		var newY:Float = 350; // Change this to the starting Y position for the menu buttons
 		for (btn in buttons)
 		{
-			var coolSwaggerButton:ClickableSprite = new ClickableSprite();
+			var coolSwaggerButton:UIClickableSprite = new UIClickableSprite();
 			coolSwaggerButton.loadGraphic(PathUtil.ofSharedImage('menus/main/$btn-button'));
 			coolSwaggerButton.scale.set(4, 4);
 			coolSwaggerButton.updateHitbox();
@@ -118,7 +118,7 @@ class MainMenuState extends FlxTransitionableState
 		super.update(elapsed);
 
 		#if DEBUG_EDITORS_ALLOWED
-		if (Controls.getBinds().MS_OPENEDITORS_JUST_PRESSED)
+		if (Controls.getBinds().DB_OPENEDITORS_JUST_PRESSED)
 		{
 			FlxG.sound.music.stop();
 			FlxG.sound.playMusic(PathUtil.ofSharedMusic(Constants.DEBUG_EDITOR_MUSIC_NAME), 0.15);

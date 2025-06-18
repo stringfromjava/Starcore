@@ -1,7 +1,7 @@
 package starcore.debug;
 
 /**
- * Object for showing a banner of info on an entity part.
+ * Debug object for showing a banner of info on an entity part.
  */
 class EntityPartBanner
 {

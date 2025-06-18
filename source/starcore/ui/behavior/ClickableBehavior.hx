@@ -1,4 +1,4 @@
-package starcore.ui;
+package starcore.ui.behavior;
 
 import openfl.ui.MouseCursor;
 import openfl.ui.Mouse;
@@ -67,7 +67,7 @@ class ClickableBehavior
 
 	/**
 	 * Should `this` clickable object change to the
-	 * set pointer cursor when hovered over?
+	 * set hover cursor when hovered over?
 	 */
 	public var displayHoverCursor:Bool = true;
 

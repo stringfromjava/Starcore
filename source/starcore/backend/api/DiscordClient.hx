@@ -18,6 +18,7 @@ final class DiscordClient
 {
 	#if DISCORD_RPC_ALLOWED
 	static var presence:DiscordRichPresence = new DiscordRichPresence();
+	static var isShutDown:Bool = false;
 	#end
 
 	function new() {}
@@ -32,6 +33,8 @@ final class DiscordClient
 		{
 			// Log info
 			LoggerUtil.log('Initializing Discord rich presence');
+			// Incase the user turns it back on again
+			isShutDown = false;
 			// Initialize the client
 			Discord.Initialize(Constants.DISCORD_APP_ID, null, true, null);
 			// Start the timer (for the amount of time the player has played the game)
@@ -67,6 +70,8 @@ final class DiscordClient
 	public static function shutdown():Void
 	{
 		#if DISCORD_RPC_ALLOWED
+		if (isShutDown) return;
+		isShutDown = true;
 		LoggerUtil.log('Shutting down Discord rich presence');
 		Discord.Shutdown();
 		#end

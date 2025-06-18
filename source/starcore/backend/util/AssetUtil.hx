@@ -1,5 +1,6 @@
 package starcore.backend.util;
 
+import flixel.FlxG;
 import haxe.Json;
 import openfl.utils.Assets;
 
@@ -32,13 +33,11 @@ final class AssetUtil
 	{
 		var chars:String = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		var result:StringBuf = new StringBuf();
-
-		for (i in 0...chars.length)
+		for (_ in 0...chars.length)
 		{
 			var index = Std.int(Math.random() * chars.length);
 			result.add(chars.charAt(index));
 		}
-
 		return result.toString();
 	}
 
@@ -63,7 +62,7 @@ final class AssetUtil
 	{
 		for (snd in soundArray)
 		{
-			Assets.loadSound(snd);
+			FlxG.sound.cache(snd);
 		}
 	}
 }

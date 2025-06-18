@@ -1,6 +1,7 @@
 package starcore.backend.util;
 
 #if LOGGING_ALLOWED
+import haxe.Exception;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.FileOutput;
@@ -18,14 +19,11 @@ enum LogType
 
 /**
  * Utility class for displaying logs in the console and
- * the Flixel logs.
+ * in a `.txt` file in the game's `log` folder.
  * 
- * This will also store all made logs inside a `.txt` in the games `logs` folder
- * when the game closes.
- * 
- * If you would like to find these log files, they will be located in the
- * folder where the executable is located inside of (aka, the `bin` folder where
- * the game's output is located).
+ * If you would like to find all created log files, they will be located in the
+ * folder where the executable is located (aka, the `bin` folder where
+ * the game's output is compiled to).
  */
 final class LoggerUtil
 {
@@ -67,6 +65,7 @@ final class LoggerUtil
 	 */
 	public static function shutdown():Void
 	{
+		log('Shutting down logging system');
 		#if LOGGING_ALLOWED
 		file.flush();
 		file.close();
@@ -74,9 +73,9 @@ final class LoggerUtil
 	}
 
 	/**
-	 * Log basic info into the console and Flixel logs.
+	 * Log basic info into the console and the log file.
 	 * 
-	 * This function does not write to a file and instead 
+	 * This function does not write to a file and instead
 	 * only traces the message in the console if the conditional `LOGGING_ALLOWED` is disabled.
 	 * 
 	 * @param info        The information to log.
@@ -84,18 +83,25 @@ final class LoggerUtil
 	 * @param includeDots Whether or not to add dots (`...`) at the end of a log.
 	 *                    By default this is true.
 	 */
-	public static inline function log(info:String, logType:LogType = INFO, includeDots:Bool = true):Void
+	public static inline function log(info:Dynamic, logType:LogType = INFO, includeDots:Bool = true):Void
 	{
-		writeToFile('$info${includeDots ? '...' : ''}', logType);
+		writeInfo('$info${includeDots ? '...' : ''}', logType);
 	}
 
-	static function writeToFile(logMsg:String, logType:LogType = INFO):Void
+	static function writeInfo(logMsg:String, logType:LogType = INFO):Void
 	{
 		var timestamp:String = Date.now().toString();
 		var newLog:String = '[STARCORE][$logType][$timestamp]: $logMsg';
 		#if LOGGING_ALLOWED
-		file.writeString('$newLog\n');
-		file.flush();
+		try
+		{
+			file.writeString('$newLog\n');
+			file.flush();
+		}
+		catch (e:Exception)
+		{
+			// Can't write to file, move on
+		}
 		#end
 		trace(newLog);
 	}

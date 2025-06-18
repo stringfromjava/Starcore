@@ -18,7 +18,7 @@ class Project extends HXProject
 {
 	//
 	// METADATA
-	//
+	// ===========================
 
 	/**
 	 * The game's version number, as a Semantic Versioning string with no prefix.
@@ -92,8 +92,7 @@ class Project extends HXProject
 
 	//
 	// FEATURE FLAGS
-	// (Inverse feature flags are automatically populated)
-	// ===========================================================================
+	// ==========================================
 
 	/**
 	 * Allows the game to be displayed in the user's Discord "Activity" box 
@@ -149,7 +148,6 @@ class Project extends HXProject
 	{
 		info('STARCORE');
 		info('Setting up build...');
-
 		info('Target Version: ' + VERSION);
 		info('Git Branch:     ' + getGitBranch());
 		info('Git Commit:     ' + getGitCommit());
@@ -210,6 +208,7 @@ class Project extends HXProject
 		this.window.orientation = (isDesktop() || isMobile()) ? Orientation.LANDSCAPE : Orientation.AUTO;
 		this.window.hardware = true;
 		this.window.vsync = false;
+		// this.window.defaultFont = 'assets/fonts/Born2bSportyFS.ttf';
 		this.window.allowHighDPI = true; // Force / allow high DPI
 	}
 
@@ -591,7 +590,7 @@ class Project extends HXProject
 
 	public function isRelease():Bool
 	{
-		return this.defines.exists("final");
+		return this.defines.exists('final');
 	}
 
 	public function getHaxedef(name:String):Null<Dynamic>
@@ -663,10 +662,10 @@ class Project extends HXProject
 	/**
 	 * Add an asset to the game build.
 	 * 
-	 * @param path The path the asset is located at.
-	 * @param rename The path the asset should be placed.
+	 * @param path    The path the asset is located at.
+	 * @param rename  The path the asset should be placed.
 	 * @param library The asset library to add the asset to. `null` = 'default'
-	 * @param embed Whether to embed the asset in the executable.
+	 * @param embed   Whether to embed the asset in the executable.
 	 */
 	public function addAsset(path:String, ?rename:String, ?library:String, embed:Bool = false):Void
 	{
@@ -682,12 +681,12 @@ class Project extends HXProject
 	/**
 	 * Add an entire path of assets to the game build.
 	 * 
-	 * @param path The path the assets are located at.
-	 * @param rename The path the assets should be placed.
+	 * @param path    The path the assets are located at.
+	 * @param rename  The path the assets should be placed.
 	 * @param library The asset library to add the assets to. `null` = 'default'
 	 * @param include An optional array to include specific asset names.
 	 * @param exclude An optional array to exclude specific asset names.
-	 * @param embed Whether to embed the assets in the executable.
+	 * @param embed   Whether to embed the assets in the executable.
 	 */
 	public function addAssetPath(path:String, ?rename:String, library:String, ?include:Array<String>, ?exclude:Array<String>, embed:Bool = false):Void
 	{

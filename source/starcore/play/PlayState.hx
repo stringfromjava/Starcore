@@ -1,21 +1,21 @@
 package starcore.play;
 
-import starcore.menus.MainMenuState;
-import flixel.math.FlxMath;
-import starcore.backend.Controls;
-import starcore.backend.data.Constants;
-import starcore.backend.util.PathUtil;
-import starcore.backend.util.WorldUtil;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxMath;
 import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
+import starcore.backend.Controls;
+import starcore.backend.data.Constants;
+import starcore.backend.util.PathUtil;
+import starcore.backend.util.WorldUtil;
 import starcore.background.BackgroundPlanet;
 import starcore.background.BackgroundStar;
+import starcore.menus.MainMenuState;
 
 /**
  * Core state where all of the major and common gameplay
@@ -126,7 +126,7 @@ class PlayState extends FlxState
 		generateNewPlanet();
 
 		var test:FlxSprite = new FlxSprite();
-		var paths:Array<String> = PathUtil.ofEntitySpritesheet('player');
+		var paths:Array<String> = PathUtil.ofEntityTexture('player');
 		test.loadGraphic(paths[0], true);
 		test.scale.set(3, 3);
 		test.updateHitbox();
@@ -145,7 +145,7 @@ class PlayState extends FlxState
 	function generateNewPlanet(tileType:String = 'grass'):Void
 	{
 		var caveData:String = WorldUtil.generateNewPlanetData([80, 200], [120, 300], 7, 0.528);
-		worldTilemap.loadMapFromCSV(caveData, PathUtil.ofTileSpritesheetTexture(tileType), Constants.TILE_WIDTH, Constants.TILE_HEIGHT, AUTO);
+		worldTilemap.loadMapFromCSV(caveData, PathUtil.ofTileTexture(tileType), Constants.TILE_WIDTH, Constants.TILE_HEIGHT, AUTO);
 		worldTilemap.updateBuffers();
 	}
 

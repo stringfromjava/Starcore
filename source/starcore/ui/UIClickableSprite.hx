@@ -1,20 +1,21 @@
 package starcore.ui;
 
-import flixel.text.FlxText;
+import starcore.ui.behavior.ClickableBehavior;
+import flixel.FlxSprite;
 
 /**
- * Object that can be created for making text clickable.
+ * Object that can be created for making a sprite clickable.
  */
-class ClickableText extends FlxText
+class UIClickableSprite extends FlxSprite
 {
 	/**
-	 * The behavior for this clickable text.
+	 * The behavior for this clickable sprite.
 	 */
 	public var behavior:ClickableBehavior;
 
 	/**
-	 * @param x The X position of `this` clickable text.
-	 * @param y The Y position of `this` clickable text.
+	 * @param x The X position of `this` clickable sprite.
+	 * @param y The Y position of `this` clickable sprite.
 	 */
 	public function new(x:Float = 0, y:Float = 0)
 	{
@@ -22,7 +23,7 @@ class ClickableText extends FlxText
 		behavior = new ClickableBehavior();
 	}
 
-	// 
+	//
 	// METHODS
 	// =============================
 

@@ -96,18 +96,18 @@ final class PathUtil
 	}
 
 	/**
-	 * Get the spritesheet of a specific type of tile.
+	 * Get the texture spritesheet of a specific type of tile.
 	 * 
-	 * @param type The type of tile (e.g. `grass`, `dirt`, `rocky-dirt`, etc.).
+	 * @param type The type of tile (e.g. `grass`, `rocky_dirt`, etc.).
 	 * @return     The path of the tile.
 	 */
-	public static inline function ofTileSpritesheetTexture(type:String):String
+	public static inline function ofTileTexture(type:String):String
 	{
 		return 'assets/tiles/textures/$type.png';
 	}
 
 	/**
-	 * Get the paths of an entity's sprite sheet image and `.xml` file.
+	 * Get the paths of an entity's sprite sheet texture image and `.xml` file.
 	 * Note that this will return an array of both pathways, with the
 	 * first element being to the image and the second one being its
 	 * `.xml` file.
@@ -118,7 +118,7 @@ final class PathUtil
 	 * @param name The name of the entity.
 	 * @return     An array of the paths to the image and the `.xml` file.
 	 */
-	public static inline function ofEntitySpritesheet(name:String):Array<String>
+	public static inline function ofEntityTexture(name:String):Array<String>
 	{
 		return ['assets/entities/textures/$name.png', 'assets/entities/textures/$name.xml'];
 	}
@@ -135,7 +135,7 @@ final class PathUtil
 	{
 		var company:String = FlxG.stage.application.meta.get('company');
 		var toReturn:String = '${company}/${flixel.util.FlxSave.validate(FlxG.stage.application.meta.get('file'))}';
-		toReturn += (trailingPath != '') ? '/$trailingPath' : ''; // For making sure there isn't a trailing `/` if there isn't a trailing path
+		toReturn += (trailingPath != '') ? '/$trailingPath' : ''; // For making sure there isn't a trailing "/" when there isn't a trailing path
 		return toReturn;
 	}
 }

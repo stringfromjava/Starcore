@@ -37,7 +37,8 @@ final class Constants
 		'vl_mute' => F12,
 		// Misc.
 		'ms_fullscreen' => F11,
-		'ms_openeditors' => F7
+		// Debug
+		'db_openeditors' => F7
 	];
 
 	/**
