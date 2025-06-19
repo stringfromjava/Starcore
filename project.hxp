@@ -208,7 +208,6 @@ class Project extends HXProject
 		this.window.orientation = (isDesktop() || isMobile()) ? Orientation.LANDSCAPE : Orientation.AUTO;
 		this.window.hardware = true;
 		this.window.vsync = false;
-		// this.window.defaultFont = 'assets/fonts/Born2bSportyFS.ttf';
 		this.window.allowHighDPI = true; // Force / allow high DPI
 	}
 
