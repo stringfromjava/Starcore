@@ -11,6 +11,9 @@ If you wish to fix a bug, make an enhancement, or even wish to
 simply make a recommendation, then no worries! You can make an [issue](https://github.com/korithekoder/Starcore/issues)
 or create a sub-issue and help someone with an issue that needs to be worked on!
 
+> [!IMPORTANT]
+> Make sure to set the base branch to `develop` on your pull request or otherwise ***it will NOT be merged and accepted!!***
+
 ## Comments & Formatting
 
 Comments are very valuable because they allow you and other
