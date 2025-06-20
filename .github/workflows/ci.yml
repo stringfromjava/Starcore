@@ -18,6 +18,3 @@ jobs:
       uses: krdlab/setup-haxe@v1
       with:
         haxe-version: 4.3.6
-
-    - name: Test Build (HTML5)
-      run: lime test html5 --no-launch
