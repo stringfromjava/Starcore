@@ -29,7 +29,7 @@ use. Even too many comments can make it difficult to understand your code.
 
 ```haxe
 /**
- * Get's the last key that was pressed on the current frame.
+ * Gets the last key that was pressed on the current frame.
  * 
  * @return The last key that was pressed. If no keys were pressed, then
  *         `FlxKey.NONE` is returned instead.
