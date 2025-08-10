@@ -8,40 +8,40 @@ import flixel.FlxSprite;
  */
 class UIClickableSprite extends FlxSprite
 {
-	/**
-	 * The behavior for this clickable sprite.
-	 */
-	public var behavior:ClickableBehavior;
+  /**
+   * The behavior for this clickable sprite.
+   */
+  public var behavior:ClickableBehavior;
 
-	/**
-	 * @param x The X position of `this` clickable sprite.
-	 * @param y The Y position of `this` clickable sprite.
-	 */
-	public function new(x:Float = 0, y:Float = 0)
-	{
-		super(x, y);
-		behavior = new ClickableBehavior();
-	}
+  /**
+   * @param x The X position of `this` clickable sprite.
+   * @param y The Y position of `this` clickable sprite.
+   */
+  public function new(x:Float = 0, y:Float = 0)
+  {
+    super(x, y);
+    behavior = new ClickableBehavior();
+  }
 
-	//
-	// METHODS
-	// =============================
+  //
+  // METHODS
+  // =============================
 
-	override function update(elapsed:Float):Void
-	{
-		super.update(elapsed);
-		behavior.update(x, y, width, height);
-	}
+  override function update(elapsed:Float):Void
+  {
+    super.update(elapsed);
+    behavior.update(x, y, width, height);
+  }
 
-	override function updateHitbox():Void
-	{
-		super.updateHitbox();
-		behavior.updateHoverBounds(x, y, width, height);
-	}
+  override function updateHitbox():Void
+  {
+    super.updateHitbox();
+    behavior.updateHoverBounds(x, y, width, height);
+  }
 
-	override function setPosition(x:Float = 0.0, y:Float = 0.0):Void
-	{
-		super.setPosition(x, y);
-		behavior.updateHoverBounds(x, y, width, height);
-	}
+  override function setPosition(x:Float = 0.0, y:Float = 0.0):Void
+  {
+    super.setPosition(x, y);
+    behavior.updateHoverBounds(x, y, width, height);
+  }
 }

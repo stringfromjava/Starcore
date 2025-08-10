@@ -14,14 +14,14 @@ import starcore.backend.util.PathUtil;
  */
 class VCRMario85Shader extends FlxRuntimeShader
 {
-	public function new()
-	{
-		super(Assets.getText(PathUtil.ofFrag('vcrmario85')));
-		setFloat('time', 0);
-	}
+  public function new()
+  {
+    super(Assets.getText(PathUtil.ofFrag('vcrmario85')));
+    setFloat('time', 0);
+  }
 
-	public function update(elapsed:Float):Void
-	{
-		setFloat('time', getFloat('time') + elapsed);
-	}
+  public function update(elapsed:Float):Void
+  {
+    setFloat('time', getFloat('time') + elapsed);
+  }
 }

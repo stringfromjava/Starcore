@@ -35,11 +35,11 @@ class DialogueBox extends FlxTypedGroup<FlxSprite> {
     public var speakerId(get, never):String;
     private var _speakerId:String;
 
-	/**
-	 * Callback function that gets called when `this` dialogue box is
-	 * finished and fully completed by the user.
-	 */
-	public var onDialogueComplete:Void->Void;
+  /**
+   * Callback function that gets called when `this` dialogue box is
+   * finished and fully completed by the user.
+   */
+  public var onDialogueComplete:Void->Void;
 
     private var _speaker:FlxSprite;
     private var _speakerData:Dynamic;
@@ -105,8 +105,8 @@ class DialogueBox extends FlxTypedGroup<FlxSprite> {
         CacheUtil.isDialogueFinished = false;
 
         this._speakerId = speakerId;
-		this._speechData = AssetUtil.getJsonData(PathUtil.ofJson('dialogue/speeches/$speechDataName'), []);
-		this._speakerData = AssetUtil.getJsonData(PathUtil.ofJson('dialogue/characters/$speakerId'), {});
+    this._speechData = AssetUtil.getJsonData(PathUtil.ofJson('dialogue/speeches/$speechDataName'), []);
+    this._speakerData = AssetUtil.getJsonData(PathUtil.ofJson('dialogue/characters/$speakerId'), {});
         this._speakerEmotions = this._speakerData.emotions;
 
         this._speaker = new FlxSprite();
@@ -226,7 +226,7 @@ class DialogueBox extends FlxTypedGroup<FlxSprite> {
         }
 
         // If the user presses the accept bind, then load the next response
-		if (Controls.binds.UI_SELECT_JUST_PRESSED && this._canEnterPrompt) {
+    if (Controls.binds.UI_SELECT_JUST_PRESSED && this._canEnterPrompt) {
             _changeDialogue();
             if (this._currentBubbleData == this._oldBubbleData) {
                 this.fadeOutAndDestroy();
@@ -376,7 +376,7 @@ class DialogueBox extends FlxTypedGroup<FlxSprite> {
 
         // The text that is actually displayed to the user
         var realText:String = '';
-		// Create a dummy text that is used for calculating width for the text
+    // Create a dummy text that is used for calculating width for the text
         var dummyText:FlxText = new FlxText();
         dummyText.size = _dialogueText.size;
         dummyText.visible = false;
@@ -424,7 +424,7 @@ class DialogueBox extends FlxTypedGroup<FlxSprite> {
                     // If the user presses the select key or clicks anywhere on the screen, skip the animation
                     if (Controls.binds.UI_SELECT_JUST_PRESSED || FlxG.mouse.justPressed) {
                         // Display the full text immediately
-						_dialogueText.text = realText;
+            _dialogueText.text = realText;
 
                         // Stop all timers
                         _speakLoopAnimationTimer.cancel();

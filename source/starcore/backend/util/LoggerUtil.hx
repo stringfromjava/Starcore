@@ -12,9 +12,9 @@ import sys.io.FileOutput;
  */
 enum LogType
 {
-	INFO;
-	WARNING;
-	ERROR;
+  INFO;
+  WARNING;
+  ERROR;
 }
 
 /**
@@ -27,82 +27,82 @@ enum LogType
  */
 final class LoggerUtil
 {
-	#if LOGGING_ALLOWED
-	static var file:FileOutput;
-	#end
+  #if LOGGING_ALLOWED
+  static var file:FileOutput;
+  #end
 
-	function new() {}
+  function new() {}
 
-	/**
-	 * Setup Starcore's logging system. Note that this is
-	 * ***ONLY*** used when Starcore is in its initializing state!
-	 * 
-	 * This function does nothing if the conditional `LOGGING_ALLOWED` is disabled.
-	 */
-	public static function initialize():Void
-	{
-		#if LOGGING_ALLOWED
-		// Create the new logging file
-		var currentDate:String = DateTools.format(Date.now(), '%Y-%m-%d %H-%M-%S');
-		var logsFolder:String = 'logs';
+  /**
+   * Setup Starcore's logging system. Note that this is
+   * ***ONLY*** used when Starcore is in its initializing state!
+   * 
+   * This function does nothing if the conditional `LOGGING_ALLOWED` is disabled.
+   */
+  public static function initialize():Void
+  {
+    #if LOGGING_ALLOWED
+    // Create the new logging file
+    var currentDate:String = DateTools.format(Date.now(), '%Y-%m-%d %H-%M-%S');
+    var logsFolder:String = 'logs';
 
-		// Make sure the logs folder exists
-		if (!FileSystem.exists(logsFolder))
-		{
-			FileSystem.createDirectory(logsFolder);
-		}
+    // Make sure the logs folder exists
+    if (!FileSystem.exists(logsFolder))
+    {
+      FileSystem.createDirectory(logsFolder);
+    }
 
-		// Create the new log file
-		file = File.write('$logsFolder/$currentDate.txt', true);
-		#end
-	}
+    // Create the new log file
+    file = File.write('$logsFolder/$currentDate.txt', true);
+    #end
+  }
 
-	/**
-	 * Shutdown Starcore's logging system. Note that this is
-	 * ***ONLY*** used when Starcore gets closed!
-	 * 
-	 * This function does nothing if the conditional `LOGGING_ALLOWED` is disabled.
-	 */
-	public static function shutdown():Void
-	{
-		log('Shutting down logging system');
-		#if LOGGING_ALLOWED
-		file.flush();
-		file.close();
-		#end
-	}
+  /**
+   * Shutdown Starcore's logging system. Note that this is
+   * ***ONLY*** used when Starcore gets closed!
+   * 
+   * This function does nothing if the conditional `LOGGING_ALLOWED` is disabled.
+   */
+  public static function shutdown():Void
+  {
+    log('Shutting down logging system');
+    #if LOGGING_ALLOWED
+    file.flush();
+    file.close();
+    #end
+  }
 
-	/**
-	 * Log basic info into the console and the log file.
-	 * 
-	 * This function does not write to a file and instead
-	 * only traces the message in the console if the conditional `LOGGING_ALLOWED` is disabled.
-	 * 
-	 * @param info        The information to log.
-	 * @param logType     The type of log to be displayed. This is just regular info by default.
-	 * @param includeDots Whether or not to add dots (`...`) at the end of a log.
-	 *                    By default this is true.
-	 */
-	public static inline function log(info:Dynamic, logType:LogType = INFO, includeDots:Bool = true):Void
-	{
-		writeInfo('$info${includeDots ? '...' : ''}', logType);
-	}
+  /**
+   * Log basic info into the console and the log file.
+   * 
+   * This function does not write to a file and instead
+   * only traces the message in the console if the conditional `LOGGING_ALLOWED` is disabled.
+   * 
+   * @param info        The information to log.
+   * @param logType     The type of log to be displayed. This is just regular info by default.
+   * @param includeDots Whether or not to add dots (`...`) at the end of a log.
+   *                    By default this is true.
+   */
+  public static inline function log(info:Dynamic, logType:LogType = INFO, includeDots:Bool = true):Void
+  {
+    writeInfo('$info${includeDots ? '...' : ''}', logType);
+  }
 
-	static function writeInfo(logMsg:String, logType:LogType = INFO):Void
-	{
-		var timestamp:String = Date.now().toString();
-		var newLog:String = '[STARCORE][$logType][$timestamp]: $logMsg';
-		#if LOGGING_ALLOWED
-		try
-		{
-			file.writeString('$newLog\n');
-			file.flush();
-		}
-		catch (e:Exception)
-		{
-			// Can't write to file, move on
-		}
-		#end
-		trace(newLog);
-	}
+  static function writeInfo(logMsg:String, logType:LogType = INFO):Void
+  {
+    var timestamp:String = Date.now().toString();
+    var newLog:String = '[STARCORE][$logType][$timestamp]: $logMsg';
+    #if LOGGING_ALLOWED
+    try
+    {
+      file.writeString('$newLog\n');
+      file.flush();
+    }
+    catch (e:Exception)
+    {
+      // Can't write to file, move on
+    }
+    #end
+    trace(newLog);
+  }
 }

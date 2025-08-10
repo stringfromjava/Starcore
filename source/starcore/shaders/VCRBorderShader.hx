@@ -12,8 +12,8 @@ import starcore.backend.util.PathUtil;
  */
 class VCRBorderShader extends FlxRuntimeShader
 {
-	public function new()
-	{
-		super(Assets.getText(PathUtil.ofFrag('vcrborder')));
-	}
+  public function new()
+  {
+    super(Assets.getText(PathUtil.ofFrag('vcrborder')));
+  }
 }

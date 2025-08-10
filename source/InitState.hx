@@ -2,7 +2,6 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxState;
-
 import flixel.math.FlxMath;
 import flixel.system.FlxAssets;
 import flixel.tweens.FlxTween;
@@ -32,178 +31,179 @@ import openfl.events.KeyboardEvent;
  */
 class InitState extends FlxState
 {
-	override public function create():Void
-	{
-		// Setup the logger for Starcore
-		LoggerUtil.initialize();
+  override public function create():Void
+  {
+    // Setup the logger for Starcore
+    LoggerUtil.initialize();
 
-		// Log that we are setting up Starcore
-		LoggerUtil.log('INITIALIZING STARCORE SETUP', INFO, false);
+    // Log that we are setting up Starcore
+    LoggerUtil.log('INITIALIZING STARCORE SETUP', INFO, false);
 
-		// Assign and configure Flixel settings
-		configureFlixelSettings();
+    // Load all of the player's settings and options
+    // Note that if this line is not present, it will
+    // cause null errors and crash the game!
+    ClientPrefs.loadAll();
 
-		// Add the processes that always run in the background
-		addBackgroundProcesses();
+    // Assign and configure Flixel settings
+    configureFlixelSettings();
 
-		// Add the event listeners
-		addEventListeners();
+    // Add the processes that always run in the background
+    addBackgroundProcesses();
 
-		// Load all of the player's settings and options
-		// Note that if this line is not present, it will
-		// cause null errors and crash the game!
-		ClientPrefs.loadAll();
+    // Add the event listeners
+    addEventListeners();
 
-		// Register all of the entities that are in the game
-		registerEntities();
+    // Register all of the entities that are in the game
+    registerEntities();
 
-		// Start up Discord rich presence
-		DiscordClient.initialize();
+    // Start up Discord rich presence
+    DiscordClient.initialize();
 
-		// Switch to the main menu state after everything has loaded
-		FlxG.switchState(() -> new MainMenuState());
-	}
+    // Switch to the main menu state after everything has loaded
+    FlxG.switchState(() -> new MainMenuState());
+  }
 
-	function configureFlixelSettings():Void
-	{
-		// Log info
-		LoggerUtil.log('Configuring Flixel settings');
+  function configureFlixelSettings():Void
+  {
+    // Log info
+    LoggerUtil.log('Configuring Flixel settings');
 
-		// Set the cursor to be the system default
-		FlxG.mouse.useSystemCursor = true;
+    // Set the cursor to be the system default, rather than using a custom cursor
+    // TODO: Maybe use a custom cursor?
+    FlxG.mouse.useSystemCursor = true;
 
-		// Set auto pause to false
-		FlxG.autoPause = false;
+    // Set auto pause to false
+    FlxG.autoPause = false;
 
-		// Set the stage and scaling modes
-		Lib.current.stage.align = 'tl';
-		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
+    // Set the stage and scaling modes
+    Lib.current.stage.align = 'tl';
+    Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 
-		// Disable the binds for increasing/decreasing/muting
-		// the flixel master volume
-		FlxG.sound.volumeUpKeys = [];
-		FlxG.sound.volumeDownKeys = [];
-		FlxG.sound.muteKeys = [];
+    // Disable the binds for increasing/decreasing/muting
+    // the Flixel master volume
+    FlxG.sound.volumeUpKeys = [];
+    FlxG.sound.volumeDownKeys = [];
+    FlxG.sound.muteKeys = [];
 
-		// Set the default font
-		FlxAssets.FONT_DEFAULT = PathUtil.ofFont('Born2bSportyFS');
+    // Set the default font
+    FlxAssets.FONT_DEFAULT = PathUtil.ofFont('Born2bSportyFS');
 
-		// Set the stage quality
-		#if !web
-		FlxG.stage.quality = StageQuality.LOW;
-		#else
-		FlxG.stage.quality = StageQuality.MEDIUM;
-		#end
+    // Set the stage quality
+    #if !web
+    FlxG.stage.quality = StageQuality.LOW;
+    #else
+    FlxG.stage.quality = StageQuality.MEDIUM;
+    #end
 
-		// Make the window borderless when it is
-		// not in fullscreen mode
-		// TODO: Figure out how to make it draggable
-		#if desktop
-		Application.current.window.borderless = true;
-		#end
+    // Make the window borderless when it is
+    // not in fullscreen mode
+    // TODO: Figure out how to make it draggable
+    #if desktop
+    Application.current.window.borderless = true;
+    #end
 
-		// Disable the right-click context menu for HTML5
-		#if html5
-		Browser.document.addEventListener('contextmenu', (e) ->
-		{
-			e.preventDefault();
-		});
-		#end
+    // Disable the right-click context menu for HTML5
+    #if web
+    Browser.document.addEventListener('contextmenu', (e) ->
+    {
+      e.preventDefault();
+    });
+    #end
 
-		// Assign the shaders AFTER all assets have been loaded!
-		#if ADVANCED_SHADERS_ALLOWED
-		CacheUtil.vcrBorderShader = new VCRBorderShader();
-		CacheUtil.vcrMario85Shader = new VCRMario85Shader();
-		#end
-		CacheUtil.grainShader = new GrainShader();
+    // Assign the shaders AFTER all assets have been loaded!
+    #if ADVANCED_SHADERS_ALLOWED
+    CacheUtil.vcrBorderShader = new VCRBorderShader();
+    CacheUtil.vcrMario85Shader = new VCRMario85Shader();
+    #end
+    CacheUtil.grainShader = new GrainShader();
 
-		// Configure the event listener for detecting caps lock
-		// if the target is set to HTML5
-		#if html5
-		untyped __js__('
-			window.__haxe_capslock__ = false;
-			document.addEventListener("keydown", function (e) {
-				if (e.getModifierState) {
-					window.__haxe_capslock__ = e.getModifierState("CapsLock");
-				}
-			});
-		');
-		#end
-	}
+    // Configure the event listener for detecting caps lock
+    // if the target is set to HTML5
+    #if web
+    untyped __js__('
+      window.__haxe_capslock__ = false;
+      document.addEventListener("keydown", function (e) {
+        if (e.getModifierState) {
+          window.__haxe_capslock__ = e.getModifierState("CapsLock");
+        }
+      });
+    ');
+    #end
+  }
 
-	function addBackgroundProcesses():Void
-	{
-		// Log info
-		LoggerUtil.log('Adding background processes');
-		// Update the shaders that need to
-		// constantly be reset
-		FlxG.signals.postUpdate.add(() ->
-		{
-			#if ADVANCED_SHADERS_ALLOWED
-			CacheUtil.vcrMario85Shader.update(FlxG.elapsed);
-			#end
-			CacheUtil.grainShader.update(FlxG.elapsed);
-		});
-	}
+  function addBackgroundProcesses():Void
+  {
+    // Log info
+    LoggerUtil.log('Adding background processes');
+    // Update the shaders that need to
+    // constantly be reset
+    FlxG.signals.postUpdate.add(() ->
+    {
+      #if ADVANCED_SHADERS_ALLOWED
+      CacheUtil.vcrMario85Shader.update(FlxG.elapsed);
+      #end
+      CacheUtil.grainShader.update(FlxG.elapsed);
+    });
+  }
 
-	function addEventListeners():Void
-	{
-		// Log info
-		LoggerUtil.log('Adding event listeners');
+  function addEventListeners():Void
+  {
+    // Log info
+    LoggerUtil.log('Adding event listeners');
 
-		#if desktop
-		// Minimize volume when the window is out of focus
-		Application.current.window.onFocusIn.add(() ->
-		{
-			// Bring the volume back up when the window is focused again
-			if (ClientPrefs.getOption('minimizeVolume') && !CacheUtil.isWindowFocused)
-			{
-				// Set back to one decimal place (0.1) when the screen gains focus again
-				// (note that if the user had the volume all the way down, it will be set to zero)
-				FlxG.sound.volume = (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.1 : 0;
-				CacheUtil.isWindowFocused = true;
-				// Set the volume back to the last volume used
-				FlxTween.num(FlxG.sound.volume, CacheUtil.lastVolumeUsed, 0.3, {type: FlxTweenType.ONESHOT}, (v:Float) ->
-				{
-					FlxG.sound.volume = v;
-				});
-			}
-		});
-		Application.current.window.onFocusOut.add(() ->
-		{
-			// Minimize the volume when the window loses focus
-			if (ClientPrefs.getOption('minimizeVolume') && CacheUtil.isWindowFocused)
-			{
-				// Set the last volume used to the current volume
-				CacheUtil.lastVolumeUsed = FlxG.sound.volume;
-				CacheUtil.isWindowFocused = false;
-				// Tween the volume to 0.05
-				FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.05 : 0, 0.3, {type: FlxTweenType.ONESHOT}, (v:Float) ->
-				{
-					FlxG.sound.volume = v;
-				});
-			}
-		});
-		#end
+    #if desktop
+    // Minimize volume when the window is out of focus
+    Application.current.window.onFocusIn.add(() ->
+    {
+      // Bring the volume back up when the window is focused again
+      if (ClientPrefs.getOption('minimizeVolume') && !CacheUtil.isWindowFocused)
+      {
+        // Set back to one decimal place (0.1) when the screen gains focus again
+        // (note that if the user had the volume all the way down, it will be set to zero)
+        FlxG.sound.volume = (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.1 : 0;
+        CacheUtil.isWindowFocused = true;
+        // Set the volume back to the last volume used
+        FlxTween.num(FlxG.sound.volume, CacheUtil.lastVolumeUsed, 0.3, {type: FlxTweenType.ONESHOT}, (v:Float) ->
+        {
+          FlxG.sound.volume = v;
+        });
+      }
+    });
+    Application.current.window.onFocusOut.add(() ->
+    {
+      // Minimize the volume when the window loses focus
+      if (ClientPrefs.getOption('minimizeVolume') && CacheUtil.isWindowFocused)
+      {
+        // Set the last volume used to the current volume
+        CacheUtil.lastVolumeUsed = FlxG.sound.volume;
+        CacheUtil.isWindowFocused = false;
+        // Tween the volume to 0.05
+        FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.05 : 0, 0.3, {type: FlxTweenType.ONESHOT}, (v:Float) ->
+        {
+          FlxG.sound.volume = v;
+        });
+      }
+    });
+    #end
 
-		// Delete all save data if CTRL + BACKSPACE
-		// is pressed on debug mode in the web version
-		#if (web && debug)
-		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, (_) ->
-		{
-			if (FlxG.keys.pressed.CONTROL && FlxG.keys.pressed.BACKSPACE)
-			{
-				SaveUtil.deleteAll();
-			}
-		});
-		#end
+    // Delete all save data if CTRL + BACKSPACE
+    // is pressed on debug mode in the web version
+    #if (web && debug)
+    FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, (_) ->
+    {
+      if (FlxG.keys.pressed.CONTROL && FlxG.keys.justPressed.BACKSPACE)
+      {
+        SaveUtil.deleteAll();
+      }
+    });
+    #end
 
-		// Do shit like saving the user's data when the game closes
-		Application.current.window.onClose.add(() ->
-		{
-			FlixelUtil.closeGame(false);
-		});
-	}
+    // Do shit like saving the user's data when the game closes
+    Application.current.window.onClose.add(() ->
+    {
+      FlixelUtil.closeGame(false);
+    });
+  }
 
-	function registerEntities():Void {}
+  function registerEntities():Void {}
 }

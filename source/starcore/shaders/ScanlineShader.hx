@@ -13,8 +13,8 @@ import flixel.addons.display.FlxRuntimeShader;
  */
 class ScanlineShader extends FlxRuntimeShader
 {
-	public function new()
-	{
-		super(Assets.getText(PathUtil.ofFrag('scanline')));
-	}
+  public function new()
+  {
+    super(Assets.getText(PathUtil.ofFrag('scanline')));
+  }
 }

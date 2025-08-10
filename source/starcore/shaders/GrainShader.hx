@@ -11,13 +11,13 @@ import starcore.backend.util.PathUtil;
  */
 class GrainShader extends FlxRuntimeShader
 {
-	public function new()
-	{
-		super(Assets.getText(PathUtil.ofFrag('grain')));
-	}
+  public function new()
+  {
+    super(Assets.getText(PathUtil.ofFrag('grain')));
+  }
 
-	public function update(elapsed:Float):Void
-	{
-		setFloat('uTime', (Lib.getTimer() / 1000) * elapsed);
-	}
+  public function update(elapsed:Float):Void
+  {
+    setFloat('uTime', (Lib.getTimer() / 1000) * elapsed);
+  }
 }

@@ -5,16 +5,16 @@ package starcore.debug;
  */
 class EntityPartBanner
 {
-	/**
-	 * The ID of the body part.
-	 */
-	public var id:String;
+  /**
+   * The ID of the body part.
+   */
+  public var id:String;
 
-	var entitySpriteSheetPath:String;
+  var entitySpriteSheetPath:String;
 
-	public function new(id:String)
-	{
-		this.id = id;
-		// TODO: Add text boxes here when they are done!
-	}
+  public function new(id:String)
+  {
+    this.id = id;
+    // TODO: Add text boxes here when they are done!
+  }
 }

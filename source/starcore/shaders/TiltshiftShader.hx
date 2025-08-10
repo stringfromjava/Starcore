@@ -9,8 +9,8 @@ import flixel.addons.display.FlxRuntimeShader;
  */
 class TiltshiftShader extends FlxRuntimeShader
 {
-	public function new()
-	{
-		super(Assets.getText(PathUtil.ofFrag('tiltshift')));
-	}
+  public function new()
+  {
+    super(Assets.getText(PathUtil.ofFrag('tiltshift')));
+  }
 }
