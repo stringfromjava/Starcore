@@ -1,6 +1,14 @@
 # HaxeFlixel
+.haxelib/
 export/
 dump/
+temp/
 
 # macOS
 .DS_Store
+
+# JavaScript
+node_modules/
+package.json
+package-lock.json
+.aider*

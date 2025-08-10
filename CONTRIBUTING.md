@@ -36,21 +36,21 @@ use. Even too many comments can make it difficult to understand your code.
  */
 public static function getLastKeyPressed():FlxKey
 {
-    for (key in 8...303) // Loop through all keys in FlxKey
+  for (key in 8...303) // Loop through all keys in FlxKey
+  {
+    try
     {
-        try
-        {
-            if (FlxG.keys.anyJustPressed([key]))
-            {
-                return key;
-            }
-        }
-        catch (e:Exception)
-        {
-            // Skip and move on if it is not a valid key
-        }
+      if (FlxG.keys.anyJustPressed([key]))
+      {
+        return key;
+      }
     }
-    return FlxKey.NONE;
+    catch (e:Exception)
+    {
+      // Skip and move on if it is not a valid key
+    }
+  }
+  return FlxKey.NONE;
 }
 ```
 
@@ -66,25 +66,25 @@ public
 static 
 function getLastpressed():FlxKey
 {
-    // loop thouhg all keys (8-303)
+  // loop thouhg all keys (8-303)
     for (key in 8...303) // loop through all keys
-    {
+  {
         // try to check if its pressed :p
-        try{
+      try{
             // check if its pressed
-            if (FlxG.keys.anyJustPressed([key]))
+          if (FlxG.keys.anyJustPressed([key]))
         {
-                // return the pressed key
-                    return key;
+              // return the pressed key
+                  return key;
             }
         }
-        // catch the exception
-        catch (e:Exception) {
-            // just skip with non valid key xd
+    // catch the exception
+    catch (e:Exception) {
+          // just skip with non valid key xd
     }
-    }
-    // return nnoe if no kyes are pressed
-    return FlxKey.NONE;
+  }
+// return nnoe if no kyes are pressed
+  return FlxKey.NONE;
 }
 ```
 

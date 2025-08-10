@@ -12,7 +12,7 @@ If you would like to contribute to the game, then you can very gladly do so!
 We appreciate every contribution made by the people who would like to help make this game
 come to life. <3
 
-For more info, please read the [contributing](CONTRIBUTING.md) file for more info.
+For more info, please read the [contributing](CONTRIBUTING.md) file.
 
 # Development
 

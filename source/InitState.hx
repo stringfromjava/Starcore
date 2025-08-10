@@ -70,7 +70,7 @@ class InitState extends FlxState
     LoggerUtil.log('Configuring Flixel settings');
 
     // Set the cursor to be the system default, rather than using a custom cursor
-    // TODO: Maybe use a custom cursor?
+    // NOTE: Maybe use a custom cursor (that isn't Flixel's)?
     FlxG.mouse.useSystemCursor = true;
 
     // Set auto pause to false

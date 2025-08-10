@@ -3,7 +3,7 @@
 As of right now, Starcore uses a license called the *Apache License*, meaning that you
 can redistribute it and make money off of it (if you give credit of course).
 
-***NOTE: THIS LICENSE WILL MOST LIKELY CHANGE WHEN STARCORE BECOMES MORE COMPLEX!***
+***NOTE: THIS LICENSE WILL MOST LIKELY CHANGE WHEN STARCORE BECOMES A FULL GAME!***
 
 ## License
 
@@ -185,7 +185,7 @@ Apache License
 
    END OF TERMS AND CONDITIONS
 
-   Copyright 2025 Kori Box
+   Copyright 2025 Korben "String" Box
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
