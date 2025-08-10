@@ -9,51 +9,51 @@ import starcore.shaders.*;
  */
 final class CacheUtil
 {
-	/**
-	 * The last volume that the player had set before the game loses focus.
-	 */
-	public static var lastVolumeUsed:Float;
+  /**
+   * The last volume that the player had set before the game loses focus.
+   */
+  public static var lastVolumeUsed:Float;
 
-	/**
-	 * Did the user already see the intro?
-	 * (This is for loading from and to the main menu when the game hasn't closed yet.)
-	 */
-	public static var alreadySawIntro:Bool = false;
+  /**
+   * Did the user already see the intro?
+   * (This is for loading from and to the main menu when the game hasn't closed yet.)
+   */
+  public static var alreadySawIntro:Bool = false;
 
-	/**
-	 * Is the game's window focused?
-	 */
-	public static var isWindowFocused:Bool = true;
+  /**
+   * Is the game's window focused?
+   */
+  public static var isWindowFocused:Bool = true;
 
-	/**
-	 * Can the game play menu music when the user leaves gameplay?
-	 */
-	public static var canPlayMenuMusic:Bool = true;
+  /**
+   * Can the game play menu music when the user leaves gameplay?
+   */
+  public static var canPlayMenuMusic:Bool = true;
 
-	/**
-	 * The amount of reverb sounds that are currently playing.
-	 */
-	public static var currentReverbSoundsAmount:Int = 0;
+  /**
+   * The amount of reverb sounds that are currently playing.
+   */
+  public static var currentReverbSoundsAmount:Int = 0;
 
-	/**
-	 * Registered entities that are currently in the game.
-	 */
-	public static var registeredEntities:Array<Entity> = [];
+  /**
+   * Registered entities that are currently in the game.
+   */
+  public static var registeredEntities:Array<Entity> = [];
 
-	/**
-	 * VCR border shader for Starcore.
-	 */
-	public static var vcrBorderShader:VCRBorderShader;
+  /**
+   * VCR border shader for Starcore.
+   */
+  public static var vcrBorderShader:VCRBorderShader;
 
-	/**
-	 * VCR Mario 85 shader for Starcore.
-	 */
-	public static var vcrMario85Shader:VCRMario85Shader;
+  /**
+   * VCR Mario 85 shader for Starcore.
+   */
+  public static var vcrMario85Shader:VCRMario85Shader;
 
-	/**
-	 * Grain shader for Starcore.
-	 */
-	public static var grainShader:GrainShader;
+  /**
+   * Grain shader for Starcore.
+   */
+  public static var grainShader:GrainShader;
 
-	function new() {}
+  function new() {}
 }

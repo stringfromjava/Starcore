@@ -33,8 +33,8 @@ class OptionCheckBox extends Option {
      */
     public function new(x:Float, y:Float, name:String, option:String, canBeClickedOn:Bool = false, description:String = '[No Description Set]') {
 
-		this._isValidBoolPref = Std.isOfType(ClientPrefs.getOption(option), Bool);
-		this._isChecked = (this._isValidBoolPref) ? ClientPrefs.getOption(option) : false;
+    this._isValidBoolPref = Std.isOfType(ClientPrefs.getOption(option), Bool);
+    this._isChecked = (this._isValidBoolPref) ? ClientPrefs.getOption(option) : false;
 
         super(name, option, description);
 

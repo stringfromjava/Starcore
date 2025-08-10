@@ -204,14 +204,14 @@
     },
     {
       "props": {
-        "character": "tab",
+        "character": "  ",
         "severity": "IGNORE"
       },
       "type": "Indentation"
     },
     {
       "props": {
-        "character": "tab",
+        "character": "space",
         "severity": "INFO",
         "ignorePattern": "^$"
       },

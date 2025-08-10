@@ -16,64 +16,65 @@ import lime.app.Application;
  */
 final class DiscordClient
 {
-	#if DISCORD_RPC_ALLOWED
-	static var presence:DiscordRichPresence = new DiscordRichPresence();
-	static var isShutDown:Bool = false;
-	#end
+  #if DISCORD_RPC_ALLOWED
+  static var presence:DiscordRichPresence = new DiscordRichPresence();
+  static var isShutDown:Bool = false;
+  #end
 
-	function new() {}
+  function new() {}
 
-	/**
-	 * Initializes Discord rich presence.
-	 */
-	public static function initialize():Void
-	{
-		#if DISCORD_RPC_ALLOWED
-		if (ClientPrefs.getOption('discordRPC'))
-		{
-			// Log info
-			LoggerUtil.log('Initializing Discord rich presence');
-			// Incase the user turns it back on again
-			isShutDown = false;
-			// Initialize the client
-			Discord.Initialize(Constants.DISCORD_APP_ID, null, true, null);
-			// Start the timer (for the amount of time the player has played the game)
-			presence.startTimestamp = Math.floor(Sys.time());
-			// Start a thread that runs in the background which
-			// makes regular callbacks to Discord
-			Thread.create(() ->
-			{
-				// Keep looping until the game exits
-				while (true)
-				{
-					// Set rich presence
-					Discord.UpdatePresence(RawConstPointer.addressOf(presence));
-					// Update rich presence
-					Discord.RunCallbacks();
-					// Wait for one second so the game doesn't crash lol
-					Sys.sleep(1.0);
-				}
-			});
-		}
-		// Add an event listener that shuts down
-		// Discord rich presence when the game closes
-		Application.current.window.onClose.add(() ->
-		{
-			shutdown();
-		});
-		#end
-	}
+  /**
+   * Initializes Discord rich presence.
+   */
+  public static function initialize():Void
+  {
+    #if DISCORD_RPC_ALLOWED
+    if (ClientPrefs.getOption('discordRPC') && isShutDown)
+    {
+      isShutDown = false;
+      // Log info
+      LoggerUtil.log('Initializing Discord rich presence');
+      // Incase the user turns it back on again
+      isShutDown = false;
+      // Initialize the client
+      Discord.Initialize(Constants.DISCORD_APP_ID, null, true, null);
+      // Start the timer (for the amount of time the player has played the game)
+      presence.startTimestamp = Math.floor(Sys.time());
+      // Start a thread that runs in the background which
+      // makes regular callbacks to Discord
+      Thread.create(() ->
+      {
+        // Keep looping until the game exits
+        while (true)
+        {
+          // Set rich presence
+          Discord.UpdatePresence(RawConstPointer.addressOf(presence));
+          // Update rich presence
+          Discord.RunCallbacks();
+          // Wait for one second so the game doesn't crash lol
+          Sys.sleep(1.0);
+        }
+      });
+    }
+    // Add an event listener that shuts down
+    // Discord rich presence when the game closes
+    Application.current.window.onClose.add(() ->
+    {
+      shutdown();
+    });
+    #end
+  }
 
-	/**
-	 * Shutdowns Discord rich presence.
-	 */
-	public static function shutdown():Void
-	{
-		#if DISCORD_RPC_ALLOWED
-		if (isShutDown) return;
-		isShutDown = true;
-		LoggerUtil.log('Shutting down Discord rich presence');
-		Discord.Shutdown();
-		#end
-	}
+  /**
+   * Shutdowns Discord rich presence.
+   */
+  public static function shutdown():Void
+  {
+    #if DISCORD_RPC_ALLOWED
+    if (isShutDown) return;
+    isShutDown = true;
+    LoggerUtil.log('Shutting down Discord rich presence');
+    Discord.Shutdown();
+    #end
+  }
 }

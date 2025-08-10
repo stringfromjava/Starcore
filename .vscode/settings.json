@@ -1,11 +1,14 @@
 {
+  "editor.insertSpaces": false,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
   "search.exclude": {
     "export/**/*.*": true
   },
   "[haxe]": {
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "modifications",
-    "editor.formatOnPaste": false,
+    "editor.formatOnPaste": true,
     "editor.codeActionsOnSave": {
       "source.sortImports": "explicit"
     }
@@ -35,6 +38,13 @@
     "NUMPADTWO",
     "NUMPADZERO",
     "openeditors",
+    "stringfromjava",
     "Tiltshift"
-  ]
+  ],
+  "files.autoSave": "afterDelay",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "files.exclude": {
+    "": true
+  }
 }

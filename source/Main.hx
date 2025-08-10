@@ -15,44 +15,36 @@ import openfl.display.Sprite;
  */
 class Main extends Sprite
 {
-	// The game object that holds the data
-	// for the FlxGame instance
-	var game:Dynamic = {
-		// The width of the game's window
-		// You can set this to 0 to use the default value in the Project.xml file
-		width: 960,
-		// The height of the game's window
-		// You can set this to 0 to use the default value in the Project.xml file
-		height: 720,
-		// The class that will be used as the initial state
-		initialState: InitState,
-		// The framerate of the game
-		framerate: 60,
-		// Should the game skip the HaxeFlixel splash screen?
-		skipSplash: true,
-		// Should the game start in fullscreen mode?
-		startFullscreen: true
-	};
+  // The game object that holds the data
+  // for the FlxGame instance
+  var game:Dynamic = {
+    // The width of the game's window
+    // You can set this to 0 to use the default value in the project.hxp file
+    width: 960,
+    // The height of the game's window
+    // You can set this to 0 to use the default value in the project.hxp file
+    height: 720,
+    // The class that will be used as the initial state
+    initialState: InitState,
+    // The framerate of the game
+    framerate: 60,
+    // Should the game skip the HaxeFlixel splash screen?
+    skipSplash: true,
+    // Should the game start in fullscreen mode?
+    startFullscreen: true
+  };
 
-	/**
-	 * The main function that starts it all.
-	 */
-	public static function main():Void
-	{
-		Lib.current.addChild(new Main());
-	}
+  /**
+   * The main function that starts it all.
+   */
+  public static function main():Void
+  {
+    Lib.current.addChild(new Main());
+  }
 
-	public function new()
-	{
-		super();
-		addChild(new FlxGame(
-			game.width,
-			game.height,
-			game.initialState,
-			game.framerate,
-			game.framerate,
-			game.skipSplash,
-			game.startFullscreen
-		));
-	}
+  public function new()
+  {
+    super();
+    addChild(new FlxGame(game.width, game.height, game.initialState, game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+  }
 }

@@ -52,7 +52,7 @@ class Project extends HXProject
 	/**
 	 * A package name used for identifying the app on various app stores.
 	 */
-	static final PACKAGE_NAME:String = 'net.korithekoder.starcore';
+	static final PACKAGE_NAME:String = 'com.bitmapstudios.starcore';
 
 	/**
 	 * The fully qualified class path for the entry point class to execute when launching the game.
@@ -64,7 +64,7 @@ class Project extends HXProject
 	 * The company name for the game.
 	 * This appears as metadata in many places.
 	 */
-	static final COMPANY:String = 'korithekoder';
+	static final COMPANY:String = 'BitMap Studios';
 
 	/**
 	 * Path to the Haxe script run before building the game.

@@ -9,8 +9,8 @@ import starcore.backend.util.PathUtil;
  */
 class Hq2xShader extends FlxRuntimeShader
 {
-	public function new()
-	{
-		super(Assets.getText(PathUtil.ofFrag('hq2x')));
-	}
+  public function new()
+  {
+    super(Assets.getText(PathUtil.ofFrag('hq2x')));
+  }
 }

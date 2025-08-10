@@ -6,8 +6,8 @@ package starcore.entity;
  */
 class ComplexEntity extends Entity
 {
-	public function new(id:String)
-	{
-		super(id);
-	}
+  public function new(id:String)
+  {
+    super(id);
+  }
 }
