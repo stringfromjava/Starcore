@@ -12,7 +12,7 @@ haxelib install flixel-addons 3.3.2
 haxelib install flixel-tools 1.5.1
 haxelib install hxcpp-debug-server 1.2.4
 haxelib install hxdiscord_rpc 1.3.0
-haxelib git install https://github.com/TheZoroForce240/FlxSoundFilters.git
+haxelib git flxsoundfilters https://github.com/TheZoroForce240/FlxSoundFilters
 echo Library downloads complete!
 echo Running setup commands...
 haxelib run lime setup
