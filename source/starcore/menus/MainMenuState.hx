@@ -41,7 +41,7 @@ class MainMenuState extends FlxTransitionableState
     super.create();
 
     // Play menu music
-    FlixelUtil.playMenuMusic(0.5);
+    FlixelUtil.playMenuMusic();
 
     // Add the planets in the background
     planets = WorldUtil.generatePlanets();

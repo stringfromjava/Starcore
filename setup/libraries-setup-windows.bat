@@ -6,11 +6,13 @@ echo (Make sure you have Haxe 4.3.6 installed for this to work properly!)
 echo (URL -> https://haxe.org/download/4.3.6)
 haxelib install lime 8.2.2
 haxelib install openfl 9.4.1
-haxelib install flixel 6.0.0
+haxelib install flixel 6.1.0
 haxelib install flixel-addons 3.3.2
 haxelib install flixel-tools 1.5.1
 haxelib install hxcpp-debug-server 1.2.4
 haxelib install hxdiscord_rpc 1.3.0
+haxelib install hxp 1.3.0
+haxelib install hmm 3.1.0
 haxelib git flxsoundfilters https://github.com/TheZoroForce240/FlxSoundFilters
 echo Installing Microsoft Visual Studio Community...
 echo This is used for converting the game to become an exe program!

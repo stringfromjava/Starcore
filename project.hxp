@@ -7,7 +7,7 @@ import sys.FileSystem;
 using StringTools;
 
 /**
- * This HXP performs the functions of a Lime `project.xml` file,
+ * This HXP performs the functions of a Lime `Project.xml` file,
  * but it's written in Haxe rather than XML!
  *
  * This makes it far easier to organize, reuse, and refactor,
@@ -25,7 +25,7 @@ class Project extends HXProject
 	 * REMEMBER TO CHANGE THIS WHEN THE GAME UPDATES!
 	 * You only have to change it here, the rest of the game will query this value.
 	 */
-	static final VERSION:String = '0.1.0-prealpha';
+	static final VERSION:String = '0.1.0-demo';
 
 	/**
 	 * The game's name. Used as the default window title.
@@ -203,7 +203,7 @@ class Project extends HXProject
 		this.window.width = (!isMobile()) ? 960 : 0;
 		this.window.height = (!isMobile()) ? 720 : 0;
 		this.window.background = 0xFF000000;
-		this.window.fullscreen = true;
+		this.window.fullscreen = false;
 		this.window.resizable = isWeb();
 		this.window.orientation = (isDesktop() || isMobile()) ? Orientation.LANDSCAPE : Orientation.AUTO;
 		this.window.hardware = true;
@@ -465,16 +465,15 @@ class Project extends HXProject
 		// Add shader frag assets
 		addAssetPath('assets/shaders', 'assets/shaders', 'default', ['*.frag'], []);
 
-		// Add shared music and sound assets for web (.mp3)
 		if (isWeb())
 		{
+			// Add shared music and sound assets for web (.mp3)
 			addAssetPath('assets/shared/music', 'assets/shared/music', 'default', ['*.mp3'], ['*.ogg']);
 			addAssetPath('assets/shared/sounds', 'assets/shared/sounds', 'default', ['*.mp3'], ['*.ogg']);
 		}
-
-		// Add shared music and sound assets for desktop (.ogg)
-		if (isDesktop())
+		else if (isDesktop())
 		{
+			// Add shared music and sound assets for desktop (.ogg)
 			addAssetPath('assets/shared/music', 'assets/shared/music', 'default', ['*.ogg'], ['*.mp3']);
 			addAssetPath('assets/shared/sounds', 'assets/shared/sounds', 'default', ['*.ogg'], ['*.mp3']);
 		}

@@ -60,6 +60,7 @@ class InitState extends FlxState
     DiscordClient.initialize();
 
     // Switch to the main menu state after everything has loaded
+    LoggerUtil.log('Setup complete! Switching to main menu');
     FlxG.switchState(() -> new MainMenuState());
   }
 

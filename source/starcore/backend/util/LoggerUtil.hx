@@ -91,7 +91,7 @@ final class LoggerUtil
   static function writeInfo(logMsg:String, logType:LogType = INFO):Void
   {
     var timestamp:String = Date.now().toString();
-    var newLog:String = '[STARCORE][$logType][$timestamp]: $logMsg';
+    var newLog:String = '$timestamp [STARCORE] [$logType] $logMsg';
     #if LOGGING_ALLOWED
     try
     {
