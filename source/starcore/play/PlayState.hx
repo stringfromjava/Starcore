@@ -1,5 +1,6 @@
 package starcore.play;
 
+import starcore.backend.util.LoggerUtil;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -23,11 +24,19 @@ import starcore.menus.MainMenuState;
  */
 class PlayState extends FlxState
 {
+  /**
+   * The static instance used to access attributes of the
+   * PlayState from anywhere, in any state.
+   * 
+   * Note that it will stay `null` until it is switched to for the first time.
+   */
+  public static var instance:PlayState = null;
+
   //
   // CAMERAS
   // ======================================
-  var backgroundCamera:FlxCamera; // For the stars and planets in the background
-  var worldCamera:FlxCamera; // For the player, monstrosities, other entities, etc.
+  public var backgroundCamera:FlxCamera; // For the stars and planets in the background
+  public var worldCamera:FlxCamera; // For the player, monstrosities, other entities, etc.
 
   //
   // BACKGROUND ELEMENTS
@@ -47,6 +56,15 @@ class PlayState extends FlxState
   override function create():Void
   {
     super.create();
+
+    // Set the instance of the PlayState.
+    if (instance != null)
+    {
+      LoggerUtil.log('Static PlayState attribute is not null. This should not happen!', WARNING, false);
+    }
+
+    instance = this;
+
     setupCameras();
     setupBackground();
     setupWorld();
@@ -92,12 +110,12 @@ class PlayState extends FlxState
 
   function setupCameras():Void
   {
-    // Set the background camera
+    // Set the background camera.
     backgroundCamera = new FlxCamera(0, 0, FlxG.width, FlxG.height);
     backgroundCamera.bgColor = FlxColor.BLACK;
     FlxG.cameras.add(backgroundCamera);
 
-    // Set the map camera
+    // Set the map camera.
     worldCamera = new FlxCamera(0, 0, FlxG.width, FlxG.height);
     worldCamera.bgColor = FlxColor.BLACK;
     worldCamera.bgColor.alpha = 150;
@@ -106,7 +124,7 @@ class PlayState extends FlxState
 
   function setupBackground():Void
   {
-    // Add the stars and planets in the background
+    // Add the stars and planets in the background.
     planets = WorldUtil.generatePlanets();
     stars = WorldUtil.generateStars();
     planets.cameras = [backgroundCamera];
@@ -117,7 +135,7 @@ class PlayState extends FlxState
 
   function setupWorld():Void
   {
-    // Set the tilemap
+    // Set the tilemap.
     worldTilemap = new FlxTilemap();
     worldTilemap.scale.set(4, 4);
     worldTilemap.updateBuffers();
@@ -155,12 +173,12 @@ class PlayState extends FlxState
 
   function scrollCamerasFromMousePos(elapsed:Float):Void
   {
-    // Scroll background camera
+    // Scroll background camera.
     backgroundCamera.scroll.x = FlxMath.lerp(backgroundCamera.scroll.x,
       (FlxG.mouse.viewX - (FlxG.width / 2)) * Constants.BACKGROUND_CAMERA_SCROLL_MULTIPLIER, (1 / 30) * 240 * elapsed);
     backgroundCamera.scroll.y = FlxMath.lerp(backgroundCamera.scroll.y,
       (FlxG.mouse.viewY - 6 - (FlxG.height / 2)) * Constants.BACKGROUND_CAMERA_SCROLL_MULTIPLIER, (1 / 30) * 240 * elapsed);
-    // Scroll world camera
+    // Scroll world camera.
     worldCamera.scroll.x = FlxMath.lerp(worldCamera.scroll.x, (FlxG.mouse.viewX - (FlxG.width / 2)) * Constants.WORLD_CAMERA_SCROLL_MULTIPLIER,
       (1 / 30) * 240 * elapsed);
     worldCamera.scroll.y = FlxMath.lerp(worldCamera.scroll.y, (FlxG.mouse.viewY - 6 - (FlxG.height / 2)) * Constants.WORLD_CAMERA_SCROLL_MULTIPLIER,

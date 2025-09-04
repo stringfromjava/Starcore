@@ -8,7 +8,7 @@ When you write code, heres some simple things we ask of you:
 ## Issues
 
 If you wish to fix a bug, make an enhancement, or even wish to
-simply make a recommendation, then no worries! You can make an [issue](https://github.com/korithekoder/Starcore/issues)
+simply make a recommendation, then no worries! You can make an [issue](https://github.com/stringfromjava/Starcore/issues)
 or create a sub-issue and help someone with an issue that needs to be worked on!
 
 > [!IMPORTANT]
@@ -23,7 +23,8 @@ However, sometimes they can be a hindrance as well.
 
 If your comments have typos, aren't clear or concise, or just
 hard to understand in general, then they won't be any
-use. Even too many comments can make it difficult to understand your code.
+use. Even too many comments are unnecessary, since your code should be
+self documented and easily readable.
 
 ### Example of GOOD Comments (With Good Formatting)
 
@@ -32,7 +33,7 @@ use. Even too many comments can make it difficult to understand your code.
  * Gets the last key that was pressed on the current frame.
  * 
  * @return The last key that was pressed. If no keys were pressed, then
- *         `FlxKey.NONE` is returned instead.
+ * `FlxKey.NONE` is returned instead.
  */
 public static function getLastKeyPressed():FlxKey
 {
@@ -104,6 +105,7 @@ Excluding *collaborators*, there are some files that contributors simply cannot 
     - `checkstyle.json`
     - `COMPILING.md`
     - `CONTRIBUTING.md`
+    - `hmm.json`
     - `hxformat.json`
     - `LICENSE.md`
     - `project.hxp`

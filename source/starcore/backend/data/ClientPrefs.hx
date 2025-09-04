@@ -1,13 +1,13 @@
 package starcore.backend.data;
 
-import starcore.backend.util.FlixelUtil;
-import starcore.backend.util.LoggerUtil;
-import starcore.backend.util.PathUtil;
-import starcore.backend.util.SaveUtil;
 import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxSave;
 import haxe.Exception;
+import starcore.backend.util.FlixelUtil;
+import starcore.backend.util.LoggerUtil;
+import starcore.backend.util.PathUtil;
+import starcore.backend.util.SaveUtil;
 
 /**
  * The shader options the user can change.
@@ -215,8 +215,7 @@ final class ClientPrefs
 
     // Set the shaders based on the user's options
     // TODO: FIX THIS ASAP!!!
-    // FlixelUtil.setFilters(getOption('shaderMode'));
-    FlixelUtil.setFilters(NONE);
+		FlixelUtil.setFilters(getOption('shaderMode'));
 
     // Load controls
     if (controlsData.data.keyboard != null)

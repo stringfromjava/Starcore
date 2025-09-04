@@ -148,7 +148,7 @@ class UITextBox extends FlxSpriteGroup
       deleteStartIndex += (dir == WORD_LEFT) ? -1 : 1;
     }
     // If the start index is not at the start/end of the text box, then
-    // add two to ensure we delete text but leave a space at the end
+    // add two to ensure we delete text but leave a space at the end.
     if (deleteStartIndex < 0)
     {
       deleteStartIndex = 0;
@@ -157,7 +157,7 @@ class UITextBox extends FlxSpriteGroup
     {
       deleteStartIndex = textLength;
     }
-    // Parenthesis for reading the ternaries more easily
+    // Parenthesis for reading the ternaries more easily.
     deleteStartIndex += ((dir == WORD_LEFT) ? ((deleteStartIndex != 0) ? 2 : 0) : ((deleteStartIndex != textLength) ? -2 : 0));
     return [deleteStartIndex, deleteEndIndex];
   }

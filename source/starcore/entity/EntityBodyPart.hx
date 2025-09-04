@@ -1,8 +1,8 @@
 package starcore.entity;
 
-import starcore.backend.util.EntityUtil;
 import flixel.FlxSprite;
 import haxe.Exception;
+import starcore.backend.util.EntityUtil;
 
 /**
  * Component for creating the body parts of a complex entity.

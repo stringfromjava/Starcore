@@ -24,12 +24,12 @@ final class WorldUtil
    * @param smoothingIterations How many times the cave will be smoothed.
    *                            The higher the number, the smoother the cave will be.
    * @param wallRatio           How many walls there are in the planet. The higher the number, the more walls there will be.
-   * @return                 A fresh new string of CSV data for a new planet.
+   * @return A fresh new string of CSV data for a new planet.
    */
   public static function generateNewPlanetData(widthRange:Array<Int>, heightRange:Array<Int>, smoothingIterations:Int, wallRatio:Float):String
   {
-    var width:Int = FlxG.random.int(80, 200);
-    var height:Int = FlxG.random.int(120, 400);
+    var width:Int = FlxG.random.int(widthRange[0], widthRange[1]);
+    var height:Int = FlxG.random.int(heightRange[0], heightRange[1]);
     var caveData:String = FlxCaveGenerator.generateCaveString(width, height, smoothingIterations, wallRatio);
     return caveData;
   }
@@ -51,10 +51,17 @@ final class WorldUtil
       var areaA:Float = a.width * a.height;
       var areaB:Float = b.width * b.height;
       if (areaA > areaB)
+      {
         return -1;
-      if (areaA < areaB)
+      }
+      else if (areaA < areaB)
+      {
         return 1;
-      return 0;
+      }
+      else
+      {
+        return 0;
+      }
     });
     return planets;
   }

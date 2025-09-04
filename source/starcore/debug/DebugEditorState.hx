@@ -1,12 +1,12 @@
 package starcore.debug;
 
-import starcore.menus.DebugEditorMenuState;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import starcore.backend.Controls;
 import starcore.backend.data.Constants;
+import starcore.menus.DebugEditorMenuState;
 
 /**
  * Base class for creating a new editor on the debug menu.

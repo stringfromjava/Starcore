@@ -1,15 +1,15 @@
 package starcore.backend.api;
 
+import lime.app.Application;
+import starcore.backend.data.ClientPrefs;
 import starcore.backend.data.Constants;
 import starcore.backend.util.LoggerUtil;
-import starcore.backend.data.ClientPrefs;
 #if DISCORD_RPC_ALLOWED
 import cpp.RawConstPointer;
 import hxdiscord_rpc.Discord;
 import hxdiscord_rpc.Types.DiscordRichPresence;
 import sys.thread.Thread;
 #end
-import lime.app.Application;
 
 /**
  * Class that handles Discord rich presence for the client's "Activity" box.
@@ -25,16 +25,18 @@ final class DiscordClient
 
   /**
    * Initializes Discord rich presence.
+   * 
+   * Note that if the conditional `DISCORD_RPC_ALLOWED` is disabled, then
+   * this function will simply do nothing.
    */
   public static function initialize():Void
   {
     #if DISCORD_RPC_ALLOWED
     if (ClientPrefs.getOption('discordRPC') && isShutDown)
     {
-      isShutDown = false;
       // Log info
       LoggerUtil.log('Initializing Discord rich presence');
-      // Incase the user turns it back on again
+      // In case the user turns it back on again
       isShutDown = false;
       // Initialize the client
       Discord.Initialize(Constants.DISCORD_APP_ID, null, true, null);
@@ -67,6 +69,9 @@ final class DiscordClient
 
   /**
    * Shutdowns Discord rich presence.
+      * 
+   * Note that if the conditional `DISCORD_RPC_ALLOWED` is disabled, then
+   * this function will simply do nothing.
    */
   public static function shutdown():Void
   {
