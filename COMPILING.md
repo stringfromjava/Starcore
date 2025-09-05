@@ -1,9 +1,11 @@
 # How to Compile Starcore's Source Code
 
 This guide will provide you every step needed to compile and run Starcore.  
-__**Please follow and read each step carefully in order for the game to compile and run successfully.**__
+__**Please read and follow each step carefully in order for the game to compile and run successfully.**__
 
 ## Global Setup (Every Platform)
+
+These are the necessary steps required to compile on the game on __***every***__ platform. If you're on either Windows, macOS, or Linux, then read the applicable sub section in section `Extra Steps (for Running and Configuring the Game on Other Platforms)` below.
 
 1. Download the [Haxe programming language](https://haxe.org/downloads/). TODO: test version 4.3.4 for compile version!
     - When you download the necessary installer, just use the default options and configurations.
@@ -33,6 +35,7 @@ __**Please follow and read each step carefully in order for the game to compile 
     - This will allow you to compile and run the game on many common platforms, such as every major desktop platform (Windows, macOS, Linux, etc.), both popular mobile systems (Android and iOS), and more.
 
 10. Run `lime test html5 --connect 6000` to compile and run the game on the web.
+    - You can find the compiled code in the `export/test` folder.
 
 > [!TIP]
 > You can replace `html5` with other platforms to compile it accordingly.
@@ -44,7 +47,7 @@ __**Please follow and read each step carefully in order for the game to compile 
 1. Navigate to the [setup](setup/) folder and run the `msvs-setup.bat` file to install Visual Studio.
     - This will install everything needed to compile the game to become a Windows application. **This can take a while, so please be patient.**
 
-2. When it is done installing, you can then run `lime test windows` to compile the game for Windows.
+2. When it is done installing, you can then run `lime test windows --connect 6000` to compile the game for Windows.
 
 ### macOS
 

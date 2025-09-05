@@ -90,15 +90,16 @@ function getLastpressed():FlxKey
 ```
 
 > [!TIP]
-> You can format a file on VS Code with `SHIFT` + `ALT` + `F` to match the code style standards, although just know that it won't fix typos or correct your grammar, thats all on you!
+> You can format a file on VS Code with `SHIFT` + `ALT` + `F` to match the code style standards, although just know that it won't fix typos or correct your grammar, that's all on you!
 
 ## Things You CANNOT Do
 
 Excluding *collaborators*, there are some files that contributors simply cannot change or delete.
 
 1. You are not allowed to change these files:
+    - Any files in the [.github folder](.github/)
     - Any files in the [setup folder](setup/).
-    - Any files in the [unused folder](unused/), that's for the collaborators!
+    - Any files in the [unused folder](unused/).
     - `.gitattributes`
     - `.gitignore`
     - `.prettier.js`

@@ -153,7 +153,7 @@ class Project extends HXProject
 		info('Git Commit:     ' + getGitCommit());
 		info('Git Modified?   ' + getGitModified());
 		info('Display?        ' + isDisplay());
-		info('-------------------------------------------------------------');
+		logSeparator();
 	}
 
 	/**
@@ -264,7 +264,7 @@ class Project extends HXProject
 				error('Unknown target platform type (got ${platformType})');
 		}
 
-		// Print whether we are using HXCPP, HashLink, or something else
+		// Print whether we are using HXCPP, HashLink, or something else.
 		if (isWeb())
 		{
 			info('Target Language: JavaScript (HTML5)');
@@ -300,7 +300,7 @@ class Project extends HXProject
 
 		for (arch in this.architectures)
 		{
-			// Display the list of target architectures
+			// Display the list of target architectures.
 			switch (arch)
 			{
 				case Architecture.X86:
@@ -342,26 +342,26 @@ class Project extends HXProject
 	function configureFeatureFlags()
 	{
 		// Enable Discord rich presence
-		// (works only for Windows)
+		// (works only for Windows).
 		DISCORD_RPC_ALLOWED.apply(this, isWindows());
 
 		// Enable dope ass screen filters
-		// (if the platform is on desktop)
+		// (if the platform is on desktop).
 		ADVANCED_SHADERS_ALLOWED.apply(this, isDesktop());
 
 		// Enable the editors if the game is in debug mode,
-		// otherwise, disable them of course
+		// otherwise, disable them of course.
 		DEBUG_EDITORS_ALLOWED.apply(this, isDesktop() && isDebug());
 
 		// Enables dope ass logging
-		// (only works on desktop)
+		// (only works on desktop).
 		LOGGING_ALLOWED.apply(this, isDesktop());
 
 		// Allows the game to programmatically change sounds
-		// (only works on desktop)
+		// (only works on desktop).
 		SOUND_FILTERS_ALLOWED.apply(this, isDesktop());
 
-		info('-------------------------------------------------------------');
+		logSeparator();
 	}
 
 	/**
@@ -369,11 +369,11 @@ class Project extends HXProject
 	 */
 	function configureCompileDefines()
 	{
-		// Enable OpenFL's error handler
-		// Required for the crash logger
+		// Enable OpenFL's error handler.
+		// Required for the crash logger.
 		setHaxedef('openfl-enable-handle-error');
 
-		// Enable stack trace tracking. Good for debugging but has a (minor) performance impact
+		// Enable stack trace tracking. Good for debugging but has a (minor) performance impact.
 		setHaxedef('HXCPP_CHECK_POINTER');
 		setHaxedef('HXCPP_STACK_LINE');
 		setHaxedef('HXCPP_STACK_TRACE');
@@ -381,32 +381,32 @@ class Project extends HXProject
 
 		setHaxedef('safeMode');
 
-		// Disable the built in pause screen when unfocusing the game
+		// Disable the built in pause screen when unfocusing the game.
 		setHaxedef('FLX_NO_FOCUS_LOST_SCREEN');
 
 		// Disable the Flixel debugger entirely, since it
-		// messes with the filters sometimes
+		// messes with the filters sometimes.
 		setHaxedef('FLX_NO_DEBUG');
 
 		if (isRelease())
 		{
-			// Improve performance on Nape
+			// Improve performance on Nape.
 			setHaxedef('NAPE_RELEASE_BUILD');
 		}
 
-		// Cleaner looking compiler errors
+		// Cleaner looking compiler errors.
 		setHaxedef('message.reporting', 'pretty');
 	}
 
 	function configureOutputDir()
 	{
-		// Set the output directory
-		// Depends on the target platform and build type
+		// Set the output directory.
+		// Depends on the target platform and build type.
 		var buildDir = 'export/${isDebug() ? 'debug' : isRelease() ? 'release' : 'test'}';
 		buildDir += '/';
 		info('Output Directory: $buildDir');
 		app.path = buildDir;
-		info('-------------------------------------------------------------');
+		logSeparator();
 	}
 
 	function configureHaxelibs()
@@ -415,15 +415,15 @@ class Project extends HXProject
 		// FLIXEL
 		// ==================
 
-		// Convert the game to run on other platforms
+		// Convert the game to run on other platforms.
 		addHaxelib('lime');
-		// Many frontend and backend utilities for the game's display
+		// Many frontend and backend utilities for the game's display.
 		addHaxelib('openfl');
-		// Core game library
+		// Core game library.
 		addHaxelib('flixel');
-		// Additional utilities for Flixel
+		// Additional utilities for Flixel.
 		addHaxelib('flixel-addons');
-		// VSCode debug support
+		// VSCode debug support.
 		if (isDebug())
 		{
 			addHaxelib('hxcpp-debug-server');
@@ -433,13 +433,13 @@ class Project extends HXProject
 		// CUSTOM
 		// ===================
 
-		// Manipulating sound effects programmatically
+		// Manipulate sound effects programmatically.
 		if (SOUND_FILTERS_ALLOWED.isEnabled(this))
 		{
 			addHaxelib('flxsoundfilters');
 		}
 
-		// Discord rich presence
+		// Discord rich presence.
 		if (DISCORD_RPC_ALLOWED.isEnabled(this))
 		{
 			addHaxelib('hxdiscord_rpc');
@@ -448,37 +448,35 @@ class Project extends HXProject
 
 	function configureAssets()
 	{
-		// Add font assets
+		// Add font assets.
 		addAssetPath('assets/fonts', 'assets/fonts', 'default', ['*.ttf'], []);
 
-		// Add entity assets
+		// Add entity assets.
 		addAssetPath('assets/entities/data', 'assets/entities/data', 'default', ['*.json'], []);
 		addAssetPath('assets/entities/textures', 'assets/entities/textures', 'default', ['*.png', '*.xml'], []);
 
-		// Add tile assets
+		// Add tile assets.
 		addAssetPath('assets/tiles/data', 'assets/tiles/data', 'default', ['*.json'], []);
 		addAssetPath('assets/tiles/textures', 'assets/tiles/textures', 'default', ['*.png'], []);
 
-		// Add shared image assets
+		// Add shared image assets.
 		addAssetPath('assets/shared/images', 'assets/shared/images', 'default', ['*.png'], []);
 
-		// Add shader frag assets
+		// Add shader frag assets.
 		addAssetPath('assets/shaders', 'assets/shaders', 'default', ['*.frag'], []);
 
 		if (isWeb())
 		{
-			// Add shared music and sound assets for web (.mp3)
+			// Add shared music and sound assets for web (.mp3).
 			addAssetPath('assets/shared/music', 'assets/shared/music', 'default', ['*.mp3'], ['*.ogg']);
 			addAssetPath('assets/shared/sounds', 'assets/shared/sounds', 'default', ['*.mp3'], ['*.ogg']);
 		}
 		else if (isDesktop())
 		{
-			// Add shared music and sound assets for desktop (.ogg)
+			// Add shared music and sound assets for desktop (.ogg).
 			addAssetPath('assets/shared/music', 'assets/shared/music', 'default', ['*.ogg'], ['*.mp3']);
 			addAssetPath('assets/shared/sounds', 'assets/shared/sounds', 'default', ['*.ogg'], ['*.mp3']);
 		}
-
-		info('-------------------------------------------------------------');
 	}
 
 	/**
@@ -488,7 +486,7 @@ class Project extends HXProject
 
 	//
 	// HELPER FUNCTIONS
-	// (Easy functions to make the code more readable)
+	// (Easy functions to make the code more readable.)
 	// ========================================================================
 
 	public function isWeb():Bool
@@ -862,6 +860,15 @@ class Project extends HXProject
 	{
 		Log.error('${message}');
 	}
+
+  /**
+   * Display a very long line to separate sections of the game's
+   * setup, mainly for easy readability.
+   */
+  public function logSeparator():Void
+  {
+    info('-------------------------------------------------------------');
+  }
 }
 
 /**
