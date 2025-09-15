@@ -6,15 +6,18 @@ import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.input.keyboard.FlxKey;
 import flixel.sound.FlxSound;
+import flixel.system.FlxAssets.FlxShader;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import haxe.Exception;
+import openfl.filters.BitmapFilter;
 import openfl.filters.ShaderFilter;
 import starcore.backend.api.DiscordClient;
 import starcore.backend.data.ClientPrefs.ShaderModeType;
 import starcore.backend.data.Constants;
 import starcore.shaders.*;
+import starcore.shaders.bases.UpdatedShader;
 #if SOUND_FILTERS_ALLOWED
 import flixel.sound.filters.FlxFilteredSound;
 import flixel.sound.filters.FlxSoundFilter;
@@ -48,6 +51,27 @@ import sys.io.Process;
 final class FlixelUtil
 {
   function new() {}
+
+  static var currentShadersApplied:Array<FlxShader> = [];
+
+  /**
+   * Configures the Flixel utility class.
+   * 
+   * This should only be called once, when the game first starts up.
+   */
+  public static function configure():Void
+  {
+    FlxG.signals.postUpdate.add(() ->
+    {
+      for (shader in currentShadersApplied)
+      {
+        if (shader != null && Std.isOfType(shader, UpdatedShader))
+        {
+          (cast shader : UpdatedShader).update(FlxG.elapsed);
+        }
+      }
+    });
+  }
 
   /**
    * Fades into a state with a cool transition effect.
@@ -135,32 +159,45 @@ final class FlixelUtil
    */
   public static function setFilters(?mode:ShaderModeType):Void
   {
+    // Completely reset the filters.
+    currentShadersApplied.splice(0, currentShadersApplied.length);
+    var toAdd:Array<BitmapFilter> = [];
+
     switch (mode)
     {
       #if ADVANCED_SHADERS_ALLOWED
       case DEFAULT | null:
-        FlxG.game.setFilters([
-          new ShaderFilter(CacheUtil.vcrBorderShader),
-          new ShaderFilter(CacheUtil.vcrMario85Shader),
-          new ShaderFilter(CacheUtil.grainShader),
-          new ShaderFilter(new Hq2xShader()),
-          new ShaderFilter(new TiltshiftShader())
-        ]);
+        currentShadersApplied = [
+          new Hq2xShader(),
+          new TiltshiftShader(),
+          new NTSCShader(),
+          new SkewShader(),
+          new VCRLinesShader(),
+          new GrainShader()
+        ];
       #end
       case FAST:
-        FlxG.game.setFilters([
-          new ShaderFilter(CacheUtil.grainShader),
-          new ShaderFilter(new ScanlineShader()),
-          new ShaderFilter(new Hq2xShader()),
-          new ShaderFilter(new TiltshiftShader())
-        ]);
+        currentShadersApplied = [new GrainShader(), new Hq2xShader(), new TiltshiftShader(), new ScanlineShader()];
       case MINIMAL:
-        FlxG.game.setFilters([new ShaderFilter(CacheUtil.grainShader), new ShaderFilter(new Hq2xShader())]);
+        FlxG.game.setFilters([
+        new ShaderFilter(CacheUtil.grainShader),
+          new ShaderFilter(new Hq2xShader())
+        ]);
       case NONE:
-        FlxG.game.setFilters([]);
+        currentShadersApplied = [];
       default:
-        FlxG.game.setFilters([]);
+        currentShadersApplied = [];
     }
+    // Apply all the shaders as ShaderFilters.
+    for (shader in currentShadersApplied)
+    {
+      if (shader != null)
+      {
+        toAdd.push(new ShaderFilter(shader));
+      }
+    }
+
+    FlxG.game.setFilters(toAdd);
   }
 
   /**
@@ -253,7 +290,7 @@ final class FlixelUtil
    * ### *NOTE: If `FlxKey.PLUS` is passed down, it will be returned as `=` if `shiftVariant` is false!*
    * 
    * @param key          The key to be converted.
-   * @param shiftVariant If the key should be converted to the variant when the
+   * @param shiftVariant If the key should be converted to its shift variant when the
    *                     user is pressing shift (i.e. `a` would become `A`, `;` would
    *                     become `:`, etc.). Default value is `false`.
    * @return The converted character.
@@ -477,15 +514,11 @@ final class FlixelUtil
    */
   public static function closeGame(sysShutdown:Bool = true):Void
   {
-    // Log info
     LoggerUtil.log('SHUTTING DOWN STARCORE', INFO, false);
-    // Save all of the user's data
     SaveUtil.saveAll();
-    // Shutdown Discord rich presence
     DiscordClient.shutdown();
-    // Shutdown the logging system
     LoggerUtil.shutdown();
-    // Close the game respectfully
+
     if (sysShutdown)
     {
       #if web

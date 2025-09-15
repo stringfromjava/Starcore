@@ -1,7 +1,6 @@
 # HaxeFlixel
 .haxelib/
 export/
-dump/
 temp/
 
 # macOS

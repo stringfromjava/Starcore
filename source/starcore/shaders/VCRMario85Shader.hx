@@ -1,8 +1,8 @@
 package starcore.shaders;
 
-import flixel.addons.display.FlxRuntimeShader;
 import openfl.Assets;
 import starcore.backend.util.PathUtil;
+import starcore.shaders.bases.UpdatedShader;
 
 // https://www.shadertoy.com/view/ldjGzV
 // https://www.shadertoy.com/view/Ms23DR
@@ -12,7 +12,7 @@ import starcore.backend.util.PathUtil;
 /**
  * Gives the screen a creepy, old Super Mario-like vibe.
  */
-class VCRMario85Shader extends FlxRuntimeShader
+class VCRMario85Shader extends UpdatedShader
 {
   public function new()
   {

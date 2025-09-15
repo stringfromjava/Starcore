@@ -1,8 +1,8 @@
 package starcore.shaders;
 
-import starcore.backend.util.PathUtil;
-import openfl.Assets;
 import flixel.addons.display.FlxRuntimeShader;
+import openfl.Assets;
+import starcore.backend.util.PathUtil;
 
 /**
  * Adds old TV lines across the screen.
