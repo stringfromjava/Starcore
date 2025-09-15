@@ -7,7 +7,7 @@ import sys.FileSystem;
 using StringTools;
 
 /**
- * This HXP performs the functions of a Lime `project.xml` file,
+ * This HXP performs the functions of a Lime `Project.xml` file,
  * but it's written in Haxe rather than XML!
  *
  * This makes it far easier to organize, reuse, and refactor,

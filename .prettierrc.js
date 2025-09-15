@@ -1,5 +1,5 @@
 /**
- * Configuration for JSON file formatting
+ * Configuration for JSON file formatting.
  */
 module.exports = {
   // Line width before Prettier tries to add new lines

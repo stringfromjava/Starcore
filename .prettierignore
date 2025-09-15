@@ -2,3 +2,5 @@
 .haxelib/
 dump/
 export/
+dump/
+temp/

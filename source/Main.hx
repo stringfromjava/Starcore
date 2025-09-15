@@ -16,17 +16,17 @@ import openfl.display.Sprite;
 class Main extends Sprite
 {
   // The game object that holds the data
-  // for the FlxGame instance
+  // for the FlxGame instance.
   var game:Dynamic = {
-    // The width of the game's window
-    // You can set this to 0 to use the default value in the project.hxp file
+    // The width of the game's window.
+    // You can set this to 0 to use the default value in the project.hxp file.
     width: 960,
     // The height of the game's window
-    // You can set this to 0 to use the default value in the project.hxp file
+    // You can set this to 0 to use the default value in the project.hxp file.
     height: 720,
-    // The class that will be used as the initial state
+    // The class that will be used as the initial state.
     initialState: InitState,
-    // The framerate of the game
+    // The framerate of the game.
     framerate: 60,
     // Should the game skip the HaxeFlixel splash screen?
     skipSplash: true,

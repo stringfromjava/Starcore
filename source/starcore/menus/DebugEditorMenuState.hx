@@ -1,7 +1,5 @@
 package starcore.menus;
 
-import starcore.backend.util.FlixelUtil;
-import starcore.debug.editors.EntityCreationEditorState;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
@@ -10,6 +8,8 @@ import starcore.backend.Controls;
 import starcore.backend.data.ClientPrefs;
 import starcore.backend.data.Constants;
 import starcore.backend.util.CacheUtil;
+import starcore.backend.util.FlixelUtil;
+import starcore.debug.editors.EntityCreationEditorState;
 
 /**
  * The state where all the different editors can be accessed from.

@@ -30,7 +30,7 @@ import js.Browser;
 import sys.io.Process;
 #end
 
-// Directly inject C++ code for 
+// Directly inject C++ code for
 // detecting if caps lock is enabled
 // on Windows/C++ builds
 #if cpp
@@ -118,7 +118,6 @@ final class FlixelUtil
       // gets lowered when the game loses focus and
       // the user has 'minimizeVolume' enabled
       FlxG.sound.list.add(sound);
-      // Play the sound
       sound.play();
       CacheUtil.currentReverbSoundsAmount++;
       // Recycle the sound after it finishes playing
@@ -155,8 +154,8 @@ final class FlixelUtil
    * Sets the game's filters.
    * 
    * @param mode The mode the filters should apply with.
-   *          Check `starcore.backend.ClientPrefs.ShaderModeType` for
-   *          what each mode means. `null` = `DEFAULT`.
+   *             Check `starcore.backend.ClientPrefs.ShaderModeType` for
+   *             what each mode means. `null` = `DEFAULT`.
    */
   public static function setFilters(?mode:ShaderModeType):Void
   {
@@ -180,7 +179,10 @@ final class FlixelUtil
       case FAST:
         currentShadersApplied = [new GrainShader(), new Hq2xShader(), new TiltshiftShader(), new ScanlineShader()];
       case MINIMAL:
-        currentShadersApplied = [new GrainShader(), new Hq2xShader()];
+        FlxG.game.setFilters([
+        new ShaderFilter(CacheUtil.grainShader),
+          new ShaderFilter(new Hq2xShader())
+        ]);
       case NONE:
         currentShadersApplied = [];
       default:
@@ -199,10 +201,10 @@ final class FlixelUtil
   }
 
   /**
-   * Get's the last key that was pressed on the current frame.
+   * Gets the last key that was pressed on the current frame.
    * 
    * @return The last key that was pressed. If no keys were pressed, then
-   *         `FlxKey.NONE` is returned instead.
+   * `FlxKey.NONE` is returned instead.
    */
   public static function getLastKeyPressed():FlxKey
   {
@@ -224,7 +226,7 @@ final class FlixelUtil
   }
 
   /**
-   * Get's the current keys that were just pressed on the current frame.
+   * Gets the current keys that were just pressed on the current frame.
    * 
    * @return All `FlxKey`s that were just pressed. If no keys were pressed, then
    *         an empty array (`[]`) is returned instead.
@@ -250,10 +252,10 @@ final class FlixelUtil
   }
 
   /**
-   * Get's the current keys that are held down on the current frame.
+   * Gets the current keys that are held down on the current frame.
    * 
    * @return All `FlxKey`s that are currently held down. If no keys are pressed, then
-   *         an empty array (`[]`) is returned instead.
+   * an empty array (`[]`) is returned instead.
    */
   public static function getCurrentKeysPressed():Array<FlxKey>
   {
@@ -291,7 +293,7 @@ final class FlixelUtil
    * @param shiftVariant If the key should be converted to its shift variant when the
    *                     user is pressing shift (i.e. `a` would become `A`, `;` would
    *                     become `:`, etc.). Default value is `false`.
-   * @return             The converted character.
+   * @return The converted character.
    */
   public static function convertFlxKeyToChar(key:FlxKey, shiftVariant:Bool = false):String
   {
@@ -506,7 +508,7 @@ final class FlixelUtil
    * Close the entire game.
    * 
    * @param sysShutdown Whether to close the game using the dedicated platform
-   *             shutdown method or not. Set this to `false` when you
+   *                    shutdown method or not. Set this to `false` when you
    *                    just need to save the user's data and shutdown the utilities and
    *                    wish to shut the game down another way (i.e. throwing an exception).
    */

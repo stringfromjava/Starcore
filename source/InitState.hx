@@ -21,8 +21,8 @@ import starcore.shaders.*;
 import js.Browser;
 #end
 #if (web && debug)
-import starcore.backend.util.SaveUtil;
 import openfl.events.KeyboardEvent;
+import starcore.backend.util.SaveUtil;
 #end
 
 /**
@@ -38,27 +38,28 @@ class InitState extends FlxState
 
     LoggerUtil.log('INITIALIZING STARCORE SETUP', INFO, false);
 
-    // Load all of the player's settings and options
+    // Load all of the player's settings and options.
     // Note that if this line is not present, it will
     // cause null errors and crash the game!
     ClientPrefs.loadAll();
 
-    // Assign and configure Flixel settings
+    // Assign and configure Flixel settings.
     configureFlixelSettings();
 
-    // Add the processes that always run in the background
+    // Add the processes that always run in the background.
     addBackgroundProcesses();
 
-    // Add the event listeners which will always run in the background.
+    // Add the event listeners.
     addEventListeners();
 
-    // Register all of the entities that are in the game
+    // Register all of the entities that are in the game.
     registerEntities();
 
-    // Start up Discord rich presence
+    // Start up Discord rich presence.
     DiscordClient.initialize();
 
-    // Switch to the main menu state after everything has loaded
+    // Switch to the main menu state after everything has loaded.
+    LoggerUtil.log('Setup complete! Switching to main menu');
     FlxG.switchState(() -> new MainMenuState());
   }
 
@@ -66,14 +67,11 @@ class InitState extends FlxState
   {
     LoggerUtil.log('Configuring Flixel settings');
 
-    // Configure Starcore's Flixel utility class.
-    FlixelUtil.configure();
-
     // Set the cursor to be the system default, rather than using a custom cursor.
     // NOTE: Maybe use a custom cursor (that isn't Flixel's)?
     FlxG.mouse.useSystemCursor = true;
 
-    // Disable auto pausing entirely (we never want this enabled).
+    // Set auto pause to false.
     FlxG.autoPause = false;
 
     // Set the stage and scaling modes.
@@ -85,10 +83,10 @@ class InitState extends FlxState
     FlxG.sound.volumeDownKeys = [];
     FlxG.sound.muteKeys = [];
 
-    // Set the default font
+    // Set the default font.
     FlxAssets.FONT_DEFAULT = PathUtil.ofFont('Born2bSportyFS');
 
-    // Set the stage quality..
+    // Set the stage quality.
     #if !web
     FlxG.stage.quality = StageQuality.LOW;
     #else
@@ -116,8 +114,7 @@ class InitState extends FlxState
     #end
     CacheUtil.grainShader = new GrainShader();
 
-    // Configure the event listener for detecting caps lock
-    // if the target is set to HTML5.
+    // Configure the event listener for detecting caps lock if the target is set to HTML5.
     #if web
     untyped __js__('
       window.__haxe_capslock__ = false;
@@ -130,7 +127,18 @@ class InitState extends FlxState
     #end
   }
 
-  function addBackgroundProcesses():Void {}
+  function addBackgroundProcesses():Void
+  {
+    LoggerUtil.log('Adding background processes');
+    // Update the shaders that need to constantly be reset.
+    FlxG.signals.postUpdate.add(() ->
+    {
+      #if ADVANCED_SHADERS_ALLOWED
+      CacheUtil.vcrMario85Shader.update(FlxG.elapsed);
+      #end
+      CacheUtil.grainShader.update(FlxG.elapsed);
+    });
+  }
 
   function addEventListeners():Void
   {
@@ -143,8 +151,8 @@ class InitState extends FlxState
       // Bring the volume back up when the window is focused again.
       if (ClientPrefs.getOption('minimizeVolume') && !CacheUtil.isWindowFocused)
       {
-        // Set back to one decimal place (0.1) when the screen gains focus again
-        // (note that if the user had the volume all the way down, it will be set to zero).
+        // Set back to one decimal place (0.1) when the screen gains focus again.
+        // (Note that if the user had the volume all the way down, it will be set to zero.)
         FlxG.sound.volume = (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.1 : 0;
         CacheUtil.isWindowFocused = true;
         // Set the volume back to the last volume used.
@@ -162,7 +170,7 @@ class InitState extends FlxState
         // Set the last volume used to the current volume.
         CacheUtil.lastVolumeUsed = FlxG.sound.volume;
         CacheUtil.isWindowFocused = false;
-        // Tween the volume to 0.05
+        // Tween the volume to [0.05].
         FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.05 : 0, 0.3, {type: FlxTweenType.ONESHOT}, (v:Float) ->
         {
           FlxG.sound.volume = v;
@@ -183,7 +191,7 @@ class InitState extends FlxState
     });
     #end
 
-    // Do shit like saving the user's data when the game closes
+    // Do shit like saving the user's data when the game closes.
     Application.current.window.onClose.add(() ->
     {
       FlixelUtil.closeGame(false);

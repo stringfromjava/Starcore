@@ -1,9 +1,9 @@
 package starcore.entity;
 
-import starcore.backend.util.EntityUtil;
 import flixel.FlxObject;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import haxe.Exception;
+import starcore.backend.util.EntityUtil;
 
 /**
  * Core class for creating entities in Starcore.
