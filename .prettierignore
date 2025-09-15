@@ -1,4 +1,4 @@
 # Ignore artifacts
+.haxelib/
 dump/
 export/
-.haxelib/
