@@ -7,7 +7,7 @@ __**Please read and follow each step carefully in order for the game to compile 
 
 These are the necessary steps required to compile on the game on __***every***__ platform. If you're on either Windows, macOS, or Linux, then read the applicable sub section in section `Extra Steps (for Running and Configuring the Game on Other Platforms)` below.
 
-1. Download the [Haxe programming language](https://haxe.org/downloads/). TODO: test version 4.3.4 for compile version!
+1. Download the [Haxe programming language](https://haxe.org/downloads/).
     - When you download the necessary installer, just use the default options and configurations.
 
 2. Download the [Git version control software made by GitHub](https://www.git-scm.com).
@@ -32,7 +32,7 @@ These are the necessary steps required to compile on the game on __***every***__
 8. Run `hmm install` to start installing all of the game's dependencies. **This will take a bit, so be patient**.
 
 > [!TIP]
-> If the libraries do not install correctly, then you can run the `.bat` file or `.sh` file (according to your system).
+> If the libraries do not install correctly, then you can run the applicable file in the [setup](setup/) folder based to your operating system.
 
 9. Run `haxelib run lime setup` to setup the lime command.
     - This will allow you to compile and run the game on many common platforms, such as every major desktop platform (Windows, macOS, Linux, etc.), both popular mobile systems (Android and iOS), and more.
