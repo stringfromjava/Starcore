@@ -33,10 +33,9 @@ class InitState extends FlxState
 {
   override public function create():Void
   {
-    // Setup the logger for Starcore
+    // Setup the logger for Starcore.
     LoggerUtil.initialize();
 
-    // Log that we are setting up Starcore
     LoggerUtil.log('INITIALIZING STARCORE SETUP', INFO, false);
 
     // Load all of the player's settings and options.
@@ -66,7 +65,6 @@ class InitState extends FlxState
 
   function configureFlixelSettings():Void
   {
-    // Log info
     LoggerUtil.log('Configuring Flixel settings');
 
     // Set the cursor to be the system default, rather than using a custom cursor.

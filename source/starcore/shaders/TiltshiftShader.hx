@@ -1,8 +1,8 @@
 package starcore.shaders;
 
-import starcore.backend.util.PathUtil;
-import openfl.utils.Assets;
 import flixel.addons.display.FlxRuntimeShader;
+import openfl.utils.Assets;
+import starcore.backend.util.PathUtil;
 
 /**
  * Adds a slight blur to the top and bottom edges of the screen.

@@ -9,17 +9,14 @@ import starcore.backend.util.PathUtil;
  */
 class GrayscaleShader extends FlxRuntimeShader
 {
-  public var amount:Float = 1;
-
   public function new(amount:Float = 1)
   {
     super(Assets.getText(PathUtil.ofFrag('grayscale')));
-    setAmount(amount);
+    setFloat("_amount", amount);
   }
 
   public function setAmount(value:Float):Void
   {
-    amount = value;
-    setFloat("_amount", amount);
+    setFloat("_amount", value);
   }
 }
