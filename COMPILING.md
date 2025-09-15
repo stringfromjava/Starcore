@@ -1,27 +1,61 @@
-# 1. Downloading Your Environment
+# How to Compile Starcore's Source Code
 
-If you don't have it already, it is strongly advised that you download [VS Code](https://code.visualstudio.com/), as 
-it has great support for HaxeFlixel!
+This guide will provide you every step needed to compile and run Starcore.  
+__**Please read and follow each step carefully in order for the game to compile and run successfully.**__
 
-(Note that when you download the game's code and open it in VS Code, some recommended extensions will pop up in
-your notifications. Make sure to ***NOT*** ignore those and download those extensions, as 
-they will greatly help you with development!)
+## Global Setup (Every Platform)
 
-# 2. Running the Setup File
+These are the necessary steps required to compile the game on __***every***__ platform. If you're on either Windows, macOS, or Linux, then read the applicable sub section in section `Extra Steps (for Running and Configuring the Game on Other Platforms)` below.
 
-This game uses a programming language/game engine called [HaxeFlixel](https://haxeflixel.com/).
-It's very robust and has extremely similar syntax to many programming languages (mostly Java), so
-if you have any kind of experience with a language that uses block coding (coding with braces `{}`), 
-then it will be very easy to adapt to if you want to learn it!
+1. Download the [Haxe programming language](https://haxe.org/download/version/4.3.6).
+    - When you download the necessary installer, just use the default options and configurations.
 
-Simply read the [`README.txt`](setup/README.txt/) file in the [setup](setup/) folder and follow the simple instructions it provides.
+2. Download the [Git version control software made by GitHub](https://www.git-scm.com).
+    - Similar to when you installed Haxe, just simply use the default configurations when going through the installer.
 
-# 3. Building the Game
+3. Open your operating system's terminal (or Command Prompt, if you're a Windows user).
 
-To actually build and run the game, simply select the 
-build type (desktop STRONGLY recommended). You can find it at the bottom left
-corner of the editor.
+4. Run `cd path/of/your/clone/here`. This is where the game's code will be stored, with `path/of/your/clone/here` being the folder location.
 
-![Build Type Location](docs/build-type-loc.png/)
+> [!TIP]
+> If you're on Windows, it's recommended for your clone's code to be placed in your Documents folder (or, if you have GitHub Desktop installed, in `Documents/GitHub`).
 
-Once you're ready, press `Ctrl` + `Shift` + `B` and the game will start building!
+5. Run `git clone https://github.com/stringfromjava/Starcore.git` to install the game's code. **Note that this might take a while depending on your internet speed**.
+
+6. When it is done installing, run `cd Starcore` to set the path to be the game's source code.
+
+> [!IMPORTANT]
+> When you need to run a command for the game, make sure your terminal's current directory is set to be the game's code (that's what the `cd` command is for). This also applies for when you are compiling the game with the `lime` command, which we will install in a little bit.
+
+7. Run `haxelib --global install hmm` and then `haxelib --global run hmm setup` to install **Haxe Module Manager** (this is the library that will automatically install all of the game's dependencies).
+
+8. Run `hmm install` to start installing all of the game's dependencies. **This will take a bit, so be patient**.
+
+> [!TIP]
+> If the libraries do not install correctly, then you can run the `.bat` file or `.sh` file (according to your sysrtem)
+
+9. Run `haxelib run lime setup` to setup the lime command.
+    - This will allow you to compile and run the game on many common platforms, such as every major desktop platform (Windows, macOS, Linux, etc.), both popular mobile systems (Android and iOS), and more.
+
+10. Run `lime test html5 --connect 6000` to compile and run the game on the web.
+    - You can find the compiled code in the `export/test` folder.
+
+> [!TIP]
+> You can replace `html5` with other platforms to compile it accordingly.
+
+## Extra Steps (for Running and Configuring the Game on Other Platforms)
+
+### Windows
+
+1. Navigate to the [setup](setup/) folder and run the `msvs-setup.bat` file to install Visual Studio.
+    - This will install everything needed to compile the game to become a Windows application. **This can take a while, so please be patient.**
+
+2. When it is done installing, you can then run `lime test windows --connect 6000` to compile the game for Windows.
+
+### macOS
+
+You can learn how to compile the game for macOS [here](https://lime.openfl.org/docs/advanced-setup/macos/).
+
+### Linux
+
+You can learn how to compile the game for Linux [here](https://lime.openfl.org/docs/advanced-setup/linux/).

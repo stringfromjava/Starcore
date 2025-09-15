@@ -1,8 +1,8 @@
 package starcore.filters;
 
-import starcore.backend.util.PathUtil;
-import openfl.Assets;
 import flixel.addons.display.FlxRuntimeShader;
+import openfl.Assets;
+import starcore.backend.util.PathUtil;
 
 /**
  * Allows a sprite to shift its colors

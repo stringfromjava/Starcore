@@ -33,10 +33,9 @@ class InitState extends FlxState
 {
   override public function create():Void
   {
-    // Setup the logger for Starcore
+    // Setup the logger for Starcore.
     LoggerUtil.initialize();
 
-    // Log that we are setting up Starcore
     LoggerUtil.log('INITIALIZING STARCORE SETUP', INFO, false);
 
     // Load all of the player's settings and options
@@ -50,7 +49,7 @@ class InitState extends FlxState
     // Add the processes that always run in the background
     addBackgroundProcesses();
 
-    // Add the event listeners
+    // Add the event listeners which will always run in the background.
     addEventListeners();
 
     // Register all of the entities that are in the game
@@ -65,22 +64,23 @@ class InitState extends FlxState
 
   function configureFlixelSettings():Void
   {
-    // Log info
     LoggerUtil.log('Configuring Flixel settings');
 
-    // Set the cursor to be the system default, rather than using a custom cursor
-    // TODO: Maybe use a custom cursor?
+    // Configure Starcore's Flixel utility class.
+    FlixelUtil.configure();
+
+    // Set the cursor to be the system default, rather than using a custom cursor.
+    // NOTE: Maybe use a custom cursor (that isn't Flixel's)?
     FlxG.mouse.useSystemCursor = true;
 
-    // Set auto pause to false
+    // Disable auto pausing entirely (we never want this enabled).
     FlxG.autoPause = false;
 
-    // Set the stage and scaling modes
+    // Set the stage and scaling modes.
     Lib.current.stage.align = 'tl';
     Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 
-    // Disable the binds for increasing/decreasing/muting
-    // the Flixel master volume
+    // Disable the binds for increasing/decreasing/muting the Flixel master volume.
     FlxG.sound.volumeUpKeys = [];
     FlxG.sound.volumeDownKeys = [];
     FlxG.sound.muteKeys = [];
@@ -88,21 +88,20 @@ class InitState extends FlxState
     // Set the default font
     FlxAssets.FONT_DEFAULT = PathUtil.ofFont('Born2bSportyFS');
 
-    // Set the stage quality
+    // Set the stage quality..
     #if !web
     FlxG.stage.quality = StageQuality.LOW;
     #else
     FlxG.stage.quality = StageQuality.MEDIUM;
     #end
 
-    // Make the window borderless when it is
-    // not in fullscreen mode
-    // TODO: Figure out how to make it draggable
+    // Make the window borderless when it is not in fullscreen mode.
+    // TODO: Figure out how to make it draggable.
     #if desktop
     Application.current.window.borderless = true;
     #end
 
-    // Disable the right-click context menu for HTML5
+    // Disable the right-click context menu for HTML5.
     #if web
     Browser.document.addEventListener('contextmenu', (e) ->
     {
@@ -118,7 +117,7 @@ class InitState extends FlxState
     CacheUtil.grainShader = new GrainShader();
 
     // Configure the event listener for detecting caps lock
-    // if the target is set to HTML5
+    // if the target is set to HTML5.
     #if web
     untyped __js__('
       window.__haxe_capslock__ = false;
@@ -131,38 +130,24 @@ class InitState extends FlxState
     #end
   }
 
-  function addBackgroundProcesses():Void
-  {
-    // Log info
-    LoggerUtil.log('Adding background processes');
-    // Update the shaders that need to
-    // constantly be reset
-    FlxG.signals.postUpdate.add(() ->
-    {
-      #if ADVANCED_SHADERS_ALLOWED
-      CacheUtil.vcrMario85Shader.update(FlxG.elapsed);
-      #end
-      CacheUtil.grainShader.update(FlxG.elapsed);
-    });
-  }
+  function addBackgroundProcesses():Void {}
 
   function addEventListeners():Void
   {
-    // Log info
     LoggerUtil.log('Adding event listeners');
 
     #if desktop
-    // Minimize volume when the window is out of focus
+    // Minimize volume when the window is out of focus.
     Application.current.window.onFocusIn.add(() ->
     {
-      // Bring the volume back up when the window is focused again
+      // Bring the volume back up when the window is focused again.
       if (ClientPrefs.getOption('minimizeVolume') && !CacheUtil.isWindowFocused)
       {
         // Set back to one decimal place (0.1) when the screen gains focus again
-        // (note that if the user had the volume all the way down, it will be set to zero)
+        // (note that if the user had the volume all the way down, it will be set to zero).
         FlxG.sound.volume = (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.1 : 0;
         CacheUtil.isWindowFocused = true;
-        // Set the volume back to the last volume used
+        // Set the volume back to the last volume used.
         FlxTween.num(FlxG.sound.volume, CacheUtil.lastVolumeUsed, 0.3, {type: FlxTweenType.ONESHOT}, (v:Float) ->
         {
           FlxG.sound.volume = v;
@@ -171,10 +156,10 @@ class InitState extends FlxState
     });
     Application.current.window.onFocusOut.add(() ->
     {
-      // Minimize the volume when the window loses focus
+      // Minimize the volume when the window loses focus.
       if (ClientPrefs.getOption('minimizeVolume') && CacheUtil.isWindowFocused)
       {
-        // Set the last volume used to the current volume
+        // Set the last volume used to the current volume.
         CacheUtil.lastVolumeUsed = FlxG.sound.volume;
         CacheUtil.isWindowFocused = false;
         // Tween the volume to 0.05
@@ -187,7 +172,7 @@ class InitState extends FlxState
     #end
 
     // Delete all save data if CTRL + BACKSPACE
-    // is pressed on debug mode in the web version
+    // is pressed on debug mode in the web version.
     #if (web && debug)
     FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, (_) ->
     {

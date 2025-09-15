@@ -1,15 +1,15 @@
 package starcore.shaders;
 
-import openfl.Lib;
-import flixel.addons.display.FlxRuntimeShader;
 import openfl.Assets;
+import openfl.Lib;
 import starcore.backend.util.PathUtil;
+import starcore.shaders.bases.UpdatedShader;
 
 /**
  * Adds a grainy effect to the screen like an old TV
  * (hence the name).
  */
-class GrainShader extends FlxRuntimeShader
+class GrainShader extends UpdatedShader
 {
   public function new()
   {

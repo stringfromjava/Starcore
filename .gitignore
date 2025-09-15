@@ -1,6 +1,7 @@
 # HaxeFlixel
-export/
 dump/
+export/
+.haxelib/
 
 # macOS
 .DS_Store
