@@ -31,6 +31,9 @@ These are the necessary steps required to compile on the game on __***every***__
 
 8. Run `hmm install` to start installing all of the game's dependencies. **This will take a bit, so be patient**.
 
+> [!TIP]
+> If the libraries do not install correctly, then you can run the `.bat` file or `.sh` file (according to your system).
+
 9. Run `haxelib run lime setup` to setup the lime command.
     - This will allow you to compile and run the game on many common platforms, such as every major desktop platform (Windows, macOS, Linux, etc.), both popular mobile systems (Android and iOS), and more.
 
@@ -39,6 +42,9 @@ These are the necessary steps required to compile on the game on __***every***__
 
 > [!TIP]
 > You can replace `html5` with other platforms to compile it accordingly.
+
+> [!IMPORTANT]
+> If ever, for some reason, the shaders make the screen become black, it is advised you clear your computer's `Temp/` directory. If the issue persists, then please take a look at the [contributing](CONTRIBUTING.md) file for info on how to report a bug.
 
 ## Extra Steps (for Running and Configuring the Game on Other Platforms)
 
