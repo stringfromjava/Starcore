@@ -7,7 +7,7 @@ __**Please read and follow each step carefully in order for the game to compile 
 
 These are the necessary steps required to compile on the game on __***every***__ platform. If you're on either Windows, macOS, or Linux, then read the applicable sub section in section `Extra Steps (for Running and Configuring the Game on Other Platforms)` below.
 
-1. Download the [Haxe programming language](https://haxe.org/downloads/).
+1. Download the [Haxe programming language](https://haxe.org/download/version/4.3.6).
     - When you download the necessary installer, just use the default options and configurations.
 
 2. Download the [Git version control software made by GitHub](https://www.git-scm.com).
