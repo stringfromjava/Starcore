@@ -5,6 +5,9 @@ import openfl.Assets;
 import starcore.backend.util.PathUtil;
 import starcore.shaders.bases.UpdatedShader;
 
+/**
+ * Adds a bending scanline effect to the screen, simulating old VCR playback.
+ */
 class VCRLinesShader extends UpdatedShader
 {
   public function new()

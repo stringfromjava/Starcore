@@ -1,7 +1,6 @@
 package starcore.backend.util;
 
 import starcore.entity.Entity;
-import starcore.shaders.*;
 
 /**
  * Class that holds general, temporary data for pretty much anything.
@@ -39,21 +38,6 @@ final class CacheUtil
    * Registered entities that are currently in the game.
    */
   public static var registeredEntities:Array<Entity> = [];
-
-  /**
-   * VCR border shader for Starcore.
-   */
-  public static var vcrBorderShader:VCRBorderShader;
-
-  /**
-   * VCR Mario 85 shader for Starcore.
-   */
-  public static var vcrMario85Shader:VCRMario85Shader;
-
-  /**
-   * Grain shader for Starcore.
-   */
-  public static var grainShader:GrainShader;
 
   function new() {}
 }

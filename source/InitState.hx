@@ -110,13 +110,6 @@ class InitState extends FlxState
     });
     #end
 
-    // Assign the shaders AFTER all assets have been loaded!
-    #if ADVANCED_SHADERS_ALLOWED
-    CacheUtil.vcrBorderShader = new VCRBorderShader();
-    CacheUtil.vcrMario85Shader = new VCRMario85Shader();
-    #end
-    CacheUtil.grainShader = new GrainShader();
-
     // Configure the event listener for detecting caps lock if the target is set to HTML5.
     #if web
     untyped __js__('
@@ -130,18 +123,7 @@ class InitState extends FlxState
     #end
   }
 
-  function addBackgroundProcesses():Void
-  {
-    LoggerUtil.log('Adding background processes');
-    // Update the shaders that need to constantly be reset.
-    FlxG.signals.postUpdate.add(() ->
-    {
-      #if ADVANCED_SHADERS_ALLOWED
-      CacheUtil.vcrMario85Shader.update(FlxG.elapsed);
-      #end
-      CacheUtil.grainShader.update(FlxG.elapsed);
-    });
-  }
+  function addBackgroundProcesses():Void {}
 
   function addEventListeners():Void
   {

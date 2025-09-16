@@ -180,7 +180,7 @@ final class FlixelUtil
       case FAST:
         currentShadersApplied = [new GrainShader(), new Hq2xShader(), new TiltshiftShader(), new ScanlineShader()];
       case MINIMAL:
-        FlxG.game.setFilters([new ShaderFilter(CacheUtil.grainShader), new ShaderFilter(new Hq2xShader())]);
+        currentShadersApplied = [new GrainShader(), new Hq2xShader()];
       case NONE:
         currentShadersApplied = [];
       default:
