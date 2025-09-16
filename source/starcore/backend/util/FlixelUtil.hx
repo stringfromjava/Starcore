@@ -165,25 +165,22 @@ final class FlixelUtil
     {
       #if ADVANCED_SHADERS_ALLOWED
       case DEFAULT | null:
-				// Ensure grain is applied before the VCR warp so the final VCR pass
-				// bends/grads the already-grained image rather than the grain being
-				// applied on top (which would remain unwarped).
+        // Ensure grain is applied before the VCR warp so the final VCR pass
+        // bends/grads the already-grained image rather than the grain being
+        // applied on top (which would remain unwarped).
         currentShadersApplied = [
           new Hq2xShader(),
           new TiltshiftShader(),
           new NTSCShader(),
           new SkewShader(),
-					new GrainShader(),
-					new VCRLinesShader()
+          new GrainShader(),
+          new VCRLinesShader()
         ];
       #end
       case FAST:
         currentShadersApplied = [new GrainShader(), new Hq2xShader(), new TiltshiftShader(), new ScanlineShader()];
       case MINIMAL:
-        FlxG.game.setFilters([
-        new ShaderFilter(CacheUtil.grainShader),
-          new ShaderFilter(new Hq2xShader())
-        ]);
+        FlxG.game.setFilters([new ShaderFilter(CacheUtil.grainShader), new ShaderFilter(new Hq2xShader())]);
       case NONE:
         currentShadersApplied = [];
       default:
@@ -209,7 +206,7 @@ final class FlixelUtil
    */
   public static function getLastKeyPressed():FlxKey
   {
-		for (key in 8...303) // Loop through all keys in FlxKey.
+    for (key in 8...303) // Loop through all keys in FlxKey.
     {
       try
       {
@@ -220,7 +217,7 @@ final class FlixelUtil
       }
       catch (e:Exception)
       {
-				// Skip and move on if it is not a valid key.
+        // Skip and move on if it is not a valid key.
       }
     }
     return FlxKey.NONE;
@@ -235,7 +232,7 @@ final class FlixelUtil
   public static function getCurrentKeysJustPressed():Array<FlxKey>
   {
     var toReturn:Array<FlxKey> = [];
-		for (key in 8...303) // Loop through all keys in FlxKey.
+    for (key in 8...303) // Loop through all keys in FlxKey.
     {
       try
       {
@@ -246,7 +243,7 @@ final class FlixelUtil
       }
       catch (e:Exception)
       {
-				// Skip and move on if it is not a valid key.
+        // Skip and move on if it is not a valid key.
       }
     }
     return toReturn;
@@ -261,7 +258,7 @@ final class FlixelUtil
   public static function getCurrentKeysPressed():Array<FlxKey>
   {
     var toReturn:Array<FlxKey> = [];
-		for (key in 8...303) // Loop through all keys in FlxKey.
+    for (key in 8...303) // Loop through all keys in FlxKey.
     {
       try
       {
@@ -272,7 +269,7 @@ final class FlixelUtil
       }
       catch (e:Exception)
       {
-				// Skip and move on if it is not a valid key.
+        // Skip and move on if it is not a valid key.
       }
     }
     return toReturn;
