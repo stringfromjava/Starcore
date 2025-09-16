@@ -107,6 +107,7 @@ vec2 coordRot(in vec2 tc, in float angle)
 
 void main()
 {
+    // Sample using unwarped coordinates; let the final VCR filter apply curvature.
     vec2 texCoord = openfl_TextureCoordv.st;
 
     vec3 rotOffset = vec3(1.425,3.892,5.835); //rotation offset values
