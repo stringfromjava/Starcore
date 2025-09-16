@@ -1,6 +1,5 @@
 package starcore.play;
 
-import starcore.backend.util.LoggerUtil;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -12,6 +11,7 @@ import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
 import starcore.backend.Controls;
 import starcore.backend.data.Constants;
+import starcore.backend.util.LoggerUtil;
 import starcore.backend.util.PathUtil;
 import starcore.backend.util.WorldUtil;
 import starcore.background.BackgroundPlanet;
@@ -35,8 +35,16 @@ class PlayState extends FlxState
   //
   // CAMERAS
   // ======================================
-  public var backgroundCamera:FlxCamera; // For the stars and planets in the background
-  public var worldCamera:FlxCamera; // For the player, monstrosities, other entities, etc.
+  /**
+   * The camera that displays the background elements, such as stars and planets.
+   */
+  public var backgroundCamera:FlxCamera;
+
+  /**
+   * The camera that displays the world elements, such as tilemaps and entities.
+   * This also includes the players.
+   */
+  public var worldCamera:FlxCamera;
 
   //
   // BACKGROUND ELEMENTS

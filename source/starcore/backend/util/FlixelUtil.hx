@@ -30,9 +30,7 @@ import js.Browser;
 import sys.io.Process;
 #end
 
-// Directly inject C++ code for
-// detecting if caps lock is enabled
-// on Windows/C++ builds
+// Directly inject C++ code for detecting if caps lock is enabled on Windows/C++ builds.
 #if cpp
 @:headerCode('
     extern "C" bool hx_isCapsLockOn();

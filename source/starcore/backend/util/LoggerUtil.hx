@@ -42,17 +42,17 @@ final class LoggerUtil
   public static function initialize():Void
   {
     #if LOGGING_ALLOWED
-    // Create the new logging file
+    // Create the new logging file.
     var currentDate:String = DateTools.format(Date.now(), '%Y-%m-%d %H-%M-%S');
     var logsFolder:String = 'logs';
 
-    // Make sure the logs folder exists
+    // Make sure the logs folder exists.
     if (!FileSystem.exists(logsFolder))
     {
       FileSystem.createDirectory(logsFolder);
     }
 
-    // Create the new log file
+    // Create the new log file.
     file = File.write('$logsFolder/$currentDate.txt', true);
     #end
   }
@@ -91,18 +91,19 @@ final class LoggerUtil
   static function writeInfo(logMsg:String, logType:LogType = INFO):Void
   {
     var timestamp:String = Date.now().toString();
-    var newLog:String = '$timestamp [STARCORE] [$logType] $logMsg';
+    var traceLog:String = '[$logType] $logMsg';
+    var fileLog:String = '$timestamp $traceLog';
     #if LOGGING_ALLOWED
     try
     {
-      file.writeString('$newLog\n');
+      file.writeString('$fileLog\n');
       file.flush();
     }
     catch (e:Exception)
     {
-      // Can't write to file, move on
+      // Can't write to file, move on.
     }
     #end
-    trace(newLog);
+    trace(traceLog);
   }
 }

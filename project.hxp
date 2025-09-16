@@ -477,6 +477,8 @@ class Project extends HXProject
       addAssetPath('assets/shared/music', 'assets/shared/music', 'default', ['*.ogg'], ['*.mp3']);
       addAssetPath('assets/shared/sounds', 'assets/shared/sounds', 'default', ['*.ogg'], ['*.mp3']);
     }
+
+    logSeparator();
   }
 
   /**

@@ -67,6 +67,9 @@ class InitState extends FlxState
   {
     LoggerUtil.log('Configuring Flixel settings');
 
+    // Configure the Flixel utility class Starcore uses.
+    FlixelUtil.configure();
+
     // Set the cursor to be the system default, rather than using a custom cursor.
     // NOTE: Maybe use a custom cursor (that isn't Flixel's)?
     FlxG.mouse.useSystemCursor = true;

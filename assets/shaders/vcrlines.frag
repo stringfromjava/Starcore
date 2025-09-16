@@ -55,6 +55,22 @@ bool inRect(vec2 rect, vec2 rectDim, vec2 inp)
     return (clamped.x == inp.x && clamped.y == inp.y);
 }
 
+// curved shadow overlay (matches CRT-like rounded rectangle)
+float shadowMask(vec2 uv) {
+    // Shift so center is (0,0)
+    vec2 c = uv - 0.5;
+
+    // Stretch horizontally/vertically for rounded rectangle shape
+    float distX = abs(c.x) * 1.4; 
+    float distY = abs(c.y) * 1.2;
+
+    // Combine into a rounded-edge mask
+    float edge = max(distX, distY);
+
+    // Smoothstep = soft fade near edges
+    return smoothstep(0.55, 0.85, edge);
+}
+
 void main(void)
 {
     vec2 uv = zoomOut(curve(openfl_TextureCoordv.xy));
@@ -64,13 +80,17 @@ void main(void)
     if (inRect(vec2(0.0, 0.0), vec2(1.0, 1.0), uv))
     {
         if (inRect(vec2(0.0, theScanLine), vec2(1.0, theScanLine + 0.1), uv))
-            uv.x -= sin(theScanLine - uv.y) * 0.04; // Scanline distortion is determined by the last number
+            uv.x -= sin(theScanLine - uv.y) * 0.04;
 
-        // FIXED: use `bitmap` and `texture`
         col = texture(bitmap, uv);
 
+        // vignette + static
         col -= vignette(uv);
         col += staticc(uv) * 0.015;
+
+        // apply curved shadow overlay
+        float shadow = shadowMask(uv);
+        col.rgb *= (1.0 - shadow * 0.6); 
     }
     else
     {
