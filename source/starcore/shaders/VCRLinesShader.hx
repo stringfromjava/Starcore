@@ -3,7 +3,6 @@ package starcore.shaders;
 import flixel.FlxG;
 import openfl.Assets;
 import starcore.backend.util.PathUtil;
-import starcore.shaders.bases.UpdatedShader;
 
 /**
  * Adds a bending scanline effect to the screen, simulating old VCR playback.

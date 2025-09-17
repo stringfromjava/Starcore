@@ -1,22 +1,20 @@
 package;
 
-import flixel.FlxG;
 import flixel.FlxState;
 import flixel.math.FlxMath;
 import flixel.system.FlxAssets;
-import flixel.tweens.FlxTween;
 import lime.app.Application;
 import openfl.Lib;
 import openfl.display.StageQuality;
 import openfl.display.StageScaleMode;
 import starcore.backend.api.DiscordClient;
 import starcore.backend.data.ClientPrefs;
+import starcore.backend.util.AudioUtil;
 import starcore.backend.util.CacheUtil;
 import starcore.backend.util.FlixelUtil;
 import starcore.backend.util.LoggerUtil;
 import starcore.backend.util.PathUtil;
 import starcore.menus.MainMenuState;
-import starcore.shaders.*;
 #if web
 import js.Browser;
 #end
@@ -42,6 +40,9 @@ class InitState extends FlxState
     // Note that if this line is not present, it will
     // cause null errors and crash the game!
     ClientPrefs.loadAll();
+
+    // Configure and setup the Audio utility class.
+    AudioUtil.initAudioFix();
 
     // Assign and configure Flixel settings.
     configureFlixelSettings();
@@ -74,7 +75,7 @@ class InitState extends FlxState
     // NOTE: Maybe use a custom cursor (that isn't Flixel's)?
     FlxG.mouse.useSystemCursor = true;
 
-    // Set auto pause to false.
+    // Set auto pause to false (we NEVER want this enabled).
     FlxG.autoPause = false;
 
     // Set the stage and scaling modes.

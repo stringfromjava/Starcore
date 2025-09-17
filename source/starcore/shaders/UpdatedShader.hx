@@ -1,4 +1,4 @@
-package starcore.shaders.bases;
+package starcore.shaders;
 
 import flixel.addons.display.FlxRuntimeShader;
 

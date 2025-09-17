@@ -127,4 +127,21 @@ final class DataUtil
   {
     return (Reflect.hasField(object, field)) ? Reflect.field(object, field) : defaultValue;
   }
+
+  /**
+   * Push an element to an array if it is not already present.
+   * 
+   * @param input   The array to push the new value to.
+   * @param element The element to push.
+   * @return Bool If the value was added or not.
+   */
+  public static function pushUniqueElement<T>(input:Array<T>, element:T):Bool
+  {
+    if (input.contains(element))
+    {
+      return false;
+    }
+    input.push(element);
+    return true;
+  }
 }

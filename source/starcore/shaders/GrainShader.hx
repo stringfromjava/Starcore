@@ -3,7 +3,6 @@ package starcore.shaders;
 import openfl.Assets;
 import openfl.Lib;
 import starcore.backend.util.PathUtil;
-import starcore.shaders.bases.UpdatedShader;
 
 /**
  * Adds a grainy effect to the screen like an old TV

@@ -117,15 +117,6 @@ class MainMenuState extends FlxTransitionableState
   {
     super.update(elapsed);
 
-    #if DEBUG_EDITORS_ALLOWED
-    if (Controls.getBinds().DB_OPENEDITORS_JUST_PRESSED)
-    {
-      FlxG.sound.music.stop();
-      FlxG.sound.playMusic(PathUtil.ofSharedMusic(Constants.DEBUG_EDITOR_MUSIC_NAME), 0.15);
-      FlxG.switchState(() -> new DebugEditorMenuState());
-    }
-    #end
-
     if (Controls.getBinds().UI_BACK_JUST_PRESSED)
     {
       FlixelUtil.closeGame();

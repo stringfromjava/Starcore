@@ -17,7 +17,6 @@ import starcore.backend.api.DiscordClient;
 import starcore.backend.data.ClientPrefs.ShaderModeType;
 import starcore.backend.data.Constants;
 import starcore.shaders.*;
-import starcore.shaders.bases.UpdatedShader;
 #if SOUND_FILTERS_ALLOWED
 import flixel.sound.filters.FlxFilteredSound;
 import flixel.sound.filters.FlxSoundFilter;
