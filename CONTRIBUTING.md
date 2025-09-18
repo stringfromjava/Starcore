@@ -97,7 +97,7 @@ function getLastpressed():FlxKey
 Excluding *collaborators*, there are some files that contributors simply cannot change or delete.
 
 1. You are not allowed to change these files:
-    - Any files in the [.github folder](.github/)
+    - Any files in the [.github folder](.github/).
     - Any files in the [setup folder](setup/).
     - Any files in the [unused folder](unused/).
     - `.gitattributes`
