@@ -10,7 +10,6 @@ import openfl.display.StageScaleMode;
 import starcore.backend.api.DiscordClient;
 import starcore.backend.data.ClientPrefs;
 import starcore.backend.util.AudioUtil;
-import starcore.backend.util.CacheUtil;
 import starcore.backend.util.FlixelUtil;
 import starcore.backend.util.LoggerUtil;
 import starcore.backend.util.PathUtil;
@@ -29,8 +28,46 @@ import starcore.backend.util.SaveUtil;
  */
 class InitState extends FlxState
 {
-  override public function create():Void
+  /**
+   * The volume used when the window is out of focus.
+   */
+  static final MINIMIZED_VOLUME:Float = 0.015;
+
+  /**
+   * The duration of the volume tweening.
+   */
+  static final TWEEN_DURATION:Float = 0.45;
+
+  /**
+   * A tween for the volume when the window
+   * loses focus and gains focus again.
+   */
+  static var volumeTween:FlxTween = null;
+
+  /**
+   * The last volume the user had before the game lost focus.
+   */
+  static var lastVolume:Float = 1.0;
+
+  /**
+   * Is the game's window currently focused?
+   */
+  static var isWindowFocused:Bool = true;
+
+  override function create():Void
   {
+    super.create();
+
+    // Initialize lastVolume from saved data or current sound volume.
+    if (FlxG.save.data != null && Reflect.hasField(FlxG.save.data, 'volume'))
+    {
+      lastVolume = FlxG.save.data.volume;
+    }
+    else
+    {
+      lastVolume = FlxG.sound.volume;
+    }
+
     // Setup the logger for Starcore.
     LoggerUtil.initialize();
 
@@ -72,7 +109,7 @@ class InitState extends FlxState
     FlixelUtil.configure();
 
     // Set the cursor to be the system default, rather than using a custom cursor.
-    // NOTE: Maybe use a custom cursor (that isn't Flixel's)?
+    // TODO: Maybe use a custom cursor (that isn't Flixel's)?
     FlxG.mouse.useSystemCursor = true;
 
     // Set auto pause to false (we NEVER want this enabled).
@@ -130,38 +167,63 @@ class InitState extends FlxState
   {
     LoggerUtil.log('Adding event listeners');
 
-    #if desktop
     // Minimize volume when the window is out of focus.
+    #if desktop
     Application.current.window.onFocusIn.add(() ->
     {
       // Bring the volume back up when the window is focused again.
-      if (ClientPrefs.getOption('minimizeVolume') && !CacheUtil.isWindowFocused)
+      if (ClientPrefs.getOption('minimizeVolume') && !isWindowFocused)
       {
-        // Set back to one decimal place (0.1) when the screen gains focus again.
-        // (Note that if the user had the volume all the way down, it will be set to zero.)
-        FlxG.sound.volume = (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.1 : 0;
-        CacheUtil.isWindowFocused = true;
-        // Set the volume back to the last volume used.
-        FlxTween.num(FlxG.sound.volume, CacheUtil.lastVolumeUsed, 0.3, {type: FlxTweenType.ONESHOT}, (v:Float) ->
+        // Cancel any ongoing tween
+        if (volumeTween != null)
+        {
+          volumeTween.cancel();
+          volumeTween = null;
+        }
+
+        // Smoothly tween from current (minimized) volume back to lastVolume
+        volumeTween = FlxTween.num(FlxG.sound.volume, lastVolume, TWEEN_DURATION, null, (v:Float) ->
         {
           FlxG.sound.volume = v;
         });
+        volumeTween.onComplete = (_) ->
+        {
+          lastVolume = FlxG.sound.volume;
+        };
+        isWindowFocused = true;
       }
     });
     Application.current.window.onFocusOut.add(() ->
     {
       // Minimize the volume when the window loses focus.
-      if (ClientPrefs.getOption('minimizeVolume') && CacheUtil.isWindowFocused)
+      if (ClientPrefs.getOption('minimizeVolume') && isWindowFocused)
       {
-        // Set the last volume used to the current volume.
-        CacheUtil.lastVolumeUsed = FlxG.sound.volume;
-        CacheUtil.isWindowFocused = false;
-        // Tween the volume to [0.05].
-        FlxTween.num(FlxG.sound.volume, (!(Math.abs(FlxG.sound.volume) < FlxMath.EPSILON)) ? 0.05 : 0, 0.3, {type: FlxTweenType.ONESHOT}, (v:Float) ->
+        // Store the current (user) volume so we can restore it later.
+        lastVolume = FlxG.sound.volume;
+
+        var isMuted:Bool = FlxG.sound.muted || (Math.abs(FlxG.sound.volume) < FlxMath.EPSILON) || FlxG.sound.volume == 0;
+
+        if (volumeTween != null)
+        {
+          volumeTween.cancel();
+          volumeTween = null;
+        }
+
+        // Tween to a very low volume (or zero if already muted).
+        volumeTween = FlxTween.num(FlxG.sound.volume, !isMuted ? MINIMIZED_VOLUME : 0, TWEEN_DURATION, null, (v:Float) ->
         {
           FlxG.sound.volume = v;
         });
+        isWindowFocused = false;
       }
+    });
+    // Save the volume the user originally had, just in
+    // case they close the game while it's out of focus.
+    Application.current.window.onClose.add(() ->
+    {
+      FlxG.save.data.mute = FlxG.sound.muted;
+      FlxG.save.data.volume = lastVolume;
+      FlxG.save.flush();
     });
     #end
 

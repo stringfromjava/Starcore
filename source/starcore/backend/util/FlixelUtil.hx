@@ -102,22 +102,23 @@ final class FlixelUtil
     #if SOUND_FILTERS_ALLOWED
     if (!(CacheUtil.currentReverbSoundsAmount >= Constants.REVERB_SOUND_EFFECT_LIMIT))
     {
-      // Make the sound and filter
+      // Make the sound and filter.
       var sound:FlxFilteredSound = new FlxFilteredSound();
       var effect:FlxSoundReverbEffect = new FlxSoundReverbEffect();
-      // Settings for the echo
+      @:privateAccess AudioUtil.regenSound(sound._sound);
+      // Settings for the echo.
       effect.decayTime = decayTime;
-      // Load the sound
+      // Load the sound.
       sound.loadEmbedded(path);
       sound.filter = new FlxSoundFilter();
       sound.filter.addEffect(effect);
       // Add the sound to the game so that way it
       // gets lowered when the game loses focus and
-      // the user has 'minimizeVolume' enabled
+      // the user has 'minimizeVolume' enabled.
       FlxG.sound.list.add(sound);
       sound.play();
       CacheUtil.currentReverbSoundsAmount++;
-      // Recycle the sound after it finishes playing
+      // Recycle the sound after it finishes playing.
       new FlxTimer().start((sound.length / 1000) + (decayTime / 1.85), (_) ->
       {
         sound.filter.clearEffects();
@@ -129,7 +130,7 @@ final class FlixelUtil
       });
     }
     #else
-    FlxG.sound.play(path, volume);
+    StarcoreG.playSound(path, volume);
     #end
   }
 

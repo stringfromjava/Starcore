@@ -9,7 +9,6 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxTimer;
 import starcore.backend.Controls;
-import starcore.backend.data.Constants;
 import starcore.backend.util.FlixelUtil;
 import starcore.backend.util.PathUtil;
 import starcore.backend.util.WorldUtil;

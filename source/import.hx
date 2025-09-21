@@ -13,3 +13,8 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
+
+//
+// STARCORE IMPORTS
+// =============================
+import starcore.StarcoreG;

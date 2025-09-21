@@ -37,9 +37,6 @@ final class SaveUtil
     // Assign the data
     optionsSave.data.options = ClientPrefs.getOptions();
 
-    // Save the last volume used
-    optionsSave.data.lastVolume = (CacheUtil.isWindowFocused) ? FlxG.sound.volume : CacheUtil.lastVolumeUsed;
-
     // For checking if the data saved
     var didOptionsSave:Bool = optionsSave.flush();
 
@@ -48,7 +45,9 @@ final class SaveUtil
 
     // Warn if all settings weren't saved
     if (!didOptionsSave)
+    {
       LoggerUtil.log('All options failed to save.', WARNING, false);
+    }
   }
 
   /**
@@ -73,7 +72,9 @@ final class SaveUtil
 
     // Warn if all controls weren't saved
     if (!didControlsSave)
+    {
       LoggerUtil.log('All controls failed to save.', WARNING, false);
+    }
   }
 
   /**
@@ -98,7 +99,9 @@ final class SaveUtil
 
     // Warn if all progress wasn't saved
     if (!didProgressSave)
+    {
       LoggerUtil.log('All progress failed to save.', WARNING, false);
+    }
   }
 
   /**
@@ -147,11 +150,15 @@ final class SaveUtil
 
     // Warn if all settings weren't deleted
     if (!didOptionsDelete)
+    {
       LoggerUtil.log('Saved options failed to delete.', WARNING, false);
+    }
 
     // Warn if all controls weren't deleted
     if (!didControlsDelete)
+    {
       LoggerUtil.log('Saved controls failed to delete.', WARNING, false);
+    }
 
     // TODO: Make sure the progress gets deleted and logged when the time comes!
   }

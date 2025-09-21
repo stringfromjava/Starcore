@@ -37,6 +37,8 @@ enum ShaderModeType
   NONE;
 }
 
+// abstract Options
+
 /**
  * Class that handles, modifies and stores the user's
  * options and settings.

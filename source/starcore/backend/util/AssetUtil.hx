@@ -24,8 +24,7 @@ final class AssetUtil
   }
 
   /**
-   * Generate a random string for a new file (this is mainly used for
-   * new log files).
+   * Generate a random string for a new file.
    * 
    * @return A new random file name.
    */
@@ -35,7 +34,7 @@ final class AssetUtil
     var result:StringBuf = new StringBuf();
     for (_ in 0...chars.length)
     {
-      var index = Std.int(Math.random() * chars.length);
+      var index:Int = Std.int(Math.random() * chars.length);
       result.add(chars.charAt(index));
     }
     return result.toString();
