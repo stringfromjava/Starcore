@@ -25,11 +25,11 @@ class PSXStartupMenuState extends FlxState
       diskSound.stop();
 
       // Load the PSX logo first so it can be shown after the Sony logo.
-      var paths:Array<String> = PathUtil.ofSharedSpritesheet('startup/psx-startup-copyright');
+      var paths:Array<String> = PathUtil.ofSharedSpritesheet('startup/psx-startup-playstation');
       psxLogo = new FlxSprite();
       psxLogo.loadGraphic(PathUtil.ofSharedImage(paths[0]), true);
       psxLogo.frames = FlxAtlasFrames.fromSparrow(paths[0], paths[1]);
-      psxLogo.animation.addByPrefix('psx-startup-copyright', 'psx-startup-copyright_', 18, false);
+      psxLogo.animation.addByPrefix('psx-startup-playstation', 'psx-startup-playstation_', 18, false);
       psxLogo.useFramePixels = true;
       psxLogo.visible = false;
       psxLogo.setGraphicSize(FlxG.width, FlxG.height);
@@ -56,7 +56,7 @@ class PSXStartupMenuState extends FlxState
         {
           sonyLogo.visible = false;
           psxLogo.visible = true;
-          psxLogo.animation.play('psx-startup-copyright');
+          psxLogo.animation.play('psx-startup-playstation');
           // Another delay before tweening the alpha and switching to main menu.
           new FlxTimer().start(6.2, (_) ->
           {

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="psx-startup-playstation.png">
+    <SubTexture name="psx-startup-playstation_0" x="0" y="0" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_1" x="1080" y="0" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_2" x="2160" y="0" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_3" x="3240" y="0" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_4" x="0" y="1920" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_5" x="1080" y="1920" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_6" x="2160" y="1920" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_7" x="2160" y="1920" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_8" x="3240" y="1920" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_9" x="4320" y="0" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_10" x="4320" y="1920" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_11" x="5400" y="0" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_12" x="5400" y="1920" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_13" x="0" y="3840" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_14" x="1080" y="3840" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_15" x="2160" y="3840" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_16" x="3240" y="3840" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_17" x="4320" y="3840" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_18" x="5400" y="3840" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_19" x="6480" y="0" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_20" x="6480" y="1920" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_21" x="6480" y="3840" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_22" x="7560" y="0" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_23" x="7560" y="1920" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_24" x="7560" y="3840" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_25" x="0" y="5760" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_26" x="1080" y="5760" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_27" x="2160" y="5760" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_28" x="3240" y="5760" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_29" x="4320" y="5760" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_30" x="5400" y="5760" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_31" x="6480" y="5760" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_32" x="7560" y="5760" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_33" x="8640" y="0" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_34" x="8640" y="1920" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_35" x="8640" y="3840" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+    <SubTexture name="psx-startup-playstation_36" x="8640" y="5760" width="1080" height="1920" frameX="0" frameY="0" frameWidth="1080" frameHeight="1920" />
+</TextureAtlas>

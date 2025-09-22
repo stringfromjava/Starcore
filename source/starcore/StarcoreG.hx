@@ -54,7 +54,7 @@ final class StarcoreG
   static var currentShadersApplied:Array<FlxShader> = [];
 
   /**
-   * Configures the Flixel utility class.
+   * Configures the global manager.
    * 
    * This should only be called once, when the game first starts up.
    */

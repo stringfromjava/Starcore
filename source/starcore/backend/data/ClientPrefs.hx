@@ -1,12 +1,11 @@
 package starcore.backend.data;
 
-import flixel.FlxG;
+import haxe.Json;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxSave;
 import haxe.Exception;
 import starcore.backend.util.LoggerUtil;
 import starcore.backend.util.PathUtil;
-import starcore.backend.util.SaveUtil;
 
 /**
  * The shader options the user can change.
@@ -15,10 +14,12 @@ import starcore.backend.util.SaveUtil;
  */
 enum ShaderModeType
 {
+  #if ADVANCED_SHADERS_ALLOWED
   /**
-   * All shaders applied (excluding Scanline)
+   * All shaders applied (excluding Scanline).
    */
   DEFAULT;
+  #end
 
   /**
    * Grain, Scanline, Hq2x and Tiltshift shaders are applied.
@@ -36,7 +37,30 @@ enum ShaderModeType
   NONE;
 }
 
-// abstract Options
+/**
+ * An anonymous structure that holds every option the user can
+ * use in-game. This include things like graphics level, display settings,
+ * volumes for specific things, and more.
+ * 
+ * NOTE: This does NOT include the user's controls! Those are held in
+ * their own separate variable.
+ */
+typedef Options = {
+  /**
+   * The shader mode to use that changed the way the game looks.
+   */
+  var shaderMode:ShaderModeType;
+
+  /**
+   * Should the game display in the user's Discord "Activity" box?
+   */
+  var discordRPC:Bool;
+
+  /**
+   * Should the game lower its volume when it is out of focus?
+   */
+  var minimizeVolume:Bool;
+}
 
 /**
  * Class that handles, modifies and stores the user's
@@ -56,8 +80,44 @@ enum ShaderModeType
  */
 final class ClientPrefs
 {
-  static var options:Map<String, Any> = Constants.DEFAULT_OPTIONS;
+  /**
+   * The default options if any other option doesn't exist.
+   */
+  static final DEFAULT_OPTIONS:Options = {
+    shaderMode: #if !web DEFAULT #else FAST #end,
+    discordRPC: true,
+    minimizeVolume: true
+  };
+
+  static final DEFAULT_CONTROLS_KEYBOARD:Map<String, FlxKey> = [
+    // Movement
+    'mv_up' => W,
+    'mv_left' => A,
+    'mv_down' => S,
+    'mv_right' => D,
+    // UI
+    'ui_left' => LEFT,
+    'ui_down' => DOWN,
+    'ui_up' => UP,
+    'ui_right' => RIGHT,
+    'ui_select' => ENTER,
+    'ui_back' => ESCAPE,
+    // Volume
+    'vl_up' => PLUS,
+    'vl_down' => MINUS,
+    'vl_mute' => F12,
+    // Misc.
+    'ms_fullscreen' => F11,
+    // Debug
+    'db_openeditors' => F7
+  ];
+
   static var controlsKeyboard:Map<String, FlxKey>;
+
+  /**
+   * The current options the user has set.
+   */
+  public static var options:Options = DEFAULT_OPTIONS;
 
   function new() {}
 
@@ -97,56 +157,23 @@ final class ClientPrefs
   }
 
   /**
-   * Get and return a client option by its ID.
+   * Get and return all default client options.
    * 
-   * @param option       The option to get as a `String`.
-   * @return             The value of the option. If it does not exist, then an
-   *              exception is thrown.
+   * @return A copy of all default client options.
    */
-  public static inline function getOption(option:String):Dynamic
+  public static inline function getDefaultBinds():Map<String, FlxKey>
   {
-    if (options.exists(option))
-    {
-      return options.get(option);
-    }
-    else
-    {
-      LoggerUtil.log('Client option "$option" doesn\'t exist!', ERROR, false);
-      StarcoreG.closeGame(false);
-      throw new Exception('Client option "$option" doesn\'t exist!');
-    }
+    return DEFAULT_CONTROLS_KEYBOARD.copy();
   }
 
   /**
-   * Get and return all client options.
+   * Get and return all default client options.
    * 
-   * @return A `Map` of all client options.
+   * @return A copy of all default client options.
    */
-  public static inline function getOptions():Map<String, Any>
+  public static inline function getDefaultOptions():Options
   {
-    return options.copy();
-  }
-
-  /**
-   * Sets a client's option.
-   * 
-   * @param option      The setting to be set.
-   * @param value       The value to set the option to.
-   * @throws Exception  If the option does not exist.
-   */
-  public static function setOption(option:String, value:Any):Void
-  {
-    if (options.exists(option))
-    {
-      options.set(option, value);
-      SaveUtil.saveUserOptions();
-    }
-    else
-    {
-      LoggerUtil.log('Client option "$option" doesn\'t exist!', ERROR, false);
-      StarcoreG.closeGame(false);
-      throw new Exception('Client option "$option" doesn\'t exist!');
-    }
+    return Json.parse(Json.stringify(DEFAULT_OPTIONS));
   }
 
   /**
@@ -192,45 +219,40 @@ final class ClientPrefs
 
     // Load options
     if (optionsData.data.options != null)
+    {
       options = optionsData.data.options;
+    }
 
     // Check if the user has any new options
     // (this is for when new options are added in an update!)
-    for (key in Constants.DEFAULT_OPTIONS.keys())
+    for (field in Reflect.fields(DEFAULT_OPTIONS))
     {
-      if (!options.exists(key))
+      if (!Reflect.hasField(options, field))
       {
-        options.set(key, Constants.DEFAULT_OPTIONS.get(key));
-      }
-    }
-
-    // Filter out any options that are not present in the current
-    // standard set of options (which is determined by the default options)
-    for (key in options.keys())
-    {
-      if (!Constants.DEFAULT_OPTIONS.exists(key))
-      {
-        options.remove(key);
+        Reflect.setField(options, field, Reflect.field(DEFAULT_OPTIONS, field));
       }
     }
 
     // Set the shaders based on the user's options
-    // TODO: FIX THIS ASAP!!!
-    StarcoreG.setFilters(getOption('shaderMode'));
+    StarcoreG.setFilters(options.shaderMode);
 
-    // Load controls
+    // Load all player controls and binds.
     if (controlsData.data.keyboard != null)
+    {
       controlsKeyboard = controlsData.data.keyboard;
+    }
     else
-      controlsKeyboard = Constants.DEFAULT_CONTROLS_KEYBOARD;
+    {
+      controlsKeyboard = DEFAULT_CONTROLS_KEYBOARD;
+    }
 
     // Check if the user has any new controls
     // (this is for when new controls are added in an update!)
-    for (key in Constants.DEFAULT_CONTROLS_KEYBOARD.keys())
+    for (key in DEFAULT_CONTROLS_KEYBOARD.keys())
     {
       if (!controlsKeyboard.exists(key))
       {
-        controlsKeyboard.set(key, Constants.DEFAULT_CONTROLS_KEYBOARD.get(key));
+        controlsKeyboard.set(key, DEFAULT_CONTROLS_KEYBOARD.get(key));
       }
     }
 
@@ -238,17 +260,11 @@ final class ClientPrefs
     // standard set of binds (which is determined by the default binds)
     for (key in controlsKeyboard.keys())
     {
-      if (!Constants.DEFAULT_CONTROLS_KEYBOARD.exists(key))
+      if (!DEFAULT_CONTROLS_KEYBOARD.exists(key))
       {
         controlsKeyboard.remove(key);
       }
     }
-
-    // Set the volume to the last used volume the user had
-    if (optionsData.data.lastVolume != null)
-      FlxG.sound.volume = optionsData.data.lastVolume;
-    else
-      FlxG.sound.volume = 1.0;
 
     // Respectfully close the saves to prevent data leaks
     optionsData.close();

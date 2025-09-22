@@ -175,7 +175,7 @@ class InitState extends FlxState
     Application.current.window.onFocusIn.add(() ->
     {
       // Bring the volume back up when the window is focused again.
-      if (ClientPrefs.getOption('minimizeVolume') && !isWindowFocused)
+      if (ClientPrefs.options.minimizeVolume && !isWindowFocused)
       {
         // Cancel any ongoing tween
         if (volumeTween != null)
@@ -199,7 +199,7 @@ class InitState extends FlxState
     Application.current.window.onFocusOut.add(() ->
     {
       // Minimize the volume when the window loses focus.
-      if (ClientPrefs.getOption('minimizeVolume') && isWindowFocused)
+      if (ClientPrefs.options.minimizeVolume && isWindowFocused)
       {
         // Store the current (user) volume so we can restore it later.
         lastVolume = FlxG.sound.volume;

@@ -1,6 +1,5 @@
 package starcore.backend.util;
 
-import flixel.FlxG;
 import flixel.util.FlxSave;
 import starcore.backend.data.ClientPrefs;
 import starcore.backend.data.Constants;
@@ -35,7 +34,7 @@ final class SaveUtil
     optionsSave.bind(Constants.OPTIONS_SAVE_BIND_ID, PathUtil.getSavePath());
 
     // Assign the data
-    optionsSave.data.options = ClientPrefs.getOptions();
+    optionsSave.data.options = ClientPrefs.options;
 
     // For checking if the data saved
     var didOptionsSave:Bool = optionsSave.flush();
