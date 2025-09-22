@@ -193,6 +193,7 @@ final class AudioUtil
    */
   public static function initAudioFix():Void
   {
+    #if !web
     if (initializedAudioFix)
     {
       return;
@@ -285,8 +286,8 @@ final class AudioUtil
 
         if (currentId != '' && currentId != lastDeviceId && lastDeviceId != '')
         {
-          LoggerUtil.log('AUDIO DEVICE CHANGE DETECTED', INFO, false);
-          LoggerUtil.log('Restarting audio system');
+          log('AUDIO DEVICE CHANGE DETECTED', INFO, false);
+          log('Restarting audio system');
           restartAudio();
         }
 
@@ -302,8 +303,9 @@ final class AudioUtil
     return;
     #end
 
-    // Other platforms: no-op (function exists so callers don't need to guard)
+    // Other platforms: no-op (function exists so callers don't need to guard).
     initializedAudioFix = true;
+    #end
   }
 
   /**
@@ -369,6 +371,7 @@ final class AudioUtil
    */
   public static function regenSound(sound:Null<Sound>):Void
   {
+    #if !web
     if (sound != null)
     {
       @:privateAccess final curBuffer:Null<AudioBuffer> = sound.__buffer;
@@ -383,5 +386,6 @@ final class AudioUtil
         @:privateAccess sound.__buffer = newBuffer;
       }
     }
+    #end
   }
 }

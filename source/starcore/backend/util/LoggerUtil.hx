@@ -1,5 +1,7 @@
 package starcore.backend.util;
 
+import haxe.PosInfos;
+import starcore.backend.data.Constants;
 #if LOGGING_ALLOWED
 import haxe.Exception;
 import sys.FileSystem;
@@ -82,21 +84,79 @@ final class LoggerUtil
    * @param logType     The type of log to be displayed. This is just regular info by default.
    * @param includeDots Whether or not to add dots (`...`) at the end of a log.
    *                    By default this is true.
+   * @param infos       Additional information about the log. This is automatically filled in by the compiler.
    */
-  public static inline function log(info:Dynamic, logType:LogType = INFO, includeDots:Bool = true):Void
+  public static inline function log(info:Dynamic, logType:LogType = INFO, includeDots:Bool = true, ?infos:PosInfos):Void
   {
-    writeInfo('$info${includeDots ? '...' : ''}', logType);
+    writeInfo('$info${includeDots ? '...' : ''}', logType, infos);
   }
 
-  static function writeInfo(logMsg:String, logType:LogType = INFO):Void
+  /**
+   * Write info to the console and the log file as an info log.
+   * 
+   * @param info        The information to log.
+   * @param includeDots Whether or not to add dots (`...`) at the end of a log.
+   *                    By default this is true.
+   * @param infos       Additional information about the log. This is automatically filled in by the compiler.
+   */
+  public static inline function info(info:Dynamic, includeDots:Bool = true, ?infos:PosInfos):Void
+  {
+    writeInfo('$info${includeDots ? '...' : ''}', INFO, infos);
+  }
+
+  /**
+   * Write info to the console and the log file as a warning log.
+   * 
+   * @param info        The information to log.
+   * @param includeDots Whether or not to add dots (`...`) at the end of a log.
+   *                    By default this is true.
+   * @param infos       Additional information about the log. This is automatically filled in by the compiler.
+   */
+  public static inline function warn(info:Dynamic, includeDots:Bool = true, ?infos:PosInfos):Void
+  {
+    writeInfo('$info${includeDots ? '...' : ''}', WARNING, infos);
+  }
+
+  /**
+   * Write info to the console and the log file as an error log.
+   * 
+   * @param info        The information to log.
+   * @param includeDots Whether or not to add dots (`...`) at the end of a log.
+   *                    By default this is true.
+   * @param infos       Additional information about the log. This is automatically filled in by the compiler.
+   */
+  public static inline function error(info:Dynamic, includeDots:Bool = false, ?infos:PosInfos):Void
+  {
+    writeInfo('$info${includeDots ? '...' : ''}', ERROR, infos);
+  }
+
+  /**
+   * The main function that writes the log to a file and the console.
+   * This is also the function that replaces the default `trace()` function.
+   * 
+   * @param logMsg  The message to log.
+   * @param logType The type of log that is being displayed. This also affects the color in the console.
+   * @param infos   Additional information about the log. This is automatically filled in by the compiler.
+   */
+  public static function writeInfo(logMsg:String, logType:LogType = INFO, ?infos:PosInfos):Void
   {
     var timestamp:String = Date.now().toString();
-    var traceLog:String = '[$logType] $logMsg';
-    var fileLog:String = '$timestamp $traceLog';
+    var className:String = infos?.className ?? 'UnknownClass';
+    var methodName:String = infos?.methodName ?? 'unknownMethod';
+    var lineNumber:Int = infos?.lineNumber ?? 0;
+    var color:String = switch (logType)
+    {
+      case INFO: ''; // Just simple, plain white.
+      case WARNING: Constants.YELLOW;
+      case ERROR: Constants.RED;
+    };
+
+    var flog:String = '$timestamp [${logType}] [${className}.${methodName}():${lineNumber}] $logMsg'; // Log written to the current log file.
+    var log:String = '${Constants.BOLD}$color$timestamp [${logType}] [${className}.${methodName}():${lineNumber}]${Constants.RESET}$color $logMsg${Constants.RESET}';
     #if LOGGING_ALLOWED
     try
     {
-      file.writeString('$fileLog\n');
+      file.writeString('$flog\n');
       file.flush();
     }
     catch (e:Exception)
@@ -104,6 +164,22 @@ final class LoggerUtil
       // Can't write to file, move on.
     }
     #end
-    trace(traceLog);
+    switch (logType)
+    {
+      case INFO:
+        FlxG.log.add(flog);
+      case WARNING:
+        FlxG.log.warn(flog);
+      case ERROR:
+        FlxG.log.error(flog);
+    }
+
+    #if (sys || nodejs)
+    Sys.println(log);
+    #elseif js
+    js.Browser.console.log(log);
+    #else
+    trace(log);
+    #end
   }
 }

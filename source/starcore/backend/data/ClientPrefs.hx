@@ -4,7 +4,6 @@ import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxSave;
 import haxe.Exception;
-import starcore.backend.util.FlixelUtil;
 import starcore.backend.util.LoggerUtil;
 import starcore.backend.util.PathUtil;
 import starcore.backend.util.SaveUtil;
@@ -82,7 +81,7 @@ final class ClientPrefs
     else
     {
       LoggerUtil.log('Attempted to obtain non-existent bind "$bind".', ERROR, false);
-      FlixelUtil.closeGame(false);
+      StarcoreG.closeGame(false);
       throw new Exception('Attempted to obtain non-existent bind "$bind".');
     }
   }
@@ -113,7 +112,7 @@ final class ClientPrefs
     else
     {
       LoggerUtil.log('Client option "$option" doesn\'t exist!', ERROR, false);
-      FlixelUtil.closeGame(false);
+      StarcoreG.closeGame(false);
       throw new Exception('Client option "$option" doesn\'t exist!');
     }
   }
@@ -145,7 +144,7 @@ final class ClientPrefs
     else
     {
       LoggerUtil.log('Client option "$option" doesn\'t exist!', ERROR, false);
-      FlixelUtil.closeGame(false);
+      StarcoreG.closeGame(false);
       throw new Exception('Client option "$option" doesn\'t exist!');
     }
   }
@@ -166,7 +165,7 @@ final class ClientPrefs
     else
     {
       LoggerUtil.log('Attempted to change non-existent bind "$bind".', ERROR, false);
-      FlixelUtil.closeGame(false);
+      StarcoreG.closeGame(false);
       throw new Exception('Attempted to change non-existent bind "$bind".');
     }
   }
@@ -217,7 +216,7 @@ final class ClientPrefs
 
     // Set the shaders based on the user's options
     // TODO: FIX THIS ASAP!!!
-		FlixelUtil.setFilters(getOption('shaderMode'));
+    StarcoreG.setFilters(getOption('shaderMode'));
 
     // Load controls
     if (controlsData.data.keyboard != null)

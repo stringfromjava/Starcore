@@ -4,7 +4,7 @@ import lime.app.Application;
 import starcore.backend.data.ClientPrefs;
 import starcore.backend.data.Constants;
 import starcore.backend.util.LoggerUtil;
-#if DISCORD_RPC_ALLOWED
+#if (DISCORD_RPC_ALLOWED && !macro)
 import cpp.RawConstPointer;
 import hxdiscord_rpc.Discord;
 import hxdiscord_rpc.Types.DiscordRichPresence;
@@ -16,7 +16,7 @@ import sys.thread.Thread;
  */
 final class DiscordClient
 {
-  #if DISCORD_RPC_ALLOWED
+  #if (DISCORD_RPC_ALLOWED && !macro)
   static var presence:DiscordRichPresence = new DiscordRichPresence();
   static var isShutDown:Bool = false;
   #end
@@ -31,7 +31,7 @@ final class DiscordClient
    */
   public static function initialize():Void
   {
-    #if DISCORD_RPC_ALLOWED
+    #if (DISCORD_RPC_ALLOWED && !macro)
     if (ClientPrefs.getOption('discordRPC') && isShutDown)
     {
       // Log info
@@ -75,7 +75,7 @@ final class DiscordClient
    */
   public static function shutdown():Void
   {
-    #if DISCORD_RPC_ALLOWED
+    #if (DISCORD_RPC_ALLOWED && !macro)
     if (isShutDown) return;
     isShutDown = true;
     LoggerUtil.log('Shutting down Discord rich presence');

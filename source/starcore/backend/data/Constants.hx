@@ -174,12 +174,46 @@ final class Constants
   public static final WORLD_CAMERA_SCROLL_MULTIPLIER:Float = 0.125;
 
   //
+  // COLORS
+  // ===================================
+
+  /**
+   * The ANSI escape code for resetting the console color.
+   */
+  public static inline final RESET:String = '\x1b[0m';
+
+  /**
+   * The ANSI escape code for bold text.
+   */
+  public static inline final BOLD:String = '\x1b[1m';
+
+  /**
+   * The ANSI escape code for red text.
+   */
+  public static inline final RED:String = '\x1b[31m';
+
+  /**
+   * The ANSI escape code for green text.
+   */
+  public static inline final GREEN:String = '\x1b[32m';
+
+  /**
+   * The ANSI escape code for yellow text.
+   */
+  public static inline final YELLOW:String = '\x1b[33m';
+
+  /**
+   * The ANSI escape code for blue text.
+   */
+  public static inline final BLUE:String = '\x1b[34m';
+
+  //
   // API
   // =============================
 
   /**
    * The ID for the app on Discord to display in the user's
-   * "Activity" box, showing that they are playing Starcore and
+   * 'Activity' box, showing that they are playing Starcore and
    * for displaying how long they have played it.
    */
   public static final DISCORD_APP_ID:String = '1361513332883980309';

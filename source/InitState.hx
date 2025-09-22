@@ -10,10 +10,13 @@ import openfl.display.StageScaleMode;
 import starcore.backend.api.DiscordClient;
 import starcore.backend.data.ClientPrefs;
 import starcore.backend.util.AudioUtil;
-import starcore.backend.util.FlixelUtil;
 import starcore.backend.util.LoggerUtil;
 import starcore.backend.util.PathUtil;
+#if debug
 import starcore.menus.MainMenuState;
+#else
+import starcore.menus.PSXStartupMenuState;
+#end
 #if web
 import js.Browser;
 #end
@@ -71,7 +74,7 @@ class InitState extends FlxState
     // Setup the logger for Starcore.
     LoggerUtil.initialize();
 
-    LoggerUtil.log('INITIALIZING STARCORE SETUP', INFO, false);
+    info('INITIALIZING STARCORE SETUP', false);
 
     // Load all of the player's settings and options.
     // Note that if this line is not present, it will
@@ -80,6 +83,9 @@ class InitState extends FlxState
 
     // Configure and setup the Audio utility class.
     AudioUtil.initAudioFix();
+
+    // Configure the global manager class Starcore uses.
+    StarcoreG.configure();
 
     // Assign and configure Flixel settings.
     configureFlixelSettings();
@@ -98,15 +104,12 @@ class InitState extends FlxState
 
     // Switch to the main menu state after everything has loaded.
     LoggerUtil.log('Setup complete! Switching to main menu');
-    FlxG.switchState(() -> new MainMenuState());
+    FlxG.switchState(() -> #if !debug new PSXStartupMenuState() #else new MainMenuState() #end);
   }
 
   function configureFlixelSettings():Void
   {
     LoggerUtil.log('Configuring Flixel settings');
-
-    // Configure the Flixel utility class Starcore uses.
-    FlixelUtil.configure();
 
     // Set the cursor to be the system default, rather than using a custom cursor.
     // TODO: Maybe use a custom cursor (that isn't Flixel's)?
@@ -242,7 +245,7 @@ class InitState extends FlxState
     // Do shit like saving the user's data when the game closes.
     Application.current.window.onClose.add(() ->
     {
-      FlixelUtil.closeGame(false);
+      StarcoreG.closeGame(false);
     });
   }
 

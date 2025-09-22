@@ -93,8 +93,8 @@ final class PathUtil
   public static inline function ofSharedSpritesheet(name:String):Array<String>
   {
     return [
-      'assets/shared/images/spritesheets/$name.png',
-      'assets/shared/images/spritesheets/$name.xml'
+      'assets/shared/images/$name.png',
+      'assets/shared/images/$name.xml'
     ];
   }
 

@@ -460,7 +460,7 @@ class Project extends HXProject
     addAssetPath('assets/tiles/textures', 'assets/tiles/textures', 'default', ['*.png'], []);
 
     // Add shared image assets.
-    addAssetPath('assets/shared/images', 'assets/shared/images', 'default', ['*.png'], []);
+    addAssetPath('assets/shared/images', 'assets/shared/images', 'default', ['*.png', '*.xml'], []);
 
     // Add shader frag assets.
     addAssetPath('assets/shaders', 'assets/shaders', 'default', ['*.frag'], []);

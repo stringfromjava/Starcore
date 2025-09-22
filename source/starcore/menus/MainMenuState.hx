@@ -9,14 +9,12 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxTimer;
 import starcore.backend.Controls;
-import starcore.backend.util.FlixelUtil;
 import starcore.backend.util.PathUtil;
 import starcore.backend.util.WorldUtil;
 import starcore.background.BackgroundPlanet;
 import starcore.background.BackgroundStar;
 import starcore.play.PlayState;
 import starcore.ui.UIClickableSprite;
-import starcore.ui.UITextBox;
 
 /**
  * State that represents the main menu of the game.
@@ -40,7 +38,7 @@ class MainMenuState extends FlxTransitionableState
     super.create();
 
     // Play menu music
-    FlixelUtil.playMenuMusic();
+    StarcoreG.playMenuMusic();
 
     // Add the planets in the background
     planets = WorldUtil.generatePlanets();
@@ -71,7 +69,7 @@ class MainMenuState extends FlxTransitionableState
       },
       'quit' => () ->
       {
-        FlixelUtil.closeGame();
+        StarcoreG.closeGame();
       }
     ];
 
@@ -92,7 +90,7 @@ class MainMenuState extends FlxTransitionableState
       coolSwaggerButton.behavior.onClick = buttonClickFunctions.get(btn);
       coolSwaggerButton.behavior.onHover = () ->
       {
-        FlixelUtil.playSoundWithReverb(PathUtil.ofSharedSound('blip'), 1);
+        StarcoreG.playSoundWithReverb(PathUtil.ofSharedSound('blip'), 1);
         FlxSpriteUtil.setBrightness(coolSwaggerButton, 0.3);
       };
       coolSwaggerButton.behavior.onHoverLost = () ->
@@ -105,11 +103,6 @@ class MainMenuState extends FlxTransitionableState
       buttonsGroup.add(coolSwaggerButton);
       newY += coolSwaggerButton.height + 40;
     }
-
-    // Slowly bring up the volume for the music
-    // FlxTween.num(0, 1, 3, { type: FlxTweenType.ONESHOT }, (v) -> {
-    //     FlxG.sound.music.volume = v;
-    // });
   }
 
   override function update(elapsed:Float):Void
@@ -118,7 +111,7 @@ class MainMenuState extends FlxTransitionableState
 
     if (Controls.getBinds().UI_BACK_JUST_PRESSED)
     {
-      FlixelUtil.closeGame();
+      StarcoreG.closeGame();
     }
   }
 }

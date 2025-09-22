@@ -18,3 +18,8 @@ import flixel.tweens.FlxTween;
 // STARCORE IMPORTS
 // =============================
 import starcore.StarcoreG;
+import starcore.backend.util.LoggerUtil.log;
+import starcore.backend.util.LoggerUtil.info;
+import starcore.backend.util.LoggerUtil.warn;
+import starcore.backend.util.LoggerUtil.error;
+import starcore.backend.util.LoggerUtil.LogType;
