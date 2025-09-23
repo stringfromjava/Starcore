@@ -43,6 +43,9 @@ These are the necessary steps required to compile on the game on __***every***__
 > [!TIP]
 > You can replace `html5` with other platforms to compile it accordingly.
 
+> [!TIP]
+> If you run it on HTML5 and get a connection disallowed error, then run `lime test html5` (without `--connect 6000` at the end of it).
+
 > [!IMPORTANT]
 > If ever, for some reason, the shaders make the screen become black, it is advised you clear your computer's `Temp/` directory. If the issue persists, then please take a look at the [contributing](CONTRIBUTING.md) file for info on how to report a bug.
 
