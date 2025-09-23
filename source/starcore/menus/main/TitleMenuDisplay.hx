@@ -1,54 +1,39 @@
-package starcore.menus;
+package starcore.menus.main;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.text.FlxText;
+import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
 import flixel.util.FlxSpriteUtil;
-import flixel.util.FlxTimer;
 import starcore.backend.Controls;
 import starcore.backend.util.PathUtil;
-import starcore.backend.util.WorldUtil;
-import starcore.background.BackgroundPlanet;
-import starcore.background.BackgroundStar;
-import starcore.play.PlayState;
+import starcore.graphics.states.MenuDisplay;
 import starcore.ui.UIClickableSprite;
 
 /**
- * State that represents the main menu of the game.
- * This is where the player can start a new game, load a game, or quit the game.
+ * The menu for displaying the title of the game.
  */
-class MainMenuState extends FlxTransitionableState
+class TitleMenuDisplay extends MenuDisplay
 {
   var logo:FlxText;
 
   var buttons:Array<String> = ['play', 'quit'];
-  var buttonsGroup:FlxTypedGroup<FlxSprite>;
+  var buttonsGroup:FlxSpriteGroup;
   var buttonClickFunctions:Map<String, Void->Void>;
   var buttonWasClicked:Bool = false;
 
-  var stars:FlxTypedGroup<BackgroundStar>;
-  var planets:FlxTypedGroup<BackgroundPlanet>;
-  var starChangeAlphaTimer:FlxTimer;
-
-  override function create():Void
+  override function update(elapsed:Float):Void
   {
-    super.create();
+    super.update(elapsed);
 
-    // Play menu music
-    StarcoreG.playMenuMusic();
+    if (Controls.getBinds().UI_BACK_JUST_PRESSED)
+    {
+      StarcoreG.closeGame();
+    }
+  }
 
-    // Add the planets in the background
-    planets = WorldUtil.generatePlanets();
-    add(planets);
-
-    // Add the stars in the background
-    stars = WorldUtil.generateStars();
-    add(stars);
-
-    // Setup the logo
+  function create():Void
+  {
+    // Setup the logo that says "STARCORE".
+    // TODO: Replace with a better logo.
     logo = new FlxText();
     logo.text = 'STARCORE';
     logo.size = 165;
@@ -58,14 +43,14 @@ class MainMenuState extends FlxTransitionableState
     logo.setPosition((FlxG.width / 2) - (logo.width / 2), 0);
     add(logo);
 
-    // Setup the main menu buttons
-    buttonsGroup = new FlxTypedGroup<FlxSprite>();
+    // Setup the main menu buttons.
+    buttonsGroup = new FlxSpriteGroup();
     add(buttonsGroup);
 
     buttonClickFunctions = [
       'play' => () ->
       {
-        FlxG.switchState(() -> new PlayState());
+        parentState.switchMenu(new SavesMenuDisplay(parentState));
       },
       'quit' => () ->
       {
@@ -80,12 +65,7 @@ class MainMenuState extends FlxTransitionableState
       coolSwaggerButton.loadGraphic(PathUtil.ofSharedImage('menus/main/$btn-button'));
       coolSwaggerButton.scale.set(4, 4);
       coolSwaggerButton.updateHitbox();
-      coolSwaggerButton.behavior.updateHoverBounds(
-        coolSwaggerButton.x,
-        coolSwaggerButton.y,
-        coolSwaggerButton.width,
-        coolSwaggerButton.height
-      );
+      coolSwaggerButton.behavior.updateHoverBounds(coolSwaggerButton.x, coolSwaggerButton.y, coolSwaggerButton.width, coolSwaggerButton.height);
       coolSwaggerButton.setPosition(0, newY);
       coolSwaggerButton.behavior.onClick = buttonClickFunctions.get(btn);
       coolSwaggerButton.behavior.onHover = () ->
@@ -105,13 +85,5 @@ class MainMenuState extends FlxTransitionableState
     }
   }
 
-  override function update(elapsed:Float):Void
-  {
-    super.update(elapsed);
-
-    if (Controls.getBinds().UI_BACK_JUST_PRESSED)
-    {
-      StarcoreG.closeGame();
-    }
-  }
+  function close():Void {}
 }

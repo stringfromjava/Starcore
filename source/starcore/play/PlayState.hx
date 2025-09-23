@@ -16,7 +16,7 @@ import starcore.backend.util.PathUtil;
 import starcore.backend.util.WorldUtil;
 import starcore.background.BackgroundPlanet;
 import starcore.background.BackgroundStar;
-import starcore.menus.MainMenuState;
+import starcore.menus.main.MainMenuState;
 
 /**
  * Core state where all of the major and common gameplay

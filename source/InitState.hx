@@ -1,19 +1,23 @@
 package;
 
+import flixel.FlxG;
 import flixel.FlxState;
 import flixel.math.FlxMath;
 import flixel.system.FlxAssets;
+import flixel.tweens.FlxTween;
 import lime.app.Application;
 import openfl.Lib;
 import openfl.display.StageQuality;
 import openfl.display.StageScaleMode;
+import starcore.StarcoreG;
 import starcore.backend.api.DiscordClient;
 import starcore.backend.data.ClientPrefs;
 import starcore.backend.util.AudioUtil;
+import starcore.backend.util.LoggerUtil.info;
 import starcore.backend.util.LoggerUtil;
 import starcore.backend.util.PathUtil;
 #if debug
-import starcore.menus.MainMenuState;
+import starcore.menus.main.MainMenuState;
 #else
 import starcore.menus.PSXStartupMenuState;
 #end
@@ -34,7 +38,7 @@ class InitState extends FlxState
   /**
    * The volume used when the window is out of focus.
    */
-  static final MINIMIZED_VOLUME:Float = 0.015;
+  static final MINIMIZED_VOLUME:Float = 0.02;
 
   /**
    * The duration of the volume tweening.
@@ -103,7 +107,7 @@ class InitState extends FlxState
     DiscordClient.initialize();
 
     // Switch to the main menu state after everything has loaded.
-    LoggerUtil.log('Setup complete! Switching to main menu');
+    info('Setup complete! Starting game');
     FlxG.switchState(() -> #if !debug new PSXStartupMenuState() #else new MainMenuState() #end);
   }
 
@@ -184,7 +188,7 @@ class InitState extends FlxState
           volumeTween = null;
         }
 
-        // Smoothly tween from current (minimized) volume back to lastVolume
+        // Smoothly tween from current (minimized) volume back to lastVolume.
         volumeTween = FlxTween.num(FlxG.sound.volume, lastVolume, TWEEN_DURATION, null, (v:Float) ->
         {
           FlxG.sound.volume = v;

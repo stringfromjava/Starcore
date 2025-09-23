@@ -4,7 +4,7 @@
 // don't have to import them in every file!
 // ===============================================================================================
 
-package;
+package starcore;
 
 //
 // FLIXEL IMPORTS
@@ -12,6 +12,7 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 
 //

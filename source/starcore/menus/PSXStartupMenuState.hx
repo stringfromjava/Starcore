@@ -1,11 +1,12 @@
 package starcore.menus;
 
-import starcore.backend.util.EaseUtil;
-import flixel.util.FlxTimer;
 import flixel.FlxState;
 import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.util.FlxTimer;
 import starcore.audio.StarcoreSound;
+import starcore.backend.util.EaseUtil;
 import starcore.backend.util.PathUtil;
+import starcore.menus.main.MainMenuState;
 
 /**
  * The startup menu state that mimics the classic PlayStation startup sequence.
